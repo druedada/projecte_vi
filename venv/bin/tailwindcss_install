@@ -1,0 +1,6 @@
+#!/home/daniel-rueda/Documentos/DAW/Projecte/projecte_vi/venv/bin/python3
+import sys
+from pytailwindcss.__main__ import install
+if __name__ == '__main__':
+    sys.argv[0] = sys.argv[0].removesuffix('.exe')
+    sys.exit(install())
