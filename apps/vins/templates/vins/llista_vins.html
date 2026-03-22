@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Vins | Projecte VI{% endblock %}
+
+{% block content %}
+<section>
+    <h2>Vins disponibles</h2>
+
+    <p>Total disponibles: {{ vins|length }}</p>
+
+    <div>
+        {% for vi in vins %}
+        <article>
+            <h3>{{ vi.nom }}</h3>
+            <p><strong>Tipus:</strong> {{ vi.get_tipus_display }}</p>
+            <p><strong>Origen:</strong> {% if vi.origen %}{{ vi.origen }}{% else %}No informat{% endif %}</p>
+            <p><strong>Any de collita:</strong> {{ vi.any_collita }}</p>
+            <p><strong>Preu:</strong> {{ vi.preu|floatformat:2 }} EUR</p>
+            <p><strong>Stock:</strong> {{ vi.stock }}</p>
+            <p>{{ vi.descripcio }}</p>
+
+            {% if vi.imatge %}
+            <figure>
+                <img src="{{ vi.imatge.url }}" alt="Imatge del vi {{ vi.nom }}" width="320" loading="lazy">
+            </figure>
+            {% endif %}
+        </article>
+        {% empty %}
+        <p>Actualment no hi ha vins disponibles.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
