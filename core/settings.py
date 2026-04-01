@@ -27,6 +27,20 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# Configuración de idioma y zona horaria adminsite
+TIME_ZONE = 'Europe/Madrid'
+LANGUAGE_CODE = 'es'
+
+# Configuración de django-axes
+AXES_FAILURE_LIMIT = 3  # Número de intentos fallidos permitidos
+AXES_COOLOFF_TIME = 1  # Tiempo de bloqueo en horas 
+AXES_RESET_ON_SUCCESS = True  # Reinicia el contador tras login correcto
+AXES_LOCKOUT_PARAMETERS = ['username']
+# Configuración de backends de autenticación para django-axes
+AUTHENTICATION_BACKENDS = [
+    'axes.backends.AxesStandaloneBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
 
 # Application definition
 
@@ -41,7 +55,8 @@ INSTALLED_APPS = [
     'apps.vins',
     'apps.usuaris',
     'apps.comandes',
-    'apps.subscripcions'
+    'apps.subscripcions',
+    'axes',
 ]
 
 MIDDLEWARE = [
@@ -50,6 +65,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'axes.middleware.AxesMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]

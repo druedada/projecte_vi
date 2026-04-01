@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Carret de la compra | Projecte VI{% endblock %}
+
+{% block content %}
+<section class="max-w-3xl mx-auto px-6 py-12">
+    <h2 class="text-2xl font-bold mb-6">Carret de la compra</h2>
+    {% if cart_items %}
+    <table class="w-full mb-6 border-collapse">
+        <thead>
+            <tr class="bg-gray-100">
+                <th class="p-2 text-left">Vi</th>
+                <th class="p-2 text-center">Quantitat</th>
+                <th class="p-2 text-right">Preu</th>
+                <th class="p-2 text-right">Subtotal</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in cart_items %}
+            <tr class="border-b">
+                <td class="p-2">{{ item.vi.nom }}</td>
+                <td class="p-2 text-center">{{ item.quantitat }}</td>
+                <td class="p-2 text-right">{{ item.vi.preu|floatformat:2 }} €</td>
+                <td class="p-2 text-right">{{ item.subtotal|floatformat:2 }} €</td>
+                <td class="p-2 text-right">
+                    <form method="post" action="/comandes/eliminar/">
+                        {% csrf_token %}
+                        <input type="hidden" name="vi_id" value="{{ item.vi.id }}">
+                        <button type="submit" class="text-red-600 hover:underline">Elimina</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="flex justify-end items-center gap-4">
+        <span class="font-bold text-lg">Total: {{ total|floatformat:2 }} €</span>
+        <form method="post" action="/comandes/confirmar/">
+            {% csrf_token %}
+            <button type="submit" class="px-4 py-2 bg-violet-700 text-white rounded hover:bg-violet-800">Confirmar comanda</button>
+        </form>
+    </div>
+    {% else %}
+    <p class="text-gray-600">El carret està buit.</p>
+    {% endif %}
+</section>
+{% endblock %}

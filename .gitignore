@@ -1,0 +1,28 @@
+# Python / Django
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+db.sqlite3
+*.log
+*.pot
+*.mo
+*.po
+local_settings.py
+
+# Entorn virtual
+venv/
+.env
+
+# Django static collected
+staticfiles/
+
+# Tailwind CSS compilat (generat automàticament)
+static/css/output.css
+
+# Editors / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store

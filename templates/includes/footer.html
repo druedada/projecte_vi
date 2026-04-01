@@ -1,5 +1,73 @@
-<footer>
-    <div class="footer-container">
-        <p>&copy; {% now "Y" %} Projecte VI. Tots els drets reservats.</p>
+<footer class="container-padding" style="background: #fff; box-shadow: 0 -2px 8px 0 rgb(0 0 0 / 0.04);">
+  <div class="footer-container" style="display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap;">
+    <div class="rrss-circle-container" style="display: flex; gap: 1rem">
+      <a href="https://instagram.com" target="_blank" class="rrss-circle">
+        <img
+          src="/static/logos/instagram.svg"
+          alt="Instagram"
+          width="32"
+          height="32"
+        />
+      </a>
+      <a href="https://x.com" target="_blank" class="rrss-circle">
+        <img src="/static/logos/twitter.svg" alt="X" width="32" height="32" />
+      </a>
+      <a href="https://facebook.com" target="_blank" class="rrss-circle">
+        <img
+          src="/static/logos/facebook.svg"
+          alt="Facebook"
+          width="32"
+          height="32"
+        />
+      </a>
     </div>
+    <div class="footer-legal">
+      <p style="margin: 0; text-align: center; flex: 1">
+        &copy; {% now "Y" %} Projecte VI. Tots els drets reservats.
+      
+        <!-- Enllaços a polítiques -->
+        <a
+          href="#"
+          onclick="
+            openCookieBanner();
+            return false;
+          "
+          class="footer-link"
+          >Política de Cookies</a
+        >
+        |
+        <a
+          href="#"
+          onclick="
+            openPrivacyBanner();
+            return false;
+          "
+          class="footer-link"
+          >Política de Privacitat</a
+        >
+      </p>
+    </div>
+
+    <div class="payment-methods-container" style="display: flex; gap: 1rem">
+      <div class="rrss-circle">
+        <img src="/static/logos/visa.svg" alt="Visa" width="32" height="32" />
+      </div>
+      <div class="rrss-circle">
+        <img
+          src="/static/logos/amex.svg"
+          alt="American Express"
+          width="32"
+          height="32"
+        />
+      </div>
+      <div class="rrss-circle">
+        <img
+          src="/static/logos/paypal.svg"
+          alt="PayPal"
+          width="32"
+          height="32"
+        />
+      </div>
+    </div>
+  </div>
 </footer>
