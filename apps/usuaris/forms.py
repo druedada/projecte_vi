@@ -124,13 +124,13 @@ class UserRegisterForm(forms.ModelForm):
             clients, _ = Group.objects.get_or_create(name="Clients")
             user.groups.add(clients)
 
-            Adreces.objects.create(
-                user=user,
+            adreca, created = Adreces.objects.get_or_create(
                 cp=self.cleaned_data["cp"].strip().lower(),
                 poblacio=self.cleaned_data["poblacio"].strip().lower(),
                 carrer=self.cleaned_data["carrer"].strip().lower(),
                 numero=self.cleaned_data["numero"].strip().lower()
             )
+            user.adreces.add(adreca)
 
         return user
 
