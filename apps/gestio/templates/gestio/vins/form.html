@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}{{ app_title }} | Gestio{% endblock %}
+
+{% block content %}
+<section class="max-w-3xl mx-auto px-6 py-10">
+    <div class="mb-6">
+        <h2 class="text-2xl font-bold text-gray-900">{{ app_title }}</h2>
+        <p class="text-sm text-gray-500">Omple les dades del vi.</p>
+    </div>
+
+    <form method="post" enctype="multipart/form-data" novalidate class="bg-white border border-gray-100 rounded-xl p-6 shadow-sm space-y-5">
+        {% csrf_token %}
+
+        {% if form.non_field_errors %}
+        <div class="p-3 rounded border border-red-200 bg-red-50 text-red-700 text-sm">
+            {{ form.non_field_errors }}
+        </div>
+        {% endif %}
+
+        {% for field in form %}
+        <div>
+            <label for="{{ field.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}
+            <p class="mt-1 text-sm text-red-600">{{ field.errors|striptags }}</p>
+            {% endif %}
+        </div>
+        {% endfor %}
+
+        <div class="flex items-center gap-3 pt-2">
+            <button type="submit" class="px-4 py-2 rounded bg-violet-700 text-white hover:bg-violet-800 transition-colors">{{ submit_text }}</button>
+            <a href="{% url 'gestio:dashboard' %}" class="px-4 py-2 rounded border border-gray-300 hover:bg-gray-50">Cancelar</a>
+        </div>
+    </form>
+</section>
+{% endblock %}

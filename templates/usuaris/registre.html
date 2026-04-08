@@ -1,11 +1,176 @@
-{% extends 'base.html' %}
-{% block content %}
-<div class="container mt-4">
-    <h2>Registre d'usuari</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Registrar-se</button>
-    </form>
+{% extends 'base.html' %} {% block content %}
+<div class="max-w-sm mx-auto mt-12 mb-16 p-6 sm:p-8 bg-white rounded-2xl shadow-[var(--shadow-card)] border border-[var(--color-border)]">
+  <h2 class="text-2xl font-bold mb-6 text-center text-[var(--color-text)]">Registre d'usuari</h2>
+  <form method="post" id="registre-form" novalidate class="flex flex-col gap-2">
+    {% csrf_token %} {{ form.as_p }}
+    
+    <div class="mt-4">
+      <button type="submit" class="btn-primary">
+        <div>
+          <p>Registrar-se</p>
+          <p>Registrar-se</p>
+        </div>
+      </button>
+    </div>
+    
+    <div class="mt-6 text-center text-sm text-gray-600">
+      Ja tens compte? <a href="{% url 'usuaris:login' %}" class="text-[var(--color-primary)] font-medium hover:underline transition-all">Inicia sessió</a>
+    </div>
+  </form>
 </div>
+<style>
+  .field-error {
+    color: #b02a37;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+  }
+
+  .field-invalid {
+    border-color: #b02a37;
+    outline: none;
+    box-shadow: 0 0 0 0.15rem rgba(176, 42, 55, 0.15);
+  }
+</style>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("registre-form");
+    if (!form) return;
+
+    const allowedTextRegex = /^[a-zA-ZÀ-ÿ0-9\s]+$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const cpRegex = /^\d{5}$/;
+
+    const fields = {
+      correu: form.querySelector("[name='correu']"),
+      nom: form.querySelector("[name='nom']"),
+      cognom1: form.querySelector("[name='cognom1']"),
+      cognom2: form.querySelector("[name='cognom2']"),
+      contrasenya1: form.querySelector("[name='contrasenya1']"),
+      contrasenya2: form.querySelector("[name='contrasenya2']"),
+      cp: form.querySelector("[name='cp']"),
+      poblacio: form.querySelector("[name='poblacio']"),
+      carrer: form.querySelector("[name='carrer']"),
+      numero: form.querySelector("[name='numero']")
+    };
+
+    const rules = {
+      correu: function (value) {
+        if (!value.trim()) return "El correu és obligatori.";
+        if (!emailRegex.test(value.trim())) return "Introdueix un correu vàlid.";
+        return "";
+      },
+      nom: function (value) {
+        if (!value.trim()) return "El nom no pot estar buit.";
+        if (!allowedTextRegex.test(value.trim())) return "El nom no pot contenir caràcters especials.";
+        return "";
+      },
+      cognom1: function (value) {
+        if (!value.trim()) return "El primer cognom no pot estar buit.";
+        if (!allowedTextRegex.test(value.trim())) return "El primer cognom no pot contenir caràcters especials.";
+        return "";
+      },
+      cognom2: function (value) {
+        if (!value.trim()) return "";
+        if (!allowedTextRegex.test(value.trim())) return "El segon cognom no pot contenir caràcters especials.";
+        return "";
+      },
+      contrasenya1: function (value) {
+        if (!value) return "La contrasenya és obligatòria.";
+        if (value.length < 8) return "La contrasenya ha de tenir almenys 8 caràcters.";
+        if (value.length > 128) return "La contrasenya no pot tenir més de 128 caràcters.";
+        return "";
+      },
+      contrasenya2: function (value) {
+        if (!value) return "Has de repetir la contrasenya.";
+        if (value.length < 8) return "La contrasenya ha de tenir almenys 8 caràcters.";
+        if (value.length > 128) return "La contrasenya no pot tenir més de 128 caràcters.";
+        if (fields.contrasenya1 && value !== fields.contrasenya1.value) return "Les contrasenyes no coincideixen.";
+        return "";
+      },
+      cp: function (value) {
+        if (!value.trim()) return "El codi postal és obligatori.";
+        if (!cpRegex.test(value.trim())) return "El codi postal ha de tenir 5 dígits.";
+        return "";
+      },
+      poblacio: function (value) {
+        if (!value.trim()) return "La població no pot estar buida.";
+        if (!allowedTextRegex.test(value.trim())) return "La població no pot contenir caràcters especials.";
+        return "";
+      },
+      carrer: function (value) {
+        if (!value.trim()) return "El carrer no pot estar buit.";
+        if (!allowedTextRegex.test(value.trim())) return "El carrer no pot contenir caràcters especials.";
+        return "";
+      },
+      numero: function (value) {
+        if (!value.trim()) return "El número no pot estar buit.";
+        if (!allowedTextRegex.test(value.trim())) return "El número no pot contenir caràcters especials.";
+        return "";
+      }
+    };
+
+    function getErrorNode(input) {
+      const parent = input.closest("p") || input.parentElement;
+      let node = parent.querySelector(".field-error.js-error");
+      if (!node) {
+        node = document.createElement("div");
+        node.className = "field-error js-error";
+        parent.appendChild(node);
+      }
+      return node;
+    }
+
+    function setError(input, message) {
+      const node = getErrorNode(input);
+      node.textContent = message;
+      input.classList.add("field-invalid");
+    }
+
+    function clearError(input) {
+      const node = getErrorNode(input);
+      node.textContent = "";
+      input.classList.remove("field-invalid");
+    }
+
+    function validateField(name) {
+      const input = fields[name];
+      const validator = rules[name];
+      if (!input || !validator) return true;
+
+      const message = validator(input.value);
+      if (message) {
+        setError(input, message);
+        return false;
+      }
+      clearError(input);
+      return true;
+    }
+
+    Object.keys(fields).forEach(function (name) {
+      const input = fields[name];
+      if (!input) return;
+      input.addEventListener("input", function () {
+        validateField(name);
+        if (name === "contrasenya1" && fields.contrasenya2) {
+          validateField("contrasenya2");
+        }
+      });
+      input.addEventListener("blur", function () {
+        validateField(name);
+      });
+    });
+
+    form.addEventListener("submit", function (event) {
+      let isValid = true;
+      Object.keys(fields).forEach(function (name) {
+        if (!validateField(name)) {
+          isValid = false;
+        }
+      });
+      if (!isValid) {
+        event.preventDefault();
+      }
+    });
+  });
+</script>
 {% endblock %}

@@ -33,12 +33,6 @@
         <a href="/#faq" class="hover:text-violet-700 transition-colors">FAQ</a>
       </li>
       <li>
-        <a href="/comandes/carret/" class="hover:text-violet-700 transition-colors flex items-center gap-1">
-          <span class="material-icons align-middle">shopping_cart</span>
-          Carret
-        </a>
-      </li>
-      <li>
         <a href="/admin/" class="hover:text-violet-700 transition-colors"
           >Admin</a
         >
@@ -50,7 +44,7 @@
       {% if user.is_authenticated %}
       <!-- Carret de la compra -->
       <a
-        href="/comandes/"
+        href="/comandes/carret/"
         class="relative text-gray-600 hover:text-violet-700 transition-colors"
         title="Carret"
       >
@@ -73,7 +67,9 @@
 
       <span class="text-gray-500">
         Hola,
-        <span class="font-semibold text-gray-800">{{ user.first_name|default:user.username }}</span>!
+        <span class="font-semibold text-gray-800"
+          >{{ user.first_name|default:user.username }}</span
+        >!
         <!-- DEBUG: user object: {{ user|safe }} -->
         <!-- DEBUG: user.first_name: {{ user.first_name|safe }} -->
       </span>
@@ -84,6 +80,13 @@
       >
         Tancar sessió
       </a>
+        {% if perms.vins.view_vi %}
+        <a
+          href="/gestio/"
+          class="px-4 py-1.5 rounded-full bg-violet-700 text-white hover:bg-violet-800 transition-colors"
+          >Gestió</a
+        >
+        {% endif %}
       {% else %}
       <a
         href="/usuaris/login/"

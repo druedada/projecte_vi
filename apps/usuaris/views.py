@@ -49,6 +49,8 @@ def login_view(request):
                 user = authenticate(request, username=username, password=contrasenya)
                 if user is not None:
                     login(request, user)
+                    if user.is_staff or user.is_superuser or user.groups.filter(name='Gestor').exists():
+                        return redirect('gestio:dashboard')
                     return redirect('home')
                 else:
                     error = 'Correu o contrasenya incorrectes.'

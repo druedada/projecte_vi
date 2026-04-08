@@ -1,8 +1,8 @@
 
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.core.exceptions import ValidationError
-import re
 from django import forms
+import re
 
 
 from .models import Adreces
@@ -23,6 +23,14 @@ class UserRegisterForm(forms.ModelForm):
         model = User
         fields = ["correu", "nom", "cognom1", "cognom2", "contrasenya1", "contrasenya2", "cp", "poblacio", "carrer", "numero"]
 
+    def clean_contrasenya1(self):
+        contrasenya = self.cleaned_data.get("contrasenya1")
+        if contrasenya and len(contrasenya) < 8:
+            raise ValidationError("La contrasenya ha de tenir almenys 8 caràcters.")
+        if contrasenya and len(contrasenya) > 128:
+            raise ValidationError("La contrasenya no pot tenir més de 128 caràcters.")
+        return contrasenya
+
     def clean_contrasenya2(self):
         password1 = self.cleaned_data.get("contrasenya1")
         password2 = self.cleaned_data.get("contrasenya2")
@@ -34,13 +42,13 @@ class UserRegisterForm(forms.ModelForm):
             raise ValidationError("La contrasenya no pot tenir més de 128 caràcters.")
         return password2
 
-        def clean_nom(self):
-            nom = self.cleaned_data.get("nom")
-            if not nom or not nom.strip():
-                raise ValidationError("El nom no pot estar buit.")
-            if re.search(r'[^a-zA-ZÀ-ÿ0-9\s]', nom):
-                raise ValidationError("El nom no pot contenir caràcters especials.")
-            return nom
+    def clean_nom(self):
+        nom = self.cleaned_data.get("nom")
+        if not nom or not nom.strip():
+            raise ValidationError("El nom no pot estar buit.")
+        if re.search(r'[^a-zA-ZÀ-ÿ0-9\s]', nom):
+            raise ValidationError("El nom no pot contenir caràcters especials.")
+        return nom
 
     def clean_cognom1(self):
         cognom1 = self.cleaned_data.get("cognom1")
@@ -56,19 +64,23 @@ class UserRegisterForm(forms.ModelForm):
             raise ValidationError("El segon cognom no pot contenir caràcters especials.")
         return cognom2
 
-        def clean_correu(self):
-            correu = self.cleaned_data.get("correu")
-            if not re.match(r'^[^\s@]+@[a-zA-Z]+\.[a-zA-Z]+$', correu):
-                raise ValidationError("El correu no és vàlid.")
-            if re.search(r'[^a-zA-Z0-9@._\-]', correu):
-                raise ValidationError("El correu no pot contenir caràcters especials fora de @, punt, guió i guió baix.")
-            return correu
+    def clean_correu(self):
+        correu = self.cleaned_data.get("correu")
+        if not re.match(r'^[^\s@]+@[a-zA-Z]+\.[a-zA-Z]+$', correu):
+            raise ValidationError("El correu no és vàlid.")
+        if re.search(r'[^a-zA-Z0-9@._\-]', correu):
+            raise ValidationError("El correu no pot contenir caràcters especials fora de @, punt, guió i guió baix.")
+        # Comprobar si ya existe un usuario con ese correo (username)
+        if User.objects.filter(username=correu.strip().lower()).exists():
+            raise ValidationError("Ja existeix un usuari amb aquest correu electrònic.")
+        return correu
 
-        def clean_cp(self):
-            cp = self.cleaned_data.get("cp")
-            if not re.match(r'^\d{5}$', cp):
-                raise ValidationError("El codi postal ha de tenir 5 dígits.")
-            return cp
+    def clean_cp(self):
+        cp = self.cleaned_data.get("cp")
+        if not re.match(r'^\d{5}$', cp):
+            raise ValidationError("El codi postal ha de tenir 5 dígits.")
+        return cp
+    
     def clean_poblacio(self):
         poblacio = self.cleaned_data.get("poblacio")
         if not poblacio or not poblacio.strip():
@@ -93,24 +105,25 @@ class UserRegisterForm(forms.ModelForm):
             raise ValidationError("El número no pot contenir caràcters especials.")
         return numero
 
-    def clean_contrasenya1(self):
-        contrasenya = self.cleaned_data.get("contrasenya1")
-        if contrasenya and len(contrasenya) < 8:
-            raise ValidationError("La contrasenya ha de tenir almenys 8 caràcters.")
-        if contrasenya and len(contrasenya) > 128:
-            raise ValidationError("La contrasenya no pot tenir més de 128 caràcters.")
-        return contrasenya
-
 
     def save(self, commit=True):
         user = super().save(commit=False)
-        user.username = self.cleaned_data["correu"].strip().lower()
-        user.email = self.cleaned_data["correu"].strip().lower()
+
+        correu = self.cleaned_data["correu"].strip().lower()
+        cognom2 = self.cleaned_data["cognom2"].strip().lower() if self.cleaned_data["cognom2"] else ""
+
+        user.username = correu
+        user.email = correu
         user.first_name = self.cleaned_data["nom"].strip().lower()
-        user.last_name = self.cleaned_data["cognom1"].strip().lower() + " " + (self.cleaned_data["cognom2"].strip().lower() if self.cleaned_data["cognom2"] else "")
+        user.last_name = f'{self.cleaned_data["cognom1"].strip().lower()} {cognom2}'.strip()
         user.set_password(self.cleaned_data["contrasenya1"])
+
         if commit:
             user.save()
+
+            clients, _ = Group.objects.get_or_create(name="Clients")
+            user.groups.add(clients)
+
             Adreces.objects.create(
                 user=user,
                 cp=self.cleaned_data["cp"].strip().lower(),
@@ -118,6 +131,7 @@ class UserRegisterForm(forms.ModelForm):
                 carrer=self.cleaned_data["carrer"].strip().lower(),
                 numero=self.cleaned_data["numero"].strip().lower()
             )
+
         return user
 
 class UserLoginForm(forms.Form):

@@ -23,3 +23,15 @@ class Vi(models.Model):
 
 	def __str__(self):
 		return self.nom
+
+	def save(self, *args, **kwargs):
+		old_image_name = None
+
+		if self.pk:
+			old_image_name = type(self).objects.filter(pk=self.pk).values_list('imatge', flat=True).first()
+
+		super().save(*args, **kwargs)
+
+		new_image_name = self.imatge.name if self.imatge else None
+		if old_image_name and old_image_name != new_image_name:
+			self.imatge.storage.delete(old_image_name)

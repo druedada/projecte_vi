@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block title %}Llista de vins | Gestio{% endblock %}
+
+{% block content %}
+<section class="max-w-6xl mx-auto px-6 py-10">
+    <div class="flex items-center justify-between mb-6">
+        <h2 class="text-2xl font-bold text-gray-900">Llista de vins</h2>
+        <a href="{% url 'gestio:dashboard' %}" class="px-4 py-2 rounded border border-gray-300 hover:bg-gray-50">Tornar al dashboard</a>
+    </div>
+
+    <ul class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {% for vi in vins %}
+        <li class="bg-white border border-gray-100 rounded-xl p-4 shadow-sm">
+            <div class="flex justify-between items-start mb-2">
+                <div class="flex-1">
+                    <p class="font-semibold text-gray-800">{{ vi.nom }}</p>
+                    <p class="text-sm text-gray-500">{{ vi.get_tipus_display }} · {{ vi.origen|default:"Sense origen" }}</p>
+                </div>
+                <div class="flex gap-2">
+                    {% if perms.vins.change_vi %}
+                    <a href="{% url 'gestio:editar_vi' vi.id %}" class="px-3 py-1 text-sm rounded border border-gray-300 hover:bg-gray-50">Editar</a>
+                    {% endif %}
+                    {% if perms.vins.delete_vi %}
+                    <button type="button" class="px-3 py-1 text-sm rounded border border-red-200 text-red-600 hover:bg-red-50" onclick="mostrarConfirmacion('{{ vi.id }}', '{{ vi.nom }}')">Eliminar</button>
+                    {% endif %}
+                </div>
+            </div>
+        </li>
+        {% empty %}
+        <li class="text-gray-500">No hi ha vins per mostrar.</li>
+        {% endfor %}
+    </ul>
+</section>
+
+<!-- Modal de confirmacion -->
+<div id="modalConfirmacion" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white rounded-xl p-6 max-w-sm mx-4 shadow-lg">
+        <h3 class="text-lg font-bold text-gray-900 mb-2">Confirmar eliminacio</h3>
+        <p class="text-gray-600 mb-6">Estas segur de que vols eliminar <span id="nomVi" class="font-semibold"></span>? Aquesta accio no es pot desfer.</p>
+        
+        <div class="flex gap-3 justify-end">
+            <button type="button" class="px-4 py-2 rounded border border-gray-300 hover:bg-gray-50" onclick="cancelarEliminacion()">Cancelar</button>
+            <form id="formulariEliminacion" method="POST" class="inline">
+                {% csrf_token %}
+                <button type="submit" class="px-4 py-2 rounded bg-red-600 text-white hover:bg-red-700 transition-colors">Eliminar</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+function mostrarConfirmacion(viId, viNom) {
+    document.getElementById('nomVi').textContent = viNom;
+    document.getElementById('modalConfirmacion').classList.remove('hidden');
+    
+    // Cambiar la accion del formulario a la URL de eliminacion
+    document.getElementById('formulariEliminacion').action = '{% url "gestio:eliminar_vi" 0 %}'.replace('0', viId);
+}
+
+function cancelarEliminacion() {
+    document.getElementById('modalConfirmacion').classList.add('hidden');
+}
+
+// Cerrar modal si se hace clic fuera de él
+document.getElementById('modalConfirmacion').addEventListener('click', function(e) {
+    if (e.target === this) {
+        cancelarEliminacion();
+    }
+});
+</script>
+{% endblock %}
