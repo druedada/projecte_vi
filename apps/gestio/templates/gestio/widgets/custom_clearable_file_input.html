@@ -1,0 +1,36 @@
+{% if widget.is_initial %}
+    <div class="mb-3 flex flex-col sm:flex-row items-start gap-4 p-4 border border-gray-200 rounded-lg bg-gray-50">
+        <a href="{{ widget.value.url }}" target="_blank" rel="noopener noreferrer" class="shrink-0 overflow-hidden rounded-md border border-gray-300 shadow-sm hover:opacity-80 transition-opacity">
+            <img src="{{ widget.value.url }}" alt="Miniatura de la imatge de vi" class="w-28 h-28 object-cover">
+        </a>
+        <div class="flex flex-col h-full gap-2 py-1">
+            <div class="text-sm">
+                <span class="font-semibold text-gray-700 block">{{ widget.initial_text }}</span>
+                <a href="{{ widget.value.url }}" target="_blank" rel="noopener noreferrer" class="text-xs text-violet-600 hover:text-violet-800 break-all">{{ widget.value }}</a>
+            </div>
+            
+            {% if not widget.required %}
+            <div class="mt-auto pt-2">
+                <label for="{{ widget.checkbox_id }}" class="flex items-center gap-2 cursor-pointer group">
+                    <input type="checkbox" name="{{ widget.checkbox_name }}" id="{{ widget.checkbox_id }}" class="w-4 h-4 text-red-600 bg-white border-red-300 rounded focus:ring-red-500 cursor-pointer" {% if widget.attrs.disabled %} disabled{% endif %}>
+                    <span class="text-sm text-red-600 font-medium group-hover:text-red-800">{{ widget.clear_checkbox_label }}</span>
+                </label>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <span class="text-sm font-semibold text-gray-700 block mb-1 mt-2">{{ widget.input_text }}</span>
+{% endif %}
+<div class="mt-2 flex items-center">
+    <input type="{{ widget.type }}" name="{{ widget.name }}" class="sr-only peer" onchange="document.getElementById('filename-{{ widget.name }}').textContent = this.files.length > 0 ? this.files[0].name : 'Cap fitxer seleccionat';" {% include "django/forms/widgets/attrs.html" %}>
+    
+    <label for="{{ widget.attrs.id }}" class="inline-flex shrink-0 items-center gap-2 px-4 py-2 bg-[var(--color-primary)] text-white text-sm font-medium rounded-lg hover:bg-[var(--color-primary-dark)] cursor-pointer transition-colors shadow-sm focus-within:ring-2 focus-within:ring-violet-500 focus-within:ring-offset-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="17 8 12 3 7 8"></polyline>
+            <line x1="12" y1="3" x2="12" y2="15"></line>
+        </svg>
+        Seleccionar fitxer
+    </label>
+    <span id="filename-{{ widget.name }}" class="ml-3 text-sm text-gray-500 truncate max-w-[200px]">Cap fitxer seleccionat</span>
+</div>

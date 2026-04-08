@@ -1,8 +1,15 @@
 from datetime import date
-
 from django import forms
+from django.forms.widgets import ClearableFileInput
 
 from apps.vins.models import Vi
+
+
+class ViImatgeWidget(ClearableFileInput):
+    template_name = 'gestio/widgets/custom_clearable_file_input.html'
+    initial_text = 'Imatge actual:'
+    input_text = 'Pujar o modificar imatge:'
+    clear_checkbox_label = 'Eliminar imatge'
 
 
 class ViForm(forms.ModelForm):
@@ -44,4 +51,5 @@ class ViForm(forms.ModelForm):
         ]
         widgets = {
             'descripcio': forms.Textarea(attrs={'rows': 4}),
+            'imatge': ViImatgeWidget(),
         }
