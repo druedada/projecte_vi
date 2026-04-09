@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Inici | Projecte VI{% endblock %}
 
@@ -11,9 +12,9 @@
 {% block content %}
 <!-- Sección Hero Cinematográfica -->
 <section id="hero-section" class="relative w-full h-[100vh] flex flex-col overflow-hidden bg-black">
-    <!-- El Video -->
+    <!-- Video -->
     <video id="hero-video" class="absolute top-0 left-0 w-full h-full object-cover" muted playsinline preload="auto"
-        poster="https://qlospituzlkeupygtwff.supabase.co/storage/v1/object/public/hero/hero-scrub.mp4#t=0.1">
+        poster="{% static 'img/hero.png' %}">
         <source src="https://qlospituzlkeupygtwff.supabase.co/storage/v1/object/public/hero/hero-scrub.mp4"
             type="video/mp4">
     </video>
