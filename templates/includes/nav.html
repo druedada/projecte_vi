@@ -68,7 +68,7 @@
       <span class="text-gray-500">
         Hola,
         <span class="font-semibold text-gray-800"
-          >{{ user.first_name|default:user.username }}</span
+          >{{ user.first_name|default:user.username | capfirst }}</span
         >!
         <!-- DEBUG: user object: {{ user|safe }} -->
         <!-- DEBUG: user.first_name: {{ user.first_name|safe }} -->

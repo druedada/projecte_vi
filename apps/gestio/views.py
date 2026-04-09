@@ -9,7 +9,6 @@ from .forms import ViForm
 def dashboard(request):   
 	vins = Vi.objects.all().order_by('nom') # Obtenim tots els vins de la base de dades i els ordenem alfabèticament pel nom
 	context = { # Context que es passarà al template per a renderitzar la pàgina del dashboard
-		'app_title': 'Gestio de vins',
 		'vins': vins,
 	}
 	return render(request, 'gestio/vins/dashboard.html', context)
