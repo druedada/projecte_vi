@@ -1,0 +1,29 @@
+{
+  "name": "projecte_vi",
+  "version": "1.0.0",
+  "description": "Aplicació web desenvolupada amb **Django 5.1** per gestionar i vendre vins en línia. El projecte segueix una arquitectura de 3 capes (Model–Vista–Plantilla) i s'organitza en múltiples apps Django per separar responsabilitats.",
+  "main": "index.js",
+  "scripts": {
+    "build:css": "tailwindcss -i ./static/css/input.css -o ./static/css/output.css",
+    "watch:css": "tailwindcss -i ./static/css/input.css -o ./static/css/output.css --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/druedada/projecte_vi.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/druedada/projecte_vi/issues"
+  },
+  "homepage": "https://github.com/druedada/projecte_vi#readme",
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.2.2",
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^4.2.2"
+  }
+}

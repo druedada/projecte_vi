@@ -92,6 +92,7 @@
   /* ——— Tipografia ——— */
   --font-sans:   'Inter', ui-sans-serif, system-ui, sans-serif;
   --font-serif:  'Playfair Display', ui-serif, Georgia, serif;
+  --font-display: 'Playfair Display', ui-serif, Georgia, serif;
 
   /* ——— Radi de vores ——— */
   --radius-sm:  0.25rem;
@@ -101,6 +102,7 @@
 
   /* ——— Ombres ——— */
   --shadow-card: 0 2px 8px 0 rgb(0 0 0 / 0.08);
+  --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.08);
 }
 
 /* ──────────────────────────────────────────
