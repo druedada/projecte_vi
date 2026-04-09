@@ -6,23 +6,12 @@ from .forms import ViForm
 
 @login_required # Només usuaris autenticats poden accedir
 @permission_required('vins.view_vi') # Només usuaris amb el permís de visualitzar vins poden accedir
-def dashboard(request):   
+def vins(request):   
 	vins = Vi.objects.all().order_by('nom') # Obtenim tots els vins de la base de dades i els ordenem alfabèticament pel nom
 	context = { # Context que es passarà al template per a renderitzar la pàgina del dashboard
 		'vins': vins,
 	}
-	return render(request, 'gestio/vins/dashboard.html', context)
-
-
-@login_required
-@permission_required('vins.view_vi')
-def llistar_vins(request): 
-	vins = Vi.objects.all().order_by('nom')
-	context = {
-		'app_title': 'Llista de vins',
-		'vins': vins,
-	}
-	return render(request, 'gestio/vins/llista.html', context)
+	return render(request, 'gestio/vins/gestio_vins.html', context)
 
 
 @login_required
@@ -32,7 +21,7 @@ def crear_vi(request):
 		form = ViForm(request.POST, request.FILES) # Crea un objecte de formulari amb les dades enviades per l'usuari (tant dades del formulari com fitxers, com la imatge del vi)
 		if form.is_valid(): # Si el formulari és vàlid després de la validació
 			form.save()
-			return redirect('gestio:dashboard')
+			return redirect('gestio:vins')
 	else:
 		form = ViForm() 
 
@@ -52,7 +41,7 @@ def editar_vi(request, vi_id):
 		form = ViForm(request.POST, request.FILES, instance=vi) # Crea un objecte de formulari amb les dades enviades per l'usuari 
 		if form.is_valid():
 			form.save()
-			return redirect('gestio:dashboard')
+			return redirect('gestio:vins')
 	else:
 		form = ViForm(instance=vi)
 
@@ -71,5 +60,5 @@ def eliminar_vi(request, vi_id):
 	vi = get_object_or_404(Vi, pk=vi_id)
 	if request.method == 'POST':
 		vi.delete() # Elimina el vi de la base de dades
-		return redirect('gestio:dashboard')
-	return redirect('gestio:dashboard')
+		return redirect('gestio:vins')
+	return redirect('gestio:vins')
