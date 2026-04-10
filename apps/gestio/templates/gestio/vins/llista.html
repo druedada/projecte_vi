@@ -33,22 +33,6 @@
     </ul>
 </section>
 
-<!-- Modal de confirmacion -->
-<div id="modalConfirmacion" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-    <div class="bg-white rounded-xl p-6 max-w-sm mx-4 shadow-lg">
-        <h3 class="text-lg font-bold text-gray-900 mb-2">Confirmar eliminacio</h3>
-        <p class="text-gray-600 mb-6">Estas segur de que vols eliminar <span id="nomVi" class="font-semibold"></span>? Aquesta accio no es pot desfer.</p>
-        
-        <div class="flex gap-3 justify-end">
-            <button type="button" class="px-4 py-2 rounded border border-gray-300 hover:bg-gray-50" onclick="cancelarEliminacion()">Cancelar</button>
-            <form id="formulariEliminacion" method="POST" class="inline">
-                {% csrf_token %}
-                <button type="submit" class="px-4 py-2 rounded bg-red-600 text-white hover:bg-red-700 transition-colors">Eliminar</button>
-            </form>
-        </div>
-    </div>
-</div>
-
 <script>
 function mostrarConfirmacion(viId, viNom) {
     document.getElementById('nomVi').textContent = viNom;
@@ -58,15 +42,5 @@ function mostrarConfirmacion(viId, viNom) {
     document.getElementById('formulariEliminacion').action = '{% url "gestio:eliminar_vi" 0 %}'.replace('0', viId);
 }
 
-function cancelarEliminacion() {
-    document.getElementById('modalConfirmacion').classList.add('hidden');
-}
-
-// Cerrar modal si se hace clic fuera de él
-document.getElementById('modalConfirmacion').addEventListener('click', function(e) {
-    if (e.target === this) {
-        cancelarEliminacion();
-    }
-});
 </script>
 {% endblock %}
