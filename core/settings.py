@@ -100,7 +100,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'projecte_vi', # Nom de la BBDD
-        'USER': 'root',
+        'USER': 'dani',
         'PASSWORD': 'EwnizEv5',  # De secure_installation
         'HOST': '127.0.0.1',
         'PORT': '3306',
