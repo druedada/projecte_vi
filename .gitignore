@@ -10,6 +10,11 @@ db.sqlite3
 *.po
 local_settings.py
 
+# Archivos Python cacheados
+__pycache__/
+*.py[cod]
+*$py.class
+
 # Entorn virtual
 venv/
 .env

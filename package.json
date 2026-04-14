@@ -22,8 +22,9 @@
   "homepage": "https://github.com/druedada/projecte_vi#readme",
   "devDependencies": {
     "@tailwindcss/cli": "^4.2.2",
-    "autoprefixer": "^10.4.21",
-    "postcss": "^8.4.49",
+    "@tailwindcss/oxide-linux-x64-gnu": "^4.2.2",
+    "autoprefixer": "^10.5.0",
+    "postcss": "^8.5.9",
     "tailwindcss": "^4.2.2"
   }
 }
