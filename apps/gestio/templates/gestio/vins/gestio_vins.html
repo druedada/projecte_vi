@@ -24,6 +24,7 @@
                     <th class="px-4 py-3">Tipus</th>
                     <th class="px-4 py-3">Preu</th>
                     <th class="px-4 py-3">Stock</th>
+                    <th class="px-4 py-3">Imatge</th>
                     <th class="px-4 py-3 text-right">Accions</th>
                 </tr>
             </thead>
@@ -35,6 +36,15 @@
                     <td class="px-4 py-3">{{ vi.preu|floatformat:2 }} EUR</td>
                     <td class="px-4 py-3">{{ vi.stock }}</td>
                     <td class="px-4 py-3">
+                        {% if vi.imatge %}
+                            <img src="{{ vi.imatge.url }}" alt="{{ vi.nom }}" class="w-16 h-16 object-cover rounded">
+                        {% else %}
+                            <div class="w-16 h-16 bg-gray-200 border border-gray-300 rounded flex items-center justify-center text-gray-500">
+                                <span class="text-xs">Sense imatge</span>
+                            </div>
+                        {% endif %}
+                    </td>
+                    <td class="px-4 py-3 text-right">
                         <div class="flex justify-end gap-2">
                             {% if perms.vins.change_vi %}
                             <a href="{% url 'gestio:editar_vi' vi.id %}" class="px-3 py-1 rounded border border-gray-300 hover:bg-gray-50">Editar</a>
