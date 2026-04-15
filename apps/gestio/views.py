@@ -65,6 +65,13 @@ def eliminar_vi(request, vi_id):
 		return redirect('gestio:vins')
 	return redirect('gestio:vins')
 
+@login_required
+@permission_required('vins.change_vi')
+def activar_desactivar_vi(request, vi_id):
+	vi = get_object_or_404(Vi, pk=vi_id)
+	vi.es_actiu = not vi.es_actiu # Canvia l'estat d'actiu a l'invers del que és actualment
+	vi.save() # Guarda els canvis a la base de dades
+	return redirect('gestio:vins')
 
 @login_required
 @permission_required('vins.view_vi')

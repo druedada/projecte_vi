@@ -25,6 +25,7 @@
                     <th class="px-4 py-3">Preu</th>
                     <th class="px-4 py-3">Stock</th>
                     <th class="px-4 py-3">Imatge</th>
+                    <th class="px-4 py-3">Estat</th>
                     <th class="px-4 py-3 text-right">Accions</th>
                 </tr>
             </thead>
@@ -45,7 +46,26 @@
                         {% endif %}
                     </td>
                     <td class="px-4 py-3 text-right">
+                        {% if vi.es_actiu %}
+                            <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-green-100 text-green-800">Actiu</span>
+                        {% else %}
+                            <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-red-100 text-red-800">Inactiu</span>
+                        {% endif %}
+                    </td>
+                    <td class="px-4 py-3 text-right">
                         <div class="flex justify-end gap-2">
+                            {% if perms.vins.change_vi %}
+                            <form method="post" action="{% url 'gestio:activar_desactivar_vi' vi.id %}" class="inline" onsubmit="return confirm('Estas segur de que vols canviar l\'estat de {{ vi.nom|escapejs }}?');">
+                                {% csrf_token %}
+                                <button type="submit" class="px-3 py-1 rounded border border-blue-200 text-blue-600 hover:bg-blue-50">
+                                    {% if vi.es_actiu %}
+                                        Desactivar
+                                    {% else %}
+                                        Activar
+                                    {% endif %}
+                                </button>
+                            </form>
+                            {% endif %}
                             {% if perms.vins.change_vi %}
                             <a href="{% url 'gestio:editar_vi' vi.id %}" class="px-3 py-1 rounded border border-gray-300 hover:bg-gray-50">Editar</a>
                             {% endif %}

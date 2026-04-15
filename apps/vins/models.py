@@ -32,7 +32,7 @@ class Vi(models.Model):
 	)
 	imatge = models.ImageField(upload_to='vins/', blank=True, null=True)
 	descripcio = models.TextField() # Camp de text llarg per a la descripció del vi
-
+	es_actiu = models.BooleanField(default=True) # Camp per a marcar si el vi està actiu o no (per exemple, si està esgotat o no disponible)
 
 	def __str__(self): # Retorna el nom del vi quan es mostra com a string (per exemple, al panell d'administració)
 		return self.nom

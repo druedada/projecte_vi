@@ -6,8 +6,8 @@ from .models import Vi
 
 
 def home(request):
-	# Mostra els vins disponibles (stock > 0) ordenats alfabèticament per nom
-	vins_disponibles = Vi.objects.filter(stock__gt=0).order_by('nom')
+	# Mostra els vins disponibles (stock > 0) i actius ordenats alfabèticament per nom
+	vins_disponibles = Vi.objects.filter(stock__gt=0, es_actiu=True).order_by('nom')
 	context = {
 		'vins': vins_disponibles,
 	}

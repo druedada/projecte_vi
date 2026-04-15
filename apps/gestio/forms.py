@@ -45,8 +45,10 @@ class ViForm(forms.ModelForm):
             'any_collita',
             'imatge',
             'descripcio',
+            'es_actiu',
         ]
         widgets = { # Widgets personalitzats per a alguns camps del formulari
             'descripcio': forms.Textarea(attrs={'rows': 4}),
             'imatge': ViImatgeWidget(),
+            'es_actiu': forms.CheckboxInput(),
         }
