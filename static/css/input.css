@@ -1,3 +1,21 @@
+/* Ocultar flechas en input[type=number] con clase .comptador */
+.comptador[type="number"] {
+  -webkit-appearance: textfield;
+  appearance: textfield;
+  -moz-appearance: textfield;
+  text-align: center;
+}
+
+.comptador[type="number"]::-webkit-inner-spin-button,
+.comptador[type="number"]::-webkit-outer-spin-button,
+.comptador[type="number"]:hover::-webkit-inner-spin-button,
+.comptador[type="number"]:hover::-webkit-outer-spin-button,
+.comptador[type="number"]:focus::-webkit-inner-spin-button,
+.comptador[type="number"]:focus::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+  display: none;
+}
 /* Padding estándar para contenedores principales */
 .container-padding {
   padding-left: 1.5rem;

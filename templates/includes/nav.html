@@ -43,35 +43,65 @@
     <div class="flex items-center gap-4 text-sm shrink-0">
       {% if user.is_authenticated %}
       <!-- Carret de la compra -->
-      <a
-        href="/comandes/carret/"
-        class="relative text-gray-600 hover:text-violet-700 transition-colors"
-        title="Carret"
-      >
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
+      <div class="relative">
+        <a
+          href="/comandes/carret/"
+          class="relative inline-flex text-gray-600 hover:text-violet-700 transition-colors"
+          title="Carret"
         >
-          <path
-            d="M1 1H5L7.68 14.39C7.77144 14.8504 8.02191 15.264 8.38755 15.5583C8.75318 15.8526 9.2107 16.009 9.68 16H19.4C19.8693 16.009 20.3268 15.8526 20.6925 15.5583C21.0581 15.264 21.3086 14.8504 21.4 14.39L23 6H6M10 21C10 21.5523 9.55228 22 9 22C8.44772 22 8 21.5523 8 21C8 20.4477 8.44772 20 9 20C9.55228 20 10 20.4477 10 21ZM21 21C21 21.5523 20.5523 22 20 22C19.4477 22 19 21.5523 19 21C19 20.4477 19.4477 20 20 20C20.5523 20 21 20.4477 21 21Z"
-            stroke="#1E1E1E"
-            stroke-width="2.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
-      </a>
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M1 1H5L7.68 14.39C7.77144 14.8504 8.02191 15.264 8.38755 15.5583C8.75318 15.8526 9.2107 16.009 9.68 16H19.4C19.8693 16.009 20.3268 15.8526 20.6925 15.5583C21.0581 15.264 21.3086 14.8504 21.4 14.39L23 6H6M10 21C10 21.5523 9.55228 22 9 22C8.44772 22 8 21.5523 8 21C8 20.4477 8.44772 20 9 20C9.55228 20 10 20.4477 10 21ZM21 21C21 21.5523 20.5523 22 20 22C19.4477 22 19 21.5523 19 21C19 20.4477 19.4477 20 20 20C20.5523 20 21 20.4477 21 21Z"
+              stroke="#1E1E1E"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+
+          {% if cart_item_count|default:0 > 0 %}
+          <span
+            class="absolute -top-2 -right-2 flex h-5 min-w-5 items-center justify-center"
+          >
+            <span
+              class="inline-flex min-w-5 h-5 items-center justify-center rounded-full bg-violet-700 px-1 text-[11px] font-bold leading-none text-white ring-2 ring-white shadow"
+              aria-label="Articles al carret: {{ cart_item_count }}"
+            >
+              {{ cart_item_count }}
+            </span>
+          </span>
+          {% endif %}
+        </a>
+
+        {% if messages %}
+          {% for message in messages %}
+            {% if message.tags == 'success' %}
+              <div class="cart-toast pointer-events-auto absolute right-0 top-8 z-50 w-64 rounded-xl border border-emerald-300 bg-emerald-100 px-3 py-2 text-xs text-emerald-900 shadow-xl opacity-100"
+                style="background-color: #d1fae5;"
+                 role="status"
+                 aria-live="polite"
+                 data-timeout="2600">
+              <div class="flex items-start gap-2">
+                <span class="mt-1 h-2 w-2 rounded-full bg-emerald-500"></span>
+                <span class="flex-1">{{ message }}</span>
+                <button type="button" class="cart-toast-close text-emerald-700 hover:text-emerald-900" aria-label="Tancar">&times;</button>
+              </div>
+            </div>
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      </div>
 
       <span class="text-gray-500">
         Hola,
         <span class="font-semibold text-gray-800"
-          >{{ user.first_name|default:user.username | capfirst }}</span
-        >!
-        <!-- DEBUG: user object: {{ user|safe }} -->
-        <!-- DEBUG: user.first_name: {{ user.first_name|safe }} -->
+          >{{ user.first_name|default:user.username | capfirst }}</span>
       </span>
 
       <a
@@ -80,19 +110,18 @@
       >
         Tancar sessió
       </a>
-        {% if perms.vins.view_vi %}
-        <a
-          href="/gestio/"
-          class="px-4 py-1.5 rounded-full bg-violet-700 text-white hover:bg-violet-800 transition-colors"
-          >Gestió</a
-        >
-        <a
-          href="/gestio/estadistiques/"
-          class="px-4 py-1.5 rounded-full bg-violet-700 text-white hover:bg-violet-800 transition-colors"
-          >Estadístiques</a
-        >
-        {% endif %}
-      {% else %}
+      {% if perms.vins.view_vi %}
+      <a
+        href="/gestio/"
+        class="px-4 py-1.5 rounded-full bg-violet-700 text-white hover:bg-violet-800 transition-colors"
+        >Gestió</a
+      >
+      <a
+        href="/gestio/estadistiques/"
+        class="px-4 py-1.5 rounded-full bg-violet-700 text-white hover:bg-violet-800 transition-colors"
+        >Estadístiques</a
+      >
+      {% endif %} {% else %}
       <a
         href="/usuaris/login/"
         class="flex items-center gap-1.5 text-gray-600 hover:text-violet-700 transition-colors"
@@ -132,3 +161,28 @@
     </div>
   </div>
 </nav>
+
+<script>
+  (() => {
+    const toasts = document.querySelectorAll('.cart-toast');
+    const closeToast = (toast) => {
+      if (!toast || toast.dataset.closing === '1') return;
+      toast.dataset.closing = '1';
+      toast.style.opacity = '0';
+      toast.style.transform = 'translateY(-4px)';
+      setTimeout(() => toast.remove(), 180);
+    };
+
+    toasts.forEach((toast) => {
+      const timeout = parseInt(toast.dataset.timeout || '2600', 10);
+      const closeBtn = toast.querySelector('.cart-toast-close');
+      const timerId = setTimeout(() => closeToast(toast), timeout);
+      if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+          clearTimeout(timerId);
+          closeToast(toast);
+        });
+      }
+    });
+  })();
+</script>

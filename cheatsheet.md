@@ -119,6 +119,11 @@ python manage.py migrate
 python manage.py axes_reset_username meu_usuari
 ```
 
+## Aplicar modificacións Tailwind
+```bash
+npm run build:css
+```
+
 ## 📋 Extra útil
 ```bash
 # Des de requirements

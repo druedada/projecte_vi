@@ -10,6 +10,7 @@
         <thead>
             <tr class="bg-gray-100">
                 <th class="p-2 text-left">Vi</th>
+                <th class="p-2 text-left">Imatge</th>
                 <th class="p-2 text-center">Quantitat</th>
                 <th class="p-2 text-right">Preu</th>
                 <th class="p-2 text-right">Subtotal</th>
@@ -20,13 +21,34 @@
             {% for item in cart_items %}
             <tr class="border-b">
                 <td class="p-2">{{ item.vi.nom }}</td>
-                <td class="p-2 text-center">{{ item.quantitat }}</td>
+                                    <td class="px-4 py-3">
+                        {% if item.vi.imatge %}
+                            <img src="{{ item.vi.imatge.url }}" alt="{{ item.vi.nom }}" class="w-32 h-32 object-cover rounded shadow-md">
+                        {% else %}
+                            <div class="w-32 h-32 bg-gray-200 border border-gray-300 rounded flex items-center justify-center text-gray-500 shadow-md">
+                                <span class="text-base">Sense imatge</span>
+                            </div>
+                        {% endif %}
+                    </td>
+                <td class="p-2">
+                    <form method="post" action="{% url 'comandes:actualitzar_quantitat' item.vi.id %}" class="flex items-center justify-center gap-2">
+                        {% csrf_token %}
+                        <button type="submit" name="action" value="dec" class="px-2 py-1 rounded bg-gray-200 hover:bg-gray-300 text-gray-700">-</button>
+                        <input type="number" name="quantitat" value="{{ item.quantitat }}" min="1" max="{{ item.vi.stock }}" class="comptador w-14 text-center border rounded" />
+                        <button type="submit" name="action" value="inc" class="px-2 py-1 rounded bg-gray-200 hover:bg-gray-300 text-gray-700">+</button>
+                        <button type="submit" class="px-2 py-1 rounded bg-violet-700 text-white hover:bg-violet-800 inline-flex items-center justify-center" title="Actualitza">
+                            <span class="sr-only">Actualitza</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992V4.356m-1.636 5.318a8.25 8.25 0 1 0 2.638 5.826" />
+                            </svg>
+                        </button>
+                    </form>
+                </td>
                 <td class="p-2 text-right">{{ item.vi.preu|floatformat:2 }} €</td>
                 <td class="p-2 text-right">{{ item.subtotal|floatformat:2 }} €</td>
                 <td class="p-2 text-right">
-                    <form method="post" action="/comandes/eliminar/">
+                    <form method="post" action="{% url 'comandes:eliminar_del_carret' item.vi.id %}">
                         {% csrf_token %}
-                        <input type="hidden" name="vi_id" value="{{ item.vi.id }}">
                         <button type="submit" class="text-red-600 hover:underline">Elimina</button>
                     </form>
                 </td>
