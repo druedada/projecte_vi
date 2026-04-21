@@ -1,0 +1,119 @@
+{% extends 'base.html' %} {% block content %}
+<div class="max-w-sm mx-auto mt-12 mb-16 p-6 sm:p-8 bg-white rounded-2xl shadow-[var(--shadow-card)] border border-[var(--color-border)]">
+  <h2 class="text-2xl font-bold mb-6 text-center text-[var(--color-text)]">Adreça</h2>
+  <form method="post" id="registre-form" novalidate class="flex flex-col gap-2">
+    {% csrf_token %} {{ form.as_p }}
+    
+    <div class="mt-4">
+      <button type="submit" class="btn-primary">
+        <div>
+          <p>Guardar</p>
+          <p>Guardar</p>
+        </div>
+      </button>
+    </div>
+    
+  </form>
+</div>
+<style>
+  .field-error {
+    color: #b02a37;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+  }
+
+  .field-invalid {
+    border-color: #b02a37;
+    outline: none;
+    box-shadow: 0 0 0 0.15rem rgba(176, 42, 55, 0.15);
+  }
+</style>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("registre-form");
+    if (!form) return;
+
+    const allowedTextRegex = /^[a-zA-ZÀ-ÿ0-9\s]+$/;
+    const cpRegex = /^\d{5}$/;
+
+    const fields = {
+      cp: form.querySelector("[name='cp']"),
+      poblacio: form.querySelector("[name='poblacio']"),
+      carrer: form.querySelector("[name='carrer']"),
+      numero: form.querySelector("[name='numero']")
+    };
+
+    const rules = {
+      cp: function (value) {
+        if (!value.trim()) return "El codi postal és obligatori.";
+        if (!cpRegex.test(value.trim())) return "El codi postal ha de tenir 5 dígits.";
+        return "";
+      },
+      poblacio: function (value) {
+        if (!value.trim()) return "La població no pot estar buida.";
+        if (!allowedTextRegex.test(value.trim())) return "La població no pot contenir caràcters especials.";
+        return "";
+      },
+      carrer: function (value) {
+        if (!value.trim()) return "El carrer no pot estar buit.";
+        if (!allowedTextRegex.test(value.trim())) return "El carrer no pot contenir caràcters especials.";
+        return "";
+      },
+      numero: function (value) {
+        if (!value.trim()) return "El número no pot estar buit.";
+        if (!allowedTextRegex.test(value.trim())) return "El número no pot contenir caràcters especials.";
+        return "";
+      }
+    };
+
+    function getErrorNode(input) {
+      const parent = input.closest("p") || input.parentElement;
+      let node = parent.querySelector(".field-error.js-error");
+      if (!node) {
+        node = document.createElement("div");
+        node.className = "field-error js-error";
+        parent.appendChild(node);
+      }
+      return node;
+    }
+
+    function setError(input, message) {
+      const node = getErrorNode(input);
+      node.textContent = message;
+      input.classList.add("field-invalid");
+    }
+
+    function clearError(input) {
+      const node = getErrorNode(input);
+      node.textContent = "";
+      input.classList.remove("field-invalid");
+    }
+
+    function validateField(name) {
+      const input = fields[name];
+      const validator = rules[name];
+      if (!input || !validator) return true;
+
+      const message = validator(input.value);
+      if (message) {
+        setError(input, message);
+        return false;
+      }
+      clearError(input);
+      return true;
+    }
+
+    form.addEventListener("submit", function (event) {
+      let isValid = true;
+      Object.keys(fields).forEach(function (name) {
+        if (!validateField(name)) {
+          isValid = false;
+        }
+      });
+      if (!isValid) {
+        event.preventDefault();
+      }
+    });
+  });
+</script>
+{% endblock %}

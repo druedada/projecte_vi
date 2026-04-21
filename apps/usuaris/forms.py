@@ -5,23 +5,20 @@ from django import forms
 import re
 
 
-from .models import Adreces
+from .models import Adreces, UsuariDireccio
 
 class UserRegisterForm(forms.ModelForm):
-    contrasenya1 = forms.CharField(label="Contrasenya", widget=forms.PasswordInput, min_length=8, max_length=128)
-    contrasenya2 = forms.CharField(label="Repeteix la contrasenya", widget=forms.PasswordInput, min_length=8, max_length=128)
-    correu = forms.EmailField(label="Correu electrònic")
     nom = forms.CharField(label="Nom")
     cognom1 = forms.CharField(label="Primer cognom")
     cognom2 = forms.CharField(label="Segon cognom", required=False)
-    cp = forms.CharField(label="Codi Postal")
-    poblacio = forms.CharField(label="Població")
-    carrer = forms.CharField(label="Carrer")
-    numero = forms.CharField(label="Número")
+    correu = forms.EmailField(label="Correu electrònic")
+    contrasenya1 = forms.CharField(label="Contrasenya", widget=forms.PasswordInput, min_length=8, max_length=128)
+    contrasenya2 = forms.CharField(label="Repeteix la contrasenya", widget=forms.PasswordInput, min_length=8, max_length=128)
+
 
     class Meta:
         model = User
-        fields = ["correu", "nom", "cognom1", "cognom2", "contrasenya1", "contrasenya2", "cp", "poblacio", "carrer", "numero"]
+        fields = ["nom", "cognom1", "cognom2", "correu", "contrasenya1", "contrasenya2"]
 
     def clean_contrasenya1(self):
         contrasenya = self.cleaned_data.get("contrasenya1")
@@ -75,37 +72,6 @@ class UserRegisterForm(forms.ModelForm):
             raise ValidationError("Ja existeix un usuari amb aquest correu electrònic.")
         return correu
 
-    def clean_cp(self):
-        cp = self.cleaned_data.get("cp")
-        if not re.match(r'^\d{5}$', cp):
-            raise ValidationError("El codi postal ha de tenir 5 dígits.")
-        return cp
-    
-    def clean_poblacio(self):
-        poblacio = self.cleaned_data.get("poblacio")
-        if not poblacio or not poblacio.strip():
-            raise ValidationError("La població no pot estar buida.")
-        if re.search(r'[^a-zA-ZÀ-ÿ0-9\s]', poblacio):
-            raise ValidationError("La població no pot contenir caràcters especials.")
-        return poblacio
-
-    def clean_carrer(self):
-        carrer = self.cleaned_data.get("carrer")
-        if not carrer or not carrer.strip():
-            raise ValidationError("El carrer no pot estar buit.")
-        if re.search(r'[^a-zA-ZÀ-ÿ0-9\s]', carrer):
-            raise ValidationError("El carrer no pot contenir caràcters especials.")
-        return carrer
-
-    def clean_numero(self):
-        numero = self.cleaned_data.get("numero")
-        if not numero or not numero.strip():
-            raise ValidationError("El número no pot estar buit.")
-        if re.search(r'[^a-zA-Z0-9\s]', numero):
-            raise ValidationError("El número no pot contenir caràcters especials.")
-        return numero
-
-
     def save(self, commit=True):
         user = super().save(commit=False)
 
@@ -121,19 +87,74 @@ class UserRegisterForm(forms.ModelForm):
         if commit:
             user.save()
 
-            clients, _ = Group.objects.get_or_create(name="Clients")
-            user.groups.add(clients)
-
-            adreca, created = Adreces.objects.get_or_create(
-                cp=self.cleaned_data["cp"].strip().lower(),
-                poblacio=self.cleaned_data["poblacio"].strip().lower(),
-                carrer=self.cleaned_data["carrer"].strip().lower(),
-                numero=self.cleaned_data["numero"].strip().lower()
-            )
-            user.adreces.add(adreca)
-
         return user
+
+
 
 class UserLoginForm(forms.Form):
     correu = forms.EmailField(label="Correu electrònic")
     contrasenya = forms.CharField(label="Contrasenya", widget=forms.PasswordInput, min_length=8, max_length=128)
+
+class AdressForm(forms.ModelForm):
+    poblacio = forms.CharField(label="Població")
+    cp = forms.CharField(label="Codi Postal")
+    carrer = forms.CharField(label="Carrer")
+    numero = forms.CharField(label="Número")
+
+    class Meta:
+        model = Adreces
+        fields = ["poblacio","cp",  "carrer", "numero"]
+
+    def validate_unique(self):
+        # Permetem reutilitzar adreces existents; la deduplicació es fa al save()
+        # amb get_or_create i la vinculació usuari-adreça amb UsuariDireccio.
+        return
+
+    def clean_poblacio(self):
+        poblacio = self.cleaned_data.get("poblacio")
+        if not poblacio or not poblacio.strip():
+            raise ValidationError("La població no pot estar buida.")
+        if re.search(r'[^a-zA-ZÀ-ÿ0-9\s]', poblacio):
+            raise ValidationError("La població no pot contenir caràcters especials.")
+        return poblacio
+
+    def clean_cp(self):
+        cp = self.cleaned_data.get("cp")
+        if not re.match(r'^\d{5}$', cp):
+            raise ValidationError("El codi postal ha de tenir 5 dígits.")
+        return cp
+    
+    def clean_carrer(self):
+        carrer = self.cleaned_data.get("carrer")
+        if not carrer or not carrer.strip():
+            raise ValidationError("El carrer no pot estar buit.")
+        if re.search(r'[^a-zA-ZÀ-ÿ0-9\s]', carrer):
+            raise ValidationError("El carrer no pot contenir caràcters especials.")
+        return carrer
+
+    def clean_numero(self):
+        numero = self.cleaned_data.get("numero")
+        if not numero or not numero.strip():
+            raise ValidationError("El número no pot estar buit.")
+        if re.search(r'[^a-zA-Z0-9\s]', numero):
+            raise ValidationError("El número no pot contenir caràcters especials.")
+        return numero
+    
+    def save(self, user, commit=True):
+        if user is None:
+            raise ValueError("Cal indicar un usuari per vincular l'adreça.")
+
+        clients, _ = Group.objects.get_or_create(name="Clients")
+        user.groups.add(clients)
+
+        direccio, _ = Adreces.objects.get_or_create(
+            cp=self.cleaned_data["cp"].strip().lower(),
+            poblacio=self.cleaned_data["poblacio"].strip().lower(),
+            carrer=self.cleaned_data["carrer"].strip().lower(),
+            numero=self.cleaned_data["numero"].strip().lower(),
+        )
+
+        if commit:
+            UsuariDireccio.objects.get_or_create(user=user, direccio=direccio)
+
+        return direccio

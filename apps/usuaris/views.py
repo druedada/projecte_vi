@@ -1,6 +1,7 @@
 from axes.helpers import get_lockout_message
 from axes.handlers.proxy import AxesProxyHandler
-from .forms import UserRegisterForm, UserLoginForm
+from .forms import AdressForm, UserRegisterForm, UserLoginForm
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
@@ -61,3 +62,14 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect('home')
+
+@login_required
+def direccio(request):
+    if request.method == 'POST':
+        form = AdressForm(request.POST)
+        if form.is_valid():
+            form.save(user=request.user)
+            return redirect('usuaris:index')
+    else:
+        form = AdressForm()
+    return render(request, 'usuaris/direccio.html', {'form': form})

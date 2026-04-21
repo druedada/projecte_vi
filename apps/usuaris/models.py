@@ -13,5 +13,13 @@ class Adreces(models.Model):
 	def __str__(self):
 		return f"{self.carrer}, {self.numero}, {self.cp} {self.poblacio}"
 
-# Relació N:M entre usuaris i adreca
-User.add_to_class('adreces', models.ManyToManyField(Adreces, related_name='usuaris'))
+
+class UsuariDireccio(models.Model):
+	class Meta:
+		unique_together = ('user', 'direccio')
+
+	user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='adreces_relacions')
+	direccio = models.ForeignKey(Adreces, on_delete=models.CASCADE, related_name='usuaris_relacions')
+
+	def __str__(self):
+		return f"{self.user} - {self.direccio}"
