@@ -25,10 +25,12 @@ def carret(request):
 	return render(request, 'comandes/carret.html', {'cart_items': cart_items, 'total': total})
 
 
-@login_required
 def afegir_al_carret(request, vi_id):
 	if request.method != 'POST':
 		return redirect('llista_vins')
+
+	if not request.user.is_authenticated:
+		return redirect('usuaris:registre')
 
 	vi = get_object_or_404(Vi, id=vi_id, es_actiu=True)
 
