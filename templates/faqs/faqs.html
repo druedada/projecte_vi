@@ -1,0 +1,94 @@
+{% extends "base.html" %} {% load static %} {% block title %}FAQs | Projecte
+VI{% endblock %} {% block content %}
+<article
+  class="relative overflow-hidden min-h-[260px] md:min-h-[320px] flex items-center justify-center text-center px-6 py-10 md:px-12"
+>
+  <img
+    src="{% static '/img/taps_de_suro.webp' %}"
+    alt="Taps de suro"
+    class="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none"
+  />
+</article>
+<div class="container-padding mx-auto max-w-3xl">
+  <h1
+    class="text-4xl md:text-5xl font-light text-center text-[#231815] mb-12 md:mb-20 tracking-tight"
+  >
+    Preguntes freqüents
+  </h1>
+
+  <div class="border-t border-gray-100">
+    {% for faq in faqs %}
+    <div class="faq-item border-b border-gray-100">
+      <button
+        class="faq-toggle w-full flex justify-between items-center py-6 text-left focus:outline-none group"
+        aria-expanded="false"
+      >
+        <span
+          class="text-xl md:text-2xl font-light text-[#231815] group-hover:text-primary transition-colors duration-300"
+        >
+          {{ faq.pregunta }}
+        </span>
+        <div class="relative w-6 h-6 flex items-center justify-center ml-4">
+          <!-- Horizontal line of the + -->
+          <div
+            class="absolute w-5 h-0.5 bg-[#231815] group-hover:bg-primary transition-colors duration-300"
+          ></div>
+          <!-- Vertical line of the + (to be hidden/rotated when open) -->
+          <div
+            class="faq-icon-v absolute h-5 w-0.5 bg-[#231815] group-hover:bg-primary transition-all duration-300 origin-center"
+          ></div>
+        </div>
+      </button>
+
+      <div
+        class="faq-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out"
+      >
+        <div class="pb-8">
+          <p class="text-lg text-gray-600 font-light leading-relaxed">
+            {{ faq.resposta }}
+          </p>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<style>
+  .faq-item.active .faq-icon-v {
+    transform: rotate(90deg);
+    opacity: 0;
+  }
+</style>
+
+<script>
+  document.querySelectorAll(".faq-toggle").forEach((button) => {
+    button.addEventListener("click", () => {
+      const faqItem = button.parentElement;
+      const content = button.nextElementSibling;
+      const isOpen = faqItem.classList.contains("active");
+
+      // Close other open items
+      document.querySelectorAll(".faq-item.active").forEach((item) => {
+        if (item !== faqItem) {
+          item.classList.remove("active");
+          item.querySelector(".faq-content").style.maxHeight = null;
+          item
+            .querySelector(".faq-toggle")
+            .setAttribute("aria-expanded", "false");
+        }
+      });
+
+      faqItem.classList.toggle("active");
+
+      if (!isOpen) {
+        content.style.maxHeight = content.scrollHeight + "px";
+        button.setAttribute("aria-expanded", "true");
+      } else {
+        content.style.maxHeight = null;
+        button.setAttribute("aria-expanded", "false");
+      }
+    });
+  });
+</script>
+{% endblock %}

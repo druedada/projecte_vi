@@ -29,6 +29,7 @@ urlpatterns = [
     path('subscripcions/', include('apps.subscripcions.urls')),
 	path('gestio/', include('apps.gestio.urls')),
     path('admin/', admin.site.urls),
+	path('faqs/', views.faqs, name='faqs'),
 ]
 
 if settings.DEBUG:
