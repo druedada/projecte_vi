@@ -5,61 +5,37 @@ VI{% endblock %} {% block extra_head %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 {% endblock %} {% block content %}
 <!-- Sección Hero Cinematográfica -->
-<section
-  id="hero-section"
-  class="relative w-full h-[100vh] flex flex-col overflow-hidden bg-black"
->
+<section id="hero-section" class="relative w-full h-[100vh] flex flex-col overflow-hidden bg-black">
   <!-- Video -->
-  <video
-    id="hero-video"
-    class="absolute top-0 left-0 w-full h-full object-cover"
-    muted
-    playsinline
-    preload="auto"
-    poster="{% static 'img/hero.png' %}"
-  >
-    <source
-      src="https://qlospituzlkeupygtwff.supabase.co/storage/v1/object/public/hero/hero-scrub.mp4"
-      type="video/mp4"
-    />
+  <video id="hero-video" class="absolute top-0 left-0 w-full h-full object-cover" muted playsinline preload="auto"
+    poster="{% static 'img/hero.png' %}">
+    <source src="https://qlospituzlkeupygtwff.supabase.co/storage/v1/object/public/hero/hero-scrub.mp4"
+      type="video/mp4" />
   </video>
 
   <!-- Overlay Oscuro Suave -->
-  <div
-    class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70 z-10 pointer-events-none"
-  ></div>
+  <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70 z-10 pointer-events-none"></div>
 
   <!-- Contenido Hero -->
   <div
-    class="relative z-20 flex flex-col items-start justify-center w-full h-full text-left text-white container-padding"
-  >
-    <span
-      class="text-xs md:text-sm tracking-[0.2em] text-gray-300 uppercase mb-4 font-semibold drop-shadow-md"
-    >
+    class="relative z-20 flex flex-col items-start justify-center w-full h-full text-left text-white container-padding">
+    <span class="text-xs md:text-sm tracking-[0.2em] text-gray-300 uppercase mb-4 font-semibold drop-shadow-md">
       Pierola, 2021
     </span>
-    <h1
-      class="text-5xl md:text-7xl font-extralight text-white tracking-tight leading-tight mb-6 drop-shadow-lg"
-    >
+    <h1 class="text-5xl md:text-7xl font-extralight text-white tracking-tight leading-tight mb-6 drop-shadow-lg">
       TRUPIESSU
     </h1>
-    <span
-      class="text-xs md:text-sm tracking-[0.2em] text-gray-300 uppercase mb-4 font-semibold drop-shadow-md"
-    >
+    <span class="text-xs md:text-sm tracking-[0.2em] text-gray-300 uppercase mb-4 font-semibold drop-shadow-md">
       Vinya vella de sumoll
     </span>
-    <p
-      class="text-base md:text-xl text-gray-200 font-light mb-10 max-w-2xl drop-shadow-md"
-    >
+    <p class="text-base md:text-xl text-gray-200 font-light mb-10 max-w-2xl drop-shadow-md">
       L'única forma d'apendre...
     </p>
     <form method="post" action="{% url 'comandes:afegir_al_carret' 3 %}">
       {% csrf_token %}
       <input type="hidden" name="quantitat" value="1" />
-      <button
-        type="submit"
-        class="px-8 py-3 bg-white text-black text-sm uppercase tracking-wider font-semibold rounded-full hover:bg-gray-200 hover:-translate-y-1 transition-all duration-300 shadow-[0_4px_20px_rgba(255,255,255,0.2)]"
-      >
+      <button type="submit"
+        class="px-8 py-3 bg-white text-black text-sm uppercase tracking-wider font-semibold rounded-full hover:bg-gray-200 hover:-translate-y-1 transition-all duration-300 shadow-[0_4px_20px_rgba(255,255,255,0.2)]">
         Afegir al carro
       </button>
     </form>
@@ -69,34 +45,23 @@ VI{% endblock %} {% block extra_head %}
 <!-- Secció Sobre Nosaltres -->
 <section id="sobre-nosaltres" class="bg-[#f7f3ee] py-16 md:py-24">
   <div class="container-padding mx-auto max-w-6xl">
-    <h2
-      class="text-3xl md:text-5xl font-light text-center text-[#231815] mb-12 md:mb-16 tracking-tight"
-    >
+    <h2 class="text-3xl md:text-5xl font-light text-center text-[#231815] mb-12 md:mb-16 tracking-tight">
       Sobre nosaltres
     </h2>
 
-    <article
-      class="grid grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] gap-x-[5rem] items-start"
-    >
-      <div class="grid grid-cols-[1.25fr_1fr] gap-6 h-[240px] md:h-[13re] md:max-h-[420px] self-start">
+    <article class="grid grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] gap-x-[5rem] items-start">
+      <div class="grid grid-cols-[1.25fr_1fr] gap-6 h-[240px] self-start">
         <div class="overflow-hidden h-full">
-          <img
-            src="{% static 'img/vinya_vella_sumoll.jpg' %}"
-            alt="Vinya vella de sumoll"
-            class="w-full h-full object-cover"
-          />
+          <img src="{% static 'img/vinya_vella_sumoll.jpg' %}" alt="Vinya vella de sumoll"
+            class="w-full h-full object-cover" />
         </div>
         <div class="overflow-hidden h-full">
-          <img
-            src="{% static 'img/vinyes.jpg' %}"
-            alt="Vinyes"
-            class="w-full h-full object-cover"
-          />
+          <img src="{% static 'img/vinyes.jpg' %}" alt="Vinyes" class="w-full h-full object-cover" />
         </div>
       </div>
 
-      <div class="min-h-[240px] flex flex-col justify-start items-start self-start">
-        <h3 class="text-xl md:text-2xl font-bold text-[#231815] mb-4">
+      <div class="min-h-[240px] flex flex-col justify-start items-start">
+        <h3 class="text-xl md:text-2xl font-bold text-[#231815] mb-2">
           El nostre projecte
         </h3>
         <p class="text-[#3a2a22] text-base md:text-lg leading-relaxed">
@@ -111,57 +76,45 @@ VI{% endblock %} {% block extra_head %}
             conversa i moments que valen la pena.
           </span>
         </p>
-        <button
-          type="button"
-          class="show-more-btn mt-4 self-start text-sm md:text-base font-semibold text-[#5f3022] hover:text-[#3d1e15] transition-colors duration-200"
-          aria-expanded="false"
-        >
+        <button type="button"
+          class="show-more-btn mt-2 self-start text-sm md:text-base font-semibold text-[#5f3022] hover:text-[#3d1e15] transition-colors duration-200"
+          aria-expanded="false">
           Mostrar més
         </button>
       </div>
-
     </article>
-    <article
-      class="grid grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] gap-x-[5rem] items-start mt-16"
-    >
 
-
-      <div class="min-h-[240px] flex flex-col justify-start items-start self-start">
-        <h3 class="text-xl md:text-2xl font-bold text-[#231815] mb-4">
-          Elavoració pròpia 
+    <article class="grid grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] gap-x-[5rem] items-start mt-16">
+      <div class="min-h-[240px] flex flex-col justify-start items-start">
+        <h3 class="text-xl md:text-2xl font-bold text-[#231815] mb-2">
+          Elavoració pròpia
         </h3>
         <p class="text-[#3a2a22] text-base md:text-lg leading-relaxed">
-          Produïm vins que reflecteixen el caràcter de la nostra terra i el nostre compromís amb la qualitat. Cada anyada és un viatge d'aprenentatge i passió, on busquem l'equilibri perfecte entre tradició i innovació.
+          Produïm vins que reflecteixen el caràcter de la nostra terra i el nostre compromís amb la qualitat.
+          Cada anyada és un viatge d'aprenentatge i passió, on busquem l'equilibri perfecte entre tradició i innovació.
           <span class="more-text hidden">
-            Des de la vinya fins a l'ampolla, cuidem cada detall del procés d'elaboració. Les nostres vinyes són treballades amb respecte pel medi ambient, utilitzant pràctiques sostenibles que afavoreixen la biodiversitat i la salut del sòl. A la bodega, apostem per tècniques que permeten expressar al màxim el potencial de cada varietat, amb una criança que busca potenciar la puresa i la complexitat dels nostres vins.
+            Des de la vinya fins a l'ampolla, cuidem cada detall del procés d'elaboració.
+            Les nostres vinyes són treballades amb respecte pel medi ambient, utilitzant
+            pràctiques sostenibles que afavoreixen la biodiversitat i la salut del sòl.
+            A la bodega, apostem per tècniques que permeten expressar al màxim el potencial de cada varietat,
+            amb una criança que busca potenciar la puresa i la complexitat dels nostres vins.
           </span>
         </p>
-        <button
-          type="button"
-          class="show-more-btn mt-4 self-start text-sm md:text-base font-semibold text-[#5f3022] hover:text-[#3d1e15] transition-colors duration-200"
-          aria-expanded="false"
-        >
+        <button type="button"
+          class="show-more-btn mt-2 self-start text-sm md:text-base font-semibold text-[#5f3022] hover:text-[#3d1e15] transition-colors duration-200"
+          aria-expanded="false">
           Mostrar més
         </button>
-
-      </div>
-            <div class="grid grid-cols-[1fr_1.25fr] gap-6 h-[240px] md:h-[13rem] md:max-h-[420px] self-start">
-        <div class="overflow-hidden h-full">
-          <img
-            src="{% static 'img/barrica.jpg' %}"
-            alt="Barrica de roure"
-            class="w-full h-full object-cover"
-          />
-        </div>
-        <div class="overflow-hidden h-full">
-          <img
-            src="{% static 'img/ampolles.jpg' %}"
-            alt="Ampolles de vi"
-            class="w-full h-full object-cover"
-          />
-        </div>
       </div>
 
+      <div class="grid grid-cols-[1fr_1.25fr] gap-6 h-[240px] self-start">
+        <div class="overflow-hidden h-full">
+          <img src="{% static 'img/barrica.jpg' %}" alt="Barrica de roure" class="w-full h-full object-cover" />
+        </div>
+        <div class="overflow-hidden h-full">
+          <img src="{% static 'img/ampolles.jpg' %}" alt="Ampolles de vi" class="w-full h-full object-cover" />
+        </div>
+      </div>
     </article>
   </div>
 </section>
