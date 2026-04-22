@@ -26,7 +26,7 @@ def registre(request):
             user = authenticate(request, username=correu, password=contrasenya)
             if user is not None:
                 login(request, user)
-            return redirect('usuaris:index')  # Redirige tras registro correcto
+            return redirect('core:home')  # Redirige tras registro correcto
     else:
         form = UserRegisterForm()
     return render(request, 'usuaris/registre.html', {'form': form})
