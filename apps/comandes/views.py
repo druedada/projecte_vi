@@ -1,3 +1,5 @@
+from urllib import request
+
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.db import transaction
@@ -8,9 +10,10 @@ from apps.usuaris.models import UsuariDireccio
 from apps.usuaris.forms import AdressForm
 from apps.vins.models import Vi
 
+
 # Create your views here.
 
-
+@login_required
 def _build_cart_context(request):
 	"""Construeix el context comú del carret per a les vistes."""
 	carret_items = request.user.carret_items.select_related('vi')
@@ -33,7 +36,7 @@ def carret(request):
 	context = _build_cart_context(request)
 	return render(request, 'comandes/carret.html', context)
 
-
+@login_required
 def afegir_al_carret(request, vi_id):
 	if request.method != 'POST':
 		return redirect('llista_vins')
@@ -62,7 +65,7 @@ def afegir_al_carret(request, vi_id):
 
 	carret_item.save()
 	messages.success(request, f"{vi.nom} s'ha afegit al carret.")
-	return redirect('llista_vins')
+	return redirect(request.POST.get('next', 'llista_vins')) 
 
 @login_required
 def eliminar_del_carret(request, vi_id):
