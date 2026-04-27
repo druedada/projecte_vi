@@ -59,10 +59,10 @@
       </button>
 
       <div id="site-menu"
-        class="hidden absolute left-0 right-0 top-16 px-6 pb-4 pt-2 {% if request.resolver_match.url_name == 'home' %}bg-black/70 backdrop-blur-md xl:bg-transparent xl:backdrop-blur-none{% else %}bg-white border-t border-gray-100{% endif %} xl:static xl:ml-auto xl:flex xl:w-fit xl:flex-none xl:items-center xl:gap-6 xl:border-0 xl:p-0">
+        class="hidden absolute left-0 right-0 top-16 px-6 pb-4 pt-2 {% if request.resolver_match.url_name == 'home' %}bg-black/70 backdrop-blur-md xl:bg-transparent xl:backdrop-blur-none{% else %}bg-white border-t border-gray-100{% endif %} xl:static xl:flex xl:flex-1 xl:items-center xl:gap-6 xl:border-0 xl:p-0">
         <!-- Nav links -->
         <ul
-          class="flex flex-col gap-3 xl:w-fit xl:flex-none xl:flex-row xl:items-center xl:justify-start xl:gap-8 text-sm font-medium {% if request.resolver_match.url_name == 'home' %}text-white/90{% else %}text-gray-600{% endif %}">
+          class="flex flex-col gap-3 xl:flex-1 xl:flex-row xl:items-center xl:justify-center xl:gap-8 text-sm font-medium {% if request.resolver_match.url_name == 'home' %}text-white/90{% else %}text-gray-600{% endif %}">
           <li>
             <a href="/vins/" class="block py-1 hover:text-violet-700 transition-colors">Vins</a>
           </li>
@@ -81,7 +81,7 @@
         </ul>
 
         <!-- Nav user (desktop only) -->
-        <div class="hidden xl:flex xl:flex-row xl:items-center xl:gap-4 text-sm xl:shrink-0">
+        <div class="hidden xl:flex xl:flex-row xl:items-center xl:gap-4 xl:ml-auto text-sm xl:shrink-0">
         {% if user.is_authenticated %}
         <!-- Carret de la compra -->
         <div class="relative w-fit hidden md:block">
