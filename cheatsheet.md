@@ -53,6 +53,9 @@ python manage.py showmigrations
 python manage.py createsuperuser
 ```
 
+## Crear copia en json bbdd
+python manage.py dumpdata --indent 2 > bbdd.json
+
 ## 📊 Fixtures JSON
 ```bash
 # Carregar dades JSON
