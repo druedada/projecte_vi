@@ -8,7 +8,7 @@ def home(request):
 	# Base queryset: vins actius
 	qs = Vi.objects.filter(es_actiu=True)
 
-	# Filtro per stock (per defecte mostrar només stock > 0)
+	# Filtre per stock (per defecte mostrar només stock > 0)
 	in_stock = request.GET.get('in_stock', '1')
 	if in_stock == '1':
 		qs = qs.filter(stock__gt=0)
