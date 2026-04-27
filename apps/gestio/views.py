@@ -1,17 +1,61 @@
 from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import get_object_or_404, redirect, render
+from django.db.models import Count, Sum, Avg, Min, Max, Q
 from apps.vins.models import Vi
 from .forms import ViForm
-from django.db.models import Count, Sum, Avg, Min, Max
 
 
 @login_required # Només usuaris autenticats poden accedir
 @permission_required('vins.view_vi') # Només usuaris amb el permís de visualitzar vins poden accedir
 def vins(request):   
-	vins = Vi.objects.all().order_by('nom') # Obtenim tots els vins de la base de dades i els ordenem alfabèticament pel nom
+	qs = Vi.objects.all()
+
+	# Cerca simple
+	q = request.GET.get('q', '').strip()
+	if q:
+		qs = qs.filter(Q(nom__icontains=q) | Q(descripcio__icontains=q))
+
+	# Filtre per tipus i origen
+	tipus = request.GET.get('tipus', '')
+	if tipus:
+		qs = qs.filter(tipus=tipus)
+
+	origen = request.GET.get('origen', '').strip()
+	if origen:
+		qs = qs.filter(origen__icontains=origen)
+
+	# Filtre per estat actiu/inactiu (si s'especifica)
+	estat = request.GET.get('estat', '')
+	if estat == 'actiu':
+		qs = qs.filter(es_actiu=True)
+	elif estat == 'inactiu':
+		qs = qs.filter(es_actiu=False)
+
+	# Ordenació
+	order = request.GET.get('order', 'nom_asc')
+	if order == 'preu_asc':
+		qs = qs.order_by('preu')
+	elif order == 'preu_desc':
+		qs = qs.order_by('-preu')
+	elif order == 'any_asc':
+		qs = qs.order_by('any_collita')
+	elif order == 'any_desc':
+		qs = qs.order_by('-any_collita')
+	else:
+		qs = qs.order_by('nom')
+
+	tipus_choices = Vi.objects.values_list('tipus', flat=True).distinct()
+	origens = Vi.objects.values_list('origen', flat=True).distinct()
+
 	context = { # Context que es passarà al template per a renderitzar la pàgina del dashboard
 		'app_title': 'Gestió de vins',
-		'vins': vins,
+		'vins': qs,
+		'q': q,
+		'tipus_choices': tipus_choices,
+		'origens': origens,
+		'tipus_selected': tipus,
+		'origen_selected': origen,
+		'order': order,
 	}
 	return render(request, 'gestio/vins/gestio_vins.html', context)
 

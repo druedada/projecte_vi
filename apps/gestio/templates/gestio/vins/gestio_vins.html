@@ -16,6 +16,30 @@
         {% endif %}
     </div>
 
+    <!-- Filtres i orden per a llistat de gestió -->
+    <form method="get" class="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <div class="flex items-center gap-2">
+            <input type="search" name="q" placeholder="Cerca per nom" value="{{ q|default:'' }}" class="border rounded px-3 py-2" />
+            <select name="tipus" class="border rounded px-3 py-2">
+                <option value="">Tots els tipus</option>
+                {% for t in tipus_choices %}
+                <option value="{{ t }}" {% if t == tipus_selected %}selected{% endif %}>{{ t }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="flex items-center gap-2">
+            <select name="order" class="border rounded px-3 py-2">
+                <option value="nom_asc" {% if order == 'nom_asc' %}selected{% endif %}>Nom (A→Z)</option>
+                <option value="preu_asc" {% if order == 'preu_asc' %}selected{% endif %}>Preu (baix→alt)</option>
+                <option value="preu_desc" {% if order == 'preu_desc' %}selected{% endif %}>Preu (alt→baix)</option>
+                <option value="any_desc" {% if order == 'any_desc' %}selected{% endif %}>Any (més nou)</option>
+                <option value="any_asc" {% if order == 'any_asc' %}selected{% endif %}>Any (més antic)</option>
+            </select>
+            <button type="submit" class="px-3 py-2 rounded bg-violet-700 text-white">Aplicar</button>
+            <a href="?" class="px-3 py-2 rounded border">Netejar</a>
+        </div>
+    </form>
+
     <div class="bg-white border border-gray-100 rounded-xl shadow-sm overflow-hidden">
         <table class="w-full text-left text-sm">
             <thead class="bg-gray-50 text-gray-600">
