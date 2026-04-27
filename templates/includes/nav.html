@@ -1,119 +1,280 @@
 <nav
   class="w-full {% if request.resolver_match.url_name == 'home' %}absolute top-0 left-0 bg-transparent z-50{% else %}bg-white border-b border-gray-100 shadow-sm{% endif %} transition-all duration-300">
-  <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-    <!-- Logo (esquerra) -->
-    <a href="/"
-      class="text-xl font-bold {% if request.resolver_match.url_name == 'home' %}text-white{% else %}text-violet-700{% endif %} tracking-tight shrink-0">
-      Projecte VI
-    </a>
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="relative h-16 flex items-center justify-between gap-4 md:gap-8">
+      <!-- Logo (esquerra) -->
+      <a href="/"
+        class="text-xl font-bold {% if request.resolver_match.url_name == 'home' %}text-white{% else %}text-violet-700{% endif %} tracking-tight shrink-0">
+        Projecte VI
+      </a>
 
-    <!-- Nav links (centre) -->
-    <ul
-      class="flex items-center gap-8 text-sm font-medium {% if request.resolver_match.url_name == 'home' %}text-white/90{% else %}text-gray-600{% endif %}">
-      <li>
-        <a href="/vins/" class="hover:text-violet-700 transition-colors">Vins</a>
-      </li>
-      <li>
-        <a href="/#sobre-nosaltres" class="hover:text-violet-700 transition-colors">Sobre nosaltres</a>
-      </li>
-      <li>
-        <a href="/subscripcions/" class="hover:text-violet-700 transition-colors">Subscriure's</a>
-      </li>
-      <li>
-        <a href="/faqs" class="hover:text-violet-700 transition-colors">FAQ</a>
-      </li>
-      <li>
-        <a href="/admin/" class="hover:text-violet-700 transition-colors">Admin</a>
-      </li>
-    </ul>
-
-    <!-- Nav user (dreta) -->
-    <div class="flex items-center gap-4 text-sm shrink-0">
-      {% if user.is_authenticated %}
-      <!-- Carret de la compra -->
-      <div class="relative">
+      <!-- Actions (mobile/tablet) -->
+      <div class="md:hidden ml-auto flex items-center gap-2">
+        {% if user.is_authenticated %}
         <a href="/comandes/carret/"
-          class="relative inline-flex {% if request.resolver_match.url_name == 'home' %}text-white/90{% else %}text-gray-600{% endif %} hover:text-violet-700 transition-colors"
+          class="relative inline-flex p-2 {% if request.resolver_match.url_name == 'home' %}text-white hover:bg-white/10{% else %}text-gray-700 hover:bg-gray-100{% endif %} rounded-lg transition-colors"
           title="Carret">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <path
               d="M1 1H5L7.68 14.39C7.77144 14.8504 8.02191 15.264 8.38755 15.5583C8.75318 15.8526 9.2107 16.009 9.68 16H19.4C19.8693 16.009 20.3268 15.8526 20.6925 15.5583C21.0581 15.264 21.3086 14.8504 21.4 14.39L23 6H6M10 21C10 21.5523 9.55228 22 9 22C8.44772 22 8 21.5523 8 21C8 20.4477 8.44772 20 9 20C9.55228 20 10 20.4477 10 21ZM21 21C21 21.5523 20.5523 22 20 22C19.4477 22 19 21.5523 19 21C19 20.4477 19.4477 20 20 20C20.5523 20 21 20.4477 21 21Z"
-              stroke="{% if request.resolver_match.url_name == 'home' %}currentColor{% else %}#1E1E1E{% endif %}"
-              stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+              stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
-
           {% if cart_item_count|default:0 > 0 %}
-          <span class="absolute -top-2 -right-2 flex h-5 min-w-5 items-center justify-center">
-            <span
-              class="inline-flex min-w-5 h-5 items-center justify-center rounded-full bg-violet-700 px-1 text-[11px] font-bold leading-none text-white ring-2 {% if request.resolver_match.url_name == 'home' %}ring-transparent{% else %}ring-white{% endif %} shadow"
-              aria-label="Articles al carret: {{ cart_item_count }}">
-              {{ cart_item_count }}
-            </span>
+          <span
+            class="absolute -top-1 -right-1 inline-flex min-w-5 h-5 items-center justify-center rounded-full bg-violet-700 px-1 text-[11px] font-bold leading-none text-white ring-2 {% if request.resolver_match.url_name == 'home' %}ring-transparent{% else %}ring-white{% endif %}">
+            {{ cart_item_count }}
           </span>
           {% endif %}
         </a>
-
-        {% if messages %}
-        {% for message in messages %}
-        {% if message.tags == 'success' %}
-        <div
-          class="cart-toast pointer-events-auto absolute right-0 top-8 z-50 w-64 rounded-xl border border-emerald-300 bg-emerald-100 px-3 py-2 text-xs text-emerald-900 shadow-xl opacity-100"
-          style="background-color: #d1fae5;" role="status" aria-live="polite" data-timeout="2600">
-          <div class="flex items-start gap-2">
-            <span class="mt-1 h-2 w-2 rounded-full bg-emerald-500"></span>
-            <span class="flex-1">{{ message }}</span>
-            <button type="button" class="cart-toast-close text-emerald-700 hover:text-emerald-900"
-              aria-label="Tancar">&times;</button>
-          </div>
-        </div>
         {% endif %}
-        {% endfor %}
+
+        <button type="button" data-user-menu-toggle aria-expanded="false" aria-controls="mobile-user-menu"
+          class="inline-flex items-center justify-center rounded-lg p-2 {% if request.resolver_match.url_name == 'home' %}text-white hover:bg-white/10{% else %}text-gray-700 hover:bg-gray-100{% endif %} transition-colors">
+          <span class="sr-only">Obrir menú d'usuari</span>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path
+              d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M12 11C14.2091 11 16 9.20914 16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7C8 9.20914 9.79086 11 12 11Z"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Hamburger (mobile) -->
+      <button type="button" data-menu-toggle aria-expanded="false" aria-controls="site-menu"
+        class="md:hidden inline-flex items-center justify-center rounded-lg p-2 {% if request.resolver_match.url_name == 'home' %}text-white hover:bg-white/10{% else %}text-gray-700 hover:bg-gray-100{% endif %} transition-colors">
+        <span class="sr-only">Obrir menú principal</span>
+        <svg data-menu-open-icon width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true">
+          <path d="M3 6H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M3 12H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M3 18H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <svg data-menu-close-icon width="24" height="24" viewBox="0 0 24 24" fill="none"
+          xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="hidden">
+          <path d="M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </button>
+
+      <div id="site-menu"
+        class="hidden absolute left-0 right-0 top-16 px-6 pb-4 pt-2 {% if request.resolver_match.url_name == 'home' %}bg-black/70 backdrop-blur-md md:bg-transparent md:backdrop-blur-none{% else %}bg-white border-t border-gray-100{% endif %} md:static md:ml-auto md:flex md:w-fit md:flex-none md:items-center md:gap-6 md:border-0 md:p-0">
+        <!-- Nav links -->
+        <ul
+          class="flex flex-col gap-3 md:w-fit md:flex-none md:flex-row md:items-center md:justify-start md:gap-8 text-sm font-medium {% if request.resolver_match.url_name == 'home' %}text-white/90{% else %}text-gray-600{% endif %}">
+          <li>
+            <a href="/vins/" class="block py-1 hover:text-violet-700 transition-colors">Vins</a>
+          </li>
+          <li>
+            <a href="/#sobre-nosaltres" class="block py-1 hover:text-violet-700 transition-colors">Sobre nosaltres</a>
+          </li>
+          <li>
+            <a href="/subscripcions/" class="block py-1 hover:text-violet-700 transition-colors">Subscriure's</a>
+          </li>
+          <li>
+            <a href="/faqs" class="block py-1 hover:text-violet-700 transition-colors">FAQ</a>
+          </li>
+          <li>
+            <a href="/admin/" class="block py-1 hover:text-violet-700 transition-colors">Admin</a>
+          </li>
+        </ul>
+
+        <!-- Nav user (desktop only) -->
+        <div class="hidden md:flex md:flex-row md:items-center md:gap-4 text-sm md:shrink-0">
+        {% if user.is_authenticated %}
+        <!-- Carret de la compra -->
+        <div class="relative w-fit hidden md:block">
+          <a href="/comandes/carret/"
+            class="relative inline-flex py-1 {% if request.resolver_match.url_name == 'home' %}text-white/90{% else %}text-gray-600{% endif %} hover:text-violet-700 transition-colors"
+            title="Carret">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M1 1H5L7.68 14.39C7.77144 14.8504 8.02191 15.264 8.38755 15.5583C8.75318 15.8526 9.2107 16.009 9.68 16H19.4C19.8693 16.009 20.3268 15.8526 20.6925 15.5583C21.0581 15.264 21.3086 14.8504 21.4 14.39L23 6H6M10 21C10 21.5523 9.55228 22 9 22C8.44772 22 8 21.5523 8 21C8 20.4477 8.44772 20 9 20C9.55228 20 10 20.4477 10 21ZM21 21C21 21.5523 20.5523 22 20 22C19.4477 22 19 21.5523 19 21C19 20.4477 19.4477 20 20 20C20.5523 20 21 20.4477 21 21Z"
+                stroke="{% if request.resolver_match.url_name == 'home' %}currentColor{% else %}#1E1E1E{% endif %}"
+                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+
+            {% if cart_item_count|default:0 > 0 %}
+            <span class="absolute -top-2 -right-2 flex h-5 min-w-5 items-center justify-center">
+              <span
+                class="inline-flex min-w-5 h-5 items-center justify-center rounded-full bg-violet-700 px-1 text-[11px] font-bold leading-none text-white ring-2 {% if request.resolver_match.url_name == 'home' %}ring-transparent{% else %}ring-white{% endif %} shadow"
+                aria-label="Articles al carret: {{ cart_item_count }}">
+                {{ cart_item_count }}
+              </span>
+            </span>
+            {% endif %}
+          </a>
+        </div>
+
+        <span class="{% if request.resolver_match.url_name == 'home' %}text-white/80{% else %}text-gray-500{% endif %}">
+          Hola,
+          <span
+            class="font-semibold {% if request.resolver_match.url_name == 'home' %}text-white{% else %}text-gray-800{% endif %}">
+            {{ user.first_name|default:user.username | capfirst }}</span>
+        </span>
+
+        <a href="/usuaris/logout/"
+          class="inline-flex w-fit items-center justify-center px-4 py-1.5 rounded-full border {% if request.resolver_match.url_name == 'home' %}border-white/30 text-white hover:border-violet-600 hover:text-violet-700{% else %}border-gray-300 text-gray-600 hover:border-violet-600 hover:text-violet-700{% endif %} transition-colors">
+          Tancar sessió
+        </a>
+        {% if perms.vins.view_vi %}
+        <a href="/gestio/"
+          class="inline-flex w-fit items-center justify-center px-4 py-1.5 rounded-full bg-violet-700 text-white hover:bg-violet-800 transition-colors">Gestió</a>
+        <a href="/gestio/estadistiques/"
+          class="inline-flex w-fit items-center justify-center px-4 py-1.5 rounded-full bg-violet-700 text-white hover:bg-violet-800 transition-colors">Estadístiques</a>
+        {% endif %} {% else %}
+        <a href="/usuaris/login/"
+          class="inline-flex items-center gap-1.5 py-1 {% if request.resolver_match.url_name == 'home' %}text-white/90{% else %}text-gray-600{% endif %} hover:text-violet-700 transition-colors">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21"
+              stroke="{% if request.resolver_match.url_name == 'home' %}currentColor{% else %}black{% endif %}"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            <path
+              d="M12 11C14.2091 11 16 9.20914 16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7C8 9.20914 9.79086 11 12 11Z"
+              stroke="{% if request.resolver_match.url_name == 'home' %}currentColor{% else %}black{% endif %}"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+
+          Iniciar sessió
+        </a>
+        <a href="/usuaris/registre/"
+          class="inline-flex w-fit items-center justify-center px-4 py-1.5 rounded-full bg-violet-700 text-white hover:bg-violet-800 transition-colors">
+          Registrar-se
+        </a>
+        {% endif %}
+        </div>
+      </div>
+
+      <div id="mobile-user-menu"
+        class="hidden md:hidden absolute right-6 top-16 z-50 w-72 rounded-xl border border-gray-200 bg-white p-4 shadow-xl">
+        {% if user.is_authenticated %}
+        <p class="text-sm text-gray-500">Hola,</p>
+        <p class="mb-3 text-base font-semibold text-gray-900">{{ user.first_name|default:user.username | capfirst }}</p>
+        <a href="/usuaris/logout/"
+          class="inline-flex w-full items-center justify-center rounded-full border border-gray-300 px-4 py-2 text-sm text-gray-700 hover:border-violet-600 hover:text-violet-700 transition-colors">Tancar sessió</a>
+        {% if perms.vins.view_vi %}
+        <a href="/gestio/"
+          class="mt-2 inline-flex w-full items-center justify-center rounded-full bg-violet-700 px-4 py-2 text-sm text-white hover:bg-violet-800 transition-colors">Gestió</a>
+        <a href="/gestio/estadistiques/"
+          class="mt-2 inline-flex w-full items-center justify-center rounded-full bg-violet-700 px-4 py-2 text-sm text-white hover:bg-violet-800 transition-colors">Estadístiques</a>
+        {% endif %}
+        {% else %}
+        <a href="/usuaris/login/"
+          class="inline-flex w-full items-center justify-center rounded-full border border-gray-300 px-4 py-2 text-sm text-gray-700 hover:border-violet-600 hover:text-violet-700 transition-colors">Iniciar sessió</a>
+        <a href="/usuaris/registre/"
+          class="mt-2 inline-flex w-full items-center justify-center rounded-full bg-violet-700 px-4 py-2 text-sm text-white hover:bg-violet-800 transition-colors">Registrar-se</a>
         {% endif %}
       </div>
 
-      <span class="{% if request.resolver_match.url_name == 'home' %}text-white/80{% else %}text-gray-500{% endif %}">
-        Hola,
-        <span
-          class="font-semibold {% if request.resolver_match.url_name == 'home' %}text-white{% else %}text-gray-800{% endif %}">
-          {{ user.first_name|default:user.username | capfirst }}</span>
-      </span>
-
-      <a href="/usuaris/logout/"
-        class="px-4 py-1.5 rounded-full border {% if request.resolver_match.url_name == 'home' %}border-white/30 text-white hover:border-violet-600 hover:text-violet-700{% else %}border-gray-300 text-gray-600 hover:border-violet-600 hover:text-violet-700{% endif %} transition-colors">
-        Tancar sessió
-      </a>
-      {% if perms.vins.view_vi %}
-      <a href="/gestio/"
-        class="px-4 py-1.5 rounded-full bg-violet-700 text-white hover:bg-violet-800 transition-colors">Gestió</a>
-      <a href="/gestio/estadistiques/"
-        class="px-4 py-1.5 rounded-full bg-violet-700 text-white hover:bg-violet-800 transition-colors">Estadístiques</a>
-      {% endif %} {% else %}
-      <a href="/usuaris/login/"
-        class="flex items-center gap-1.5 {% if request.resolver_match.url_name == 'home' %}text-white/90{% else %}text-gray-600{% endif %} hover:text-violet-700 transition-colors">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21"
-            stroke="{% if request.resolver_match.url_name == 'home' %}currentColor{% else %}black{% endif %}"
-            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-          <path
-            d="M12 11C14.2091 11 16 9.20914 16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7C8 9.20914 9.79086 11 12 11Z"
-            stroke="{% if request.resolver_match.url_name == 'home' %}currentColor{% else %}black{% endif %}"
-            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-        </svg>
-
-        Iniciar sessió
-      </a>
-      <a href="/usuaris/registre/"
-        class="px-4 py-1.5 rounded-full bg-violet-700 text-white hover:bg-violet-800 transition-colors">
-        Registrar-se
-      </a>
+      {% if messages %}
+      {% for message in messages %}
+      {% if message.tags == 'success' %}
+      <div
+        class="cart-toast pointer-events-auto fixed right-4 top-20 z-[60] w-64 max-w-[calc(100vw-2rem)] rounded-xl border border-emerald-300 bg-emerald-100 px-3 py-2 text-xs text-emerald-900 shadow-xl opacity-100"
+        style="background-color: #d1fae5;" role="status" aria-live="polite" data-timeout="2600">
+        <div class="flex items-start gap-2">
+          <span class="mt-1 h-2 w-2 rounded-full bg-emerald-500"></span>
+          <span class="flex-1">{{ message }}</span>
+          <button type="button" class="cart-toast-close text-emerald-700 hover:text-emerald-900"
+            aria-label="Tancar">&times;</button>
+        </div>
+      </div>
       {% endif %}
+      {% endfor %}
+      {% endif %}
+      </div>
     </div>
   </div>
 </nav>
 
 <script>
   (() => {
+    const mobileBreakpoint = 768;
+    const menuToggleBtn = document.querySelector('[data-menu-toggle]');
+    const siteMenu = document.getElementById('site-menu');
+    const userMenuToggleBtn = document.querySelector('[data-user-menu-toggle]');
+    const userMenu = document.getElementById('mobile-user-menu');
+    const openIcon = menuToggleBtn?.querySelector('[data-menu-open-icon]');
+    const closeIcon = menuToggleBtn?.querySelector('[data-menu-close-icon]');
+
+    const setMenuOpenState = (isOpen) => {
+      if (!menuToggleBtn || !siteMenu) return;
+      menuToggleBtn.setAttribute('aria-expanded', String(isOpen));
+      siteMenu.classList.toggle('hidden', !isOpen);
+      siteMenu.classList.toggle('block', isOpen);
+      openIcon?.classList.toggle('hidden', isOpen);
+      closeIcon?.classList.toggle('hidden', !isOpen);
+    };
+
+    const setUserMenuOpenState = (isOpen) => {
+      if (!userMenuToggleBtn || !userMenu) return;
+      userMenuToggleBtn.setAttribute('aria-expanded', String(isOpen));
+      userMenu.classList.toggle('hidden', !isOpen);
+      userMenu.classList.toggle('block', isOpen);
+    };
+
+    if (menuToggleBtn && siteMenu) {
+      menuToggleBtn.addEventListener('click', () => {
+        const isOpen = menuToggleBtn.getAttribute('aria-expanded') === 'true';
+        setUserMenuOpenState(false);
+        setMenuOpenState(!isOpen);
+      });
+
+      siteMenu.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', () => {
+          if (window.innerWidth < mobileBreakpoint) {
+            setMenuOpenState(false);
+          }
+        });
+      });
+
+      document.addEventListener('click', (event) => {
+        const target = event.target;
+        const clickedMenuButton = menuToggleBtn.contains(target);
+        const clickedUserButton = userMenuToggleBtn?.contains(target);
+        const clickedMainMenu = siteMenu.contains(target);
+        const clickedUserMenu = userMenu?.contains(target);
+
+        if (!clickedMenuButton && !clickedMainMenu) {
+          setMenuOpenState(false);
+        }
+
+        if (!clickedUserButton && !clickedUserMenu) {
+          setUserMenuOpenState(false);
+        }
+      });
+
+      window.addEventListener('resize', () => {
+        if (window.innerWidth >= mobileBreakpoint) {
+          setMenuOpenState(false);
+          setUserMenuOpenState(false);
+        }
+      });
+
+      window.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+          setMenuOpenState(false);
+          setUserMenuOpenState(false);
+        }
+      });
+    }
+
+    if (userMenuToggleBtn && userMenu) {
+      userMenuToggleBtn.addEventListener('click', () => {
+        const isOpen = userMenuToggleBtn.getAttribute('aria-expanded') === 'true';
+        setMenuOpenState(false);
+        setUserMenuOpenState(!isOpen);
+      });
+
+      userMenu.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', () => {
+          setUserMenuOpenState(false);
+        });
+      });
+    }
+
     const toasts = document.querySelectorAll('.cart-toast');
     const closeToast = (toast) => {
       if (!toast || toast.dataset.closing === '1') return;
