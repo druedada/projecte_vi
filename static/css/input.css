@@ -16,6 +16,7 @@
   margin: 0;
   display: none;
 }
+
 /* Padding estándar para contenedores principales */
 .container-padding {
   padding-left: 1.5rem;
@@ -23,6 +24,7 @@
   padding-top: 1rem;
   padding-bottom: 1rem;
 }
+
 @media (min-width: 640px) {
   .container-padding {
     padding-left: 2.5rem;
@@ -31,6 +33,7 @@
     padding-bottom: 1.5rem;
   }
 }
+
 @media (min-width: 1024px) {
   .container-padding {
     padding-left: 4rem;
@@ -39,6 +42,7 @@
     padding-bottom: 2rem;
   }
 }
+
 /* Permite que los métodos de pago usen el mismo círculo que rrss */
 .payment-methods-container .rrss-circle {
   background: #fff;
@@ -51,10 +55,12 @@
   box-shadow: 0 2px 8px 0 rgb(0 0 0 / 0.08);
   transition: box-shadow 0.2s, transform 0.2s;
 }
+
 .payment-methods-container .rrss-circle:hover {
   box-shadow: 0 4px 16px 0 rgb(31 41 55 / 0.15);
   transform: translateY(-2px) scale(1.07);
 }
+
 /* Métodos de pago */
 .payment-methods-container img {
   background: #fff;
@@ -62,10 +68,12 @@
   box-shadow: 0 2px 8px 0 rgb(0 0 0 / 0.08);
   transition: box-shadow 0.2s, transform 0.2s;
 }
+
 .payment-methods-container img:hover {
   box-shadow: 0 4px 16px 0 rgb(31 41 55 / 0.15);
   transform: translateY(-2px) scale(1.07);
 }
+
 /* Redes sociales círculo */
 .rrss-circle {
   background: #fff;
@@ -78,10 +86,12 @@
   box-shadow: 0 2px 8px 0 rgb(0 0 0 / 0.08);
   transition: box-shadow 0.2s, transform 0.2s;
 }
+
 .rrss-circle:hover {
   box-shadow: 0 4px 16px 0 rgb(124 58 237 / 0.15);
   transform: translateY(-2px) scale(1.07);
 }
+
 @import "tailwindcss";
 
 /* ──────────────────────────────────────────
@@ -91,32 +101,42 @@
    ────────────────────────────────────────── */
 @theme {
   /* ——— Colors principals ——— */
-  --color-primary:         #7C3AED;   /* Viola principal */
-  --color-primary-light:   #A78BFA;
-  --color-primary-dark:    #5B21B6;
+  --color-primary: #7C3AED;
+  /* Viola principal */
+  --color-primary-light: #A78BFA;
+  /* Viola clar */
+  --color-primary-dark: #5B21B6;
+  /* Viola fosc */
 
-  --color-secondary:       #D97706;   /* Ambre / accent */
+  --color-secondary: #D97706;
+  /* Ambre / accent */
   --color-secondary-light: #FCD34D;
+  /* Ambre clar */
 
   /* ——— Colors de superfície ——— */
-  --color-surface:         #FFFFFF;
-  --color-surface-alt:     #F9FAFB;
-  --color-border:          #E5E7EB;
+  --color-surface: #FFFFFF;
+  /* Blanc */
+  --color-surface-alt: #F9FAFB;
+  /* Blanc alt */
+  --color-border: #E5E7EB;
+  /* Borde */
 
   /* ——— Colors de text ——— */
-  --color-text:            #111827;
-  --color-text-muted:      #6B7280;
+  --color-text: #111827;
+  /* Text */
+  --color-text-muted: #6B7280;
+  /* Text muted */
 
   /* ——— Tipografia ——— */
-  --font-sans:   'Inter', ui-sans-serif, system-ui, sans-serif;
-  --font-serif:  'Playfair Display', ui-serif, Georgia, serif;
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: 'Playfair Display', ui-serif, Georgia, serif;
   --font-display: 'Playfair Display', ui-serif, Georgia, serif;
 
   /* ——— Radi de vores ——— */
-  --radius-sm:  0.25rem;
-  --radius-md:  0.5rem;
-  --radius-lg:  1rem;
-  --radius-xl:  1.5rem;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
 
   /* ——— Ombres ——— */
   --shadow-card: 0 2px 8px 0 rgb(0 0 0 / 0.08);
@@ -137,7 +157,7 @@
     box-shadow: 0px 4px 32px 0 color-mix(in srgb, var(--color-primary) 70%, transparent);
     border-color: var(--color-primary-dark);
 
-    & > div {
+    &>div {
       @apply relative overflow-hidden;
     }
 
@@ -151,7 +171,8 @@
 
     & p:last-child {
       @apply absolute left-0 right-0 text-center;
-      top: 1.75rem; /* top-7 */
+      top: 1.75rem;
+      /* top-7 */
       transition: top 1.125s cubic-bezier(0.19, 1, 0.22, 1);
     }
 
@@ -160,7 +181,8 @@
     }
 
     &:hover p:first-child {
-      transform: translateY(-1.75rem); /* -translate-y-7 */
+      transform: translateY(-1.75rem);
+      /* -translate-y-7 */
     }
 
     &:hover p:last-child {
@@ -200,7 +222,8 @@
     background-color: var(--color-surface-alt);
     border: 1.5px solid var(--color-border);
     color: var(--color-text);
-    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05); /* Lleuger enfonsament per fer-ho clarament un input */
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
+    /* Lleuger enfonsament per fer-ho clarament un input */
   }
 
   input::placeholder,

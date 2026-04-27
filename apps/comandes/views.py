@@ -1,5 +1,3 @@
-from urllib import request
-
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.db import transaction
@@ -38,7 +36,7 @@ def carret(request):
 
 @login_required
 def afegir_al_carret(request, vi_id):
-	if request.method != 'POST':
+	if request.method != 'POST': 
 		return redirect('llista_vins')
 
 	if not request.user.is_authenticated:
@@ -56,7 +54,7 @@ def afegir_al_carret(request, vi_id):
 
 	if quantitat <= 0:
 		return redirect('llista_vins')
-
+	
 	carret_item, created = request.user.carret_items.get_or_create(vi=vi)
 	if created:
 		carret_item.unitats = quantitat
