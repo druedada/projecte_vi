@@ -127,6 +127,19 @@ VI{% endblock %} {% block extra_head %}
 
     const video = document.getElementById("hero-video");
     const heroSection = document.getElementById("hero-section");
+    const anchorHash = "#sobre-nosaltres";
+
+    const scrollToAnchor = () => {
+      if (window.location.hash !== anchorHash) return;
+
+      const target = document.querySelector(anchorHash);
+      if (!target) return;
+
+      requestAnimationFrame(() => {
+        const top = target.getBoundingClientRect().top + window.scrollY;
+        window.scrollTo({ top, behavior: "auto" });
+      });
+    };
 
     // Inicializar la animación de "scrubbing"
     const initVideoScrub = () => {
@@ -149,6 +162,9 @@ VI{% endblock %} {% block extra_head %}
         currentTime: video.duration || 1, // Fallback duration in case it fails metadata read
         ease: "none",
       });
+
+      ScrollTrigger.refresh();
+      scrollToAnchor();
     };
 
     // Asegurarnos de que tenemos los metadatos y la duración del video disponibles
@@ -169,6 +185,9 @@ VI{% endblock %} {% block extra_head %}
         button.textContent = isExpanded ? "Mostrar més" : "Mostrar menys";
       });
     });
+
+    window.addEventListener("load", scrollToAnchor);
+    window.addEventListener("hashchange", scrollToAnchor);
   });
 </script>
 {% endblock %}
