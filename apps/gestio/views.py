@@ -1,7 +1,10 @@
 from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect, render
 from django.db.models import Count, Sum, Avg, Min, Max, Q
 from apps.vins.models import Vi
+from django.contrib.auth.models import User
+from apps.comandes.models import Carret, Comanda, LineaComanda
 from .forms import ViForm
 
 
@@ -119,7 +122,55 @@ def activar_desactivar_vi(request, vi_id):
 
 @login_required
 @permission_required('vins.view_vi')
-def estadistiques(request):
+def estadistiques_redirect(request):
+	return redirect('gestio:estadistiques_vins')
+
+
+@login_required
+@permission_required('vins.view_vi')
+def estadistiques_vins(request):
+	return _estadistiques(request, 'vins')
+
+
+@login_required
+@permission_required('vins.view_vi')
+def estadistiques_vendes(request):
+	return _estadistiques(request, 'vendes')
+
+
+@login_required
+@permission_required('vins.view_vi')
+def estadistiques_usuaris(request):
+	return _estadistiques(request, 'usuaris')
+
+
+def _estadistiques(request, section):
+	can_manage_orders = (
+		request.user.is_staff
+		or request.user.is_superuser
+		or request.user.groups.filter(name='Gestor').exists()
+		or request.user.has_perm('comandes.change_comanda')
+	)
+
+	if request.method == 'POST':
+		if not can_manage_orders:
+			messages.error(request, 'No tens permisos per canviar l\'estat de les comandes.')
+			return redirect(f'gestio:estadistiques_{section}')
+
+		comanda_id = request.POST.get('comanda_id')
+		nou_estat = request.POST.get('nou_estat')
+		valid_states = {choice for choice, _label in Comanda.Estat.choices}
+
+		if nou_estat not in valid_states:
+			messages.error(request, 'L\'estat seleccionat no és vàlid.')
+			return redirect(f'gestio:estadistiques_{section}')
+
+		comanda = get_object_or_404(Comanda, pk=comanda_id)
+		comanda.estat = nou_estat
+		comanda.save(update_fields=['estat', 'data_actualitzacio'])
+		messages.success(request, f'Comanda #{comanda.pk} actualitzada a {comanda.get_estat_display()}.')
+		return redirect(f'gestio:estadistiques_{section}')
+
 	# Resum general de tots els vins en diccionari
 	kpis = Vi.objects.aggregate(
 		total_vins=Count('id'),
@@ -174,11 +225,56 @@ def estadistiques(request):
 	
 	context = { 
 		'app_title': 'Estadístiques de vins',
+		'section': section,
 		'kpis' : kpis,
 		'per_tipus' : per_tipus,
 		'per_origen' : per_origen,
 		'top_stock' : top_stock,
 		'per_any' : per_any,
 	}
+
+	# Vendes: resum i llistats
+	comandes_qs = Comanda.objects.select_related('user', 'direccio').prefetch_related('linies__vi').order_by('-data_creacio')
+	comandes_by_status = {
+		'estat_pendent': comandes_qs.filter(estat=Comanda.Estat.PENDENT),
+		'estat_confirmada': comandes_qs.filter(estat=Comanda.Estat.CONFIRMADA),
+		'estat_enviada': comandes_qs.filter(estat=Comanda.Estat.ENVIADA),
+		'estat_entregada': comandes_qs.filter(estat=Comanda.Estat.ENTREGADA),
+		'estat_cancelada': comandes_qs.filter(estat=Comanda.Estat.CANCELLADA),
+	}
+	completed_comandes_qs = comandes_qs.exclude(estat=Comanda.Estat.PENDENT)
+	total_orders = completed_comandes_qs.count()
+	total_revenue = completed_comandes_qs.aggregate(total=Sum('total'))['total'] or 0
+
+	# Top vins venuts per unitats
+	top_sold_qs = (
+		LineaComanda.objects.values('vi__nom')
+		.annotate(units_sold=Sum('unitats'))
+		.order_by('-units_sold')[:8]
+	)
+
+	# Carret: items agrupats per usuari
+	carret_items = Carret.objects.select_related('user', 'vi').all()
+	carret_by_user = {}
+	for item in carret_items:
+		uname = item.user.username
+		carret_by_user.setdefault(uname, {'user': item.user, 'items': []})
+		carret_by_user[uname]['items'].append(item)
+	carret_by_user = list(carret_by_user.values())
+
+	# Usuaris: comptatge de comandes
+	users_qs = User.objects.all().annotate(num_comandes=Count('comandes'))
+
+	# Afegim al context
+	context.update({
+		'comandes_recent': completed_comandes_qs[:12],
+		'comandes_by_status': comandes_by_status,
+		'estat_choices': Comanda.Estat.choices,
+		'total_orders': total_orders,
+		'total_revenue': total_revenue,
+		'top_sold': {'labels': [i['vi__nom'] for i in top_sold_qs], 'values': [i['units_sold'] for i in top_sold_qs]},
+		'carret_by_user': carret_by_user,
+		'users_list': users_qs,
+	})
 
 	return render(request, 'gestio/estadistiques/estadistiques.html', context)
