@@ -79,6 +79,12 @@
 
         <!-- Nav user (desktop only) -->
         <div class="hidden xl:flex xl:flex-row xl:items-center xl:gap-4 xl:ml-auto text-sm xl:shrink-0">
+        {% if perms.vins.view_vi %}
+        <a href="/gestio/"
+          class="inline-flex w-fit items-center justify-center px-4 py-1.5 rounded-full bg-violet-700 text-white hover:bg-violet-800 transition-colors">Gestió</a>
+        <a href="/gestio/estadistiques/"
+          class="inline-flex w-fit items-center justify-center px-4 py-1.5 rounded-full bg-violet-700 text-white hover:bg-violet-800 transition-colors">Estadístiques</a>
+        {% endif %} 
         {% if user.is_authenticated %}
         <!-- Carret de la compra -->
         <div class="relative w-fit hidden md:block">
@@ -126,12 +132,7 @@
           class="inline-flex w-fit items-center justify-center px-4 py-1.5 rounded-full border {% if request.resolver_match.url_name == 'home' %}border-white/30 text-white hover:border-violet-600 hover:text-violet-700{% else %}border-gray-300 text-gray-600 hover:border-violet-600 hover:text-violet-700{% endif %} transition-colors">
           Tancar sessió
         </a>
-        {% if perms.vins.view_vi %}
-        <a href="/gestio/"
-          class="inline-flex w-fit items-center justify-center px-4 py-1.5 rounded-full bg-violet-700 text-white hover:bg-violet-800 transition-colors">Gestió</a>
-        <a href="/gestio/estadistiques/"
-          class="inline-flex w-fit items-center justify-center px-4 py-1.5 rounded-full bg-violet-700 text-white hover:bg-violet-800 transition-colors">Estadístiques</a>
-        {% endif %} {% else %}
+        {% else %}
         <a href="/usuaris/login/"
           class="inline-flex items-center gap-1.5 py-1 {% if request.resolver_match.url_name == 'home' %}text-white/90{% else %}text-gray-600{% endif %} hover:text-violet-700 transition-colors">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
