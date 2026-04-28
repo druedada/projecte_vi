@@ -1,10 +1,33 @@
 from django.shortcuts import render
-
+from django.db.models import Sum
+from apps.vins.models import Vi
+from apps.comandes.models import LineaComanda
 
 def home(request):
-	context = {
-	}
-	return render(request, 'home.html', context)
+	# Obtenir el vi més venut de cada tipus
+	top_by_type = {}
+	
+	for tipus_code, tipus_label in Vi.Tipus.choices:
+		vi_top = (
+			LineaComanda.objects
+			.filter(vi__tipus=tipus_code)
+			.values('vi')
+			.annotate(total_unitats=Sum('unitats'))
+			.order_by('-total_unitats')
+			.values_list('vi', flat=True)
+			.first()
+		)
+		
+		top_vi = None
+		if vi_top:
+			top_vi = Vi.objects.get(pk=vi_top)
+		
+		top_by_type[tipus_code] = {
+			'label': tipus_label,
+			'vi': top_vi
+		}
+	
+	return render(request, 'home.html', {'top_by_type': top_by_type})
 
 def faqs(request):
 	faqs = [

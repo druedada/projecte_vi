@@ -42,7 +42,76 @@ VI{% endblock %} {% block extra_head %}
     </form>
   </div>
 </section>
+<!-- Secció Productes Més Venuts -->
+<section id="productes-mes-venuts" class="py-16 md:py-24 bg-white">
+  <div class="container-padding mx-auto max-w-6xl">
+    <h2 class="text-3xl md:text-5xl font-light text-center text-[#231815] mb-12 md:mb-16 tracking-tight">
+      Productes més venuts
+    </h2>
+    <div class="flex flex-col md:flex-row md:space-x-8 gap-8">
+      {% for tipus_code, tipus_data in top_by_type.items %}
+        {% if tipus_data.vi %}
+          <article class="md:w-1/3">
+            <h3 class="text-xl md:text-2xl font-semibold text-slate-900 mb-4">{{ tipus_data.label }}</h3>
+            <article class="rounded-2xl border border-slate-200 bg-white overflow-hidden shadow-soft hover:shadow-lg transition-shadow duration-300">
+                <!-- Imatge del vi -->
+                <div class="relative h-44 bg-gradient-to-br from-slate-100 to-slate-200 overflow-hidden">
+                  {% if tipus_data.vi.imatge %}
+                    <img src="{{ tipus_data.vi.imatge.url }}" alt="{{ tipus_data.vi.nom }}" 
+                      class="w-full h-full object-cover" />
+                  {% else %}
+                    <div class="w-full h-full flex items-center justify-center text-slate-400">
+                      <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z" fill="currentColor"/>
+                      </svg>
+                    </div>
+                  {% endif %}
+                </div>
 
+                <!-- Información del vi -->
+                <div class="p-4 space-y-2">
+                  <div>
+                    <h3 class="text-base font-bold text-slate-900 line-clamp-2">
+                      {{ tipus_data.vi.nom }}
+                    </h3>
+                    <p class="text-xs text-slate-500 mt-1">{{ tipus_data.vi.origen }} · {{ tipus_data.vi.any_collita }}</p>
+                  </div>
+
+                  <p class="text-xs text-slate-600 line-clamp-2">
+                    {{ tipus_data.vi.descripcio }}
+                  </p>
+
+                  <div class="flex items-center justify-between pt-2 border-t border-slate-100">
+                    <span class="text-lg font-bold text-violet-700">
+                      {{ tipus_data.vi.preu|floatformat:2 }} €
+                    </span>
+                    <form method="post" action="{% url 'comandes:afegir_al_carret' tipus_data.vi.id %}">
+                      {% csrf_token %}
+                      <input type="hidden" name="next" value="{{ request.path }}">
+                      <input type="hidden" name="quantitat" value="1" />
+                      <button type="submit" 
+                        class="px-3 py-1.5 bg-violet-700 text-white text-xs font-semibold rounded-lg hover:bg-violet-800 transition-colors duration-200"
+                        {% if tipus_data.vi.stock == 0 %}disabled{% endif %}>
+                        {% if tipus_data.vi.stock == 0 %}
+                          Esgotat
+                        {% else %}
+                          Afegir
+                        {% endif %}
+                      </button>
+                    </form>
+                  </div>
+
+                  {% if tipus_data.vi.stock == 0 %}
+                    <p class="text-xs text-red-600 font-semibold">Stock esgotat</p>
+                  {% endif %}
+                </div>
+              </article>
+          </article>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
 <!-- Secció Sobre Nosaltres -->
 <section id="sobre-nosaltres" class="bg-[#f7f3ee] py-16 md:py-24">
   <div class="container-padding mx-auto max-w-6xl">
@@ -189,5 +258,6 @@ VI{% endblock %} {% block extra_head %}
     window.addEventListener("load", scrollToAnchor);
     window.addEventListener("hashchange", scrollToAnchor);
   });
+
 </script>
 {% endblock %}
