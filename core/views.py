@@ -10,7 +10,7 @@ def home(request):
 	for tipus_code, tipus_label in Vi.Tipus.choices: # Bucle per tipus de vi
 		vi_top = ( # ID del vi més venut
 			LineaComanda.objects # Filtrar les línies de comnda
-			.filter(vi__tipus=tipus_code) # Agrupa per tipus de vi
+			.filter(vi__tipus=tipus_code, vi__es_actiu=True, vi__stock__gt=0)			
 			.values('vi') # Agrupa per vi
 			.annotate(total_unitats=Sum('unitats')) # Suma les unitats venudes per cada vi
 			.order_by('-total_unitats') # Ordena per total d'unitats venudes de manera descendent
