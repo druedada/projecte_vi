@@ -9,7 +9,7 @@
       </a>
 
       <!-- Actions (mobile/tablet) -->
-      <div class="xl:hidden ml-auto flex items-center gap-2">
+      <div class="lg:hidden ml-auto flex items-center gap-2">
         {% if user.is_authenticated %}
         <a href="/comandes/carret/"
           class="relative inline-flex p-2 {% if request.resolver_match.url_name == 'home' %}text-white hover:bg-white/10{% else %}text-gray-700 hover:bg-gray-100{% endif %} rounded-lg transition-colors"
@@ -43,7 +43,7 @@
 
       <!-- Hamburger (mobile) -->
       <button type="button" data-menu-toggle aria-expanded="false" aria-controls="site-menu"
-        class="xl:hidden inline-flex items-center justify-center rounded-lg p-2 {% if request.resolver_match.url_name == 'home' %}text-white hover:bg-white/10{% else %}text-gray-700 hover:bg-gray-100{% endif %} transition-colors">
+        class="lg:hidden inline-flex items-center justify-center rounded-lg p-2 {% if request.resolver_match.url_name == 'home' %}text-white hover:bg-white/10{% else %}text-gray-700 hover:bg-gray-100{% endif %} transition-colors">
         <span class="sr-only">Obrir menú principal</span>
         <svg data-menu-open-icon width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
           aria-hidden="true">
@@ -59,10 +59,10 @@
       </button>
 
       <div id="site-menu"
-        class="hidden absolute left-0 right-0 top-16 px-6 pb-4 pt-2 {% if request.resolver_match.url_name == 'home' %}bg-black/70 backdrop-blur-md xl:bg-transparent xl:backdrop-blur-none{% else %}bg-white border-t border-gray-100{% endif %} xl:static xl:flex xl:flex-1 xl:items-center xl:gap-6 xl:border-0 xl:p-0">
+        class="hidden absolute left-0 right-0 top-16 px-6 pb-4 pt-2 {% if request.resolver_match.url_name == 'home' %}bg-black/70 backdrop-blur-md lg:bg-transparent lg:backdrop-blur-none{% else %}bg-white border-t border-gray-100{% endif %} lg:static lg:flex lg:flex-1 lg:items-center lg:gap-6 lg:border-0 lg:p-0">
         <!-- Nav links -->
         <ul
-          class="flex flex-col gap-3 xl:flex-1 xl:flex-row xl:items-center xl:justify-center xl:gap-8 text-sm font-medium {% if request.resolver_match.url_name == 'home' %}text-white/90{% else %}text-gray-600{% endif %}">
+          class="flex flex-col gap-3 lg:flex-1 lg:flex-row lg:items-center lg:justify-center lg:gap-8 text-sm font-medium {% if request.resolver_match.url_name == 'home' %}text-white/90{% else %}text-gray-600{% endif %}">
           <li>
             <a href="/vins/" class="block py-1 hover:text-violet-700 transition-colors">Vins</a>
           </li>
@@ -78,7 +78,7 @@
         </ul>
 
         <!-- Nav user (desktop only) -->
-        <div class="hidden xl:flex xl:flex-row xl:items-center xl:gap-4 xl:ml-auto text-sm xl:shrink-0">
+        <div class="hidden lg:flex lg:flex-row lg:items-center lg:gap-4 lg:ml-auto text-sm lg:shrink-0">
         {% if perms.vins.view_vi %}
         <a href="/gestio/"
           class="inline-flex w-fit items-center justify-center px-4 py-1.5 rounded-full bg-violet-700 text-white hover:bg-violet-800 transition-colors">Gestió</a>
@@ -157,7 +157,7 @@
       </div>
 
       <div id="mobile-user-menu"
-        class="hidden xl:hidden absolute right-6 top-16 z-50 w-72 rounded-xl border border-gray-200 bg-white p-4 shadow-xl">
+        class="hidden lg:hidden absolute right-6 top-16 z-50 w-72 rounded-xl border border-gray-200 bg-white p-4 shadow-xl">
         {% if user.is_authenticated %}
         <p class="text-sm text-gray-500">Hola,</p>
         <p class="mb-3 text-base font-semibold text-gray-900">{{ user.first_name|default:user.username | capfirst }}</p>
@@ -200,7 +200,7 @@
 
 <script>
   (() => {
-    const mobileBreakpoint = 1280;
+    const mobileBreakpoint = 1024;
     const menuToggleBtn = document.querySelector('[data-menu-toggle]');
     const siteMenu = document.getElementById('site-menu');
     const userMenuToggleBtn = document.querySelector('[data-user-menu-toggle]');
