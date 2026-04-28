@@ -7,22 +7,23 @@ def home(request):
 	# Obtenir el vi més venut de cada tipus
 	top_by_type = {}
 	
-	for tipus_code, tipus_label in Vi.Tipus.choices:
-		vi_top = (
-			LineaComanda.objects
-			.filter(vi__tipus=tipus_code)
-			.values('vi')
-			.annotate(total_unitats=Sum('unitats'))
-			.order_by('-total_unitats')
-			.values_list('vi', flat=True)
-			.first()
+	for tipus_code, tipus_label in Vi.Tipus.choices: # Bucle per tipus de vi
+		vi_top = ( # ID del vi més venut
+			LineaComanda.objects # Filtrar les línies de comnda
+			.filter(vi__tipus=tipus_code) # Agrupa per tipus de vi
+			.values('vi') # Agrupa per vi
+			.annotate(total_unitats=Sum('unitats')) # Suma les unitats venudes per cada vi
+			.order_by('-total_unitats') # Ordena per total d'unitats venudes de manera descendent
+			.values_list('vi', flat=True) # Obté només els IDs dels vins
+			.first() # Agafa el primer ID
 		)
 		
-		top_vi = None
-		if vi_top:
+		top_vi = None 
+		if vi_top: # Si hi ha un vi més venut, obté el seu objecte
 			top_vi = Vi.objects.get(pk=vi_top)
 		
-		top_by_type[tipus_code] = {
+		# Context
+		top_by_type[tipus_code] = { 
 			'label': tipus_label,
 			'vi': top_vi
 		}
