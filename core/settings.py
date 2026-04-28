@@ -56,7 +56,6 @@ INSTALLED_APPS = [
     'apps.vins',
     'apps.usuaris',
     'apps.comandes',
-    'apps.subscripcions',
     'apps.gestio',
     'axes',
 ]

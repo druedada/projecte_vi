@@ -26,7 +26,6 @@ urlpatterns = [
     path('vins/', include('apps.vins.urls')),
     path('usuaris/', include('apps.usuaris.urls')),
     path('comandes/', include('apps.comandes.urls')),
-    path('subscripcions/', include('apps.subscripcions.urls')),
 	path('gestio/', include('apps.gestio.urls')),
     path('admin/', admin.site.urls),
 	path('faqs/', views.faqs, name='faqs'),
