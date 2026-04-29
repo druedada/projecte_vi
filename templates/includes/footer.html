@@ -1,72 +1,47 @@
-<footer class="container-padding" style="background: #fff; box-shadow: 0 -2px 8px 0 rgb(0 0 0 / 0.04);">
-  <div class="footer-container" style="display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap;">
-    <div class="rrss-circle-container" style="display: flex; gap: 1rem">
-      <a href="https://instagram.com" target="_blank" class="rrss-circle">
-        <img
-          src="/static/logos/instagram.svg"
-          alt="Instagram"
-          width="32"
-          height="32"
-        />
-      </a>
-      <a href="https://x.com" target="_blank" class="rrss-circle">
-        <img src="/static/logos/twitter.svg" alt="X" width="32" height="32" />
-      </a>
-      <a href="https://facebook.com" target="_blank" class="rrss-circle">
-        <img
-          src="/static/logos/facebook.svg"
-          alt="Facebook"
-          width="32"
-          height="32"
-        />
-      </a>
-    </div>
-    <div class="footer-legal">
-      <p style="margin: 0; text-align: center; flex: 1">
+<footer class="container-padding bg-white shadow-[0_-2px_8px_0_rgba(0,0,0,0.04)]">
+  <div class="flex flex-col lg:flex-row items-center justify-between gap-6">
+
+    <!-- Text Legal: A dalt en <lg, al mig en lg -->
+    <div class="order-1 lg:order-2 w-full lg:w-auto text-center lg:flex-none">
+      <p class="m-0 text-gray-600 text-sm sm:text-base leading-relaxed">
         &copy; {% now "Y" %} Projecte VI. Tots els drets reservats.
-      
-        <!-- Enllaços a polítiques -->
-        <a
-          href="#"
-          onclick="
-            openCookieBanner();
-            return false;
-          "
-          class="footer-link"
-          >Política de Cookies</a
-        >
-        |
-        <a
-          href="#"
-          onclick="
-            openPrivacyBanner();
-            return false;
-          "
-          class="footer-link"
-          >Política de Privacitat</a
-        >
+        <span class="mx-1 text-gray-300 hidden sm:inline">|</span>
+        <br class="sm:hidden" />
+        <a href="#" onclick="openCookieBanner(); return false;"
+          class="hover:text-primary transition-colors duration-200">Política de Cookies</a>
+        <span class="mx-1 text-gray-300">|</span>
+        <a href="#" onclick="openPrivacyBanner(); return false;"
+          class="hover:text-primary transition-colors duration-200">Política de Privacitat</a>
       </p>
     </div>
 
-    <div class="payment-methods-container" style="display: flex; gap: 1rem">
-      <div class="rrss-circle">
-        <img src="/static/logos/visa.svg" alt="Visa" width="32" height="32" />
+    <!-- Contenidor de Logos: Agrupa xarxes i pagaments per mantenir-los en la mateixa fila en <lg -->
+    <div class="order-2 lg:contents flex flex-col sm:flex-row justify-between items-center w-full gap-6">
+
+      <!-- Xarxes Socials -->
+      <div class="order-1 flex gap-4 lg:flex-1 lg:justify-start">
+        <a href="https://instagram.com" target="_blank" class="rrss-circle">
+          <img src="/static/logos/instagram.svg" alt="Instagram" width="32" height="32" />
+        </a>
+        <a href="https://x.com" target="_blank" class="rrss-circle">
+          <img src="/static/logos/twitter.svg" alt="X" width="32" height="32" />
+        </a>
+        <a href="https://facebook.com" target="_blank" class="rrss-circle">
+          <img src="/static/logos/facebook.svg" alt="Facebook" width="32" height="32" />
+        </a>
       </div>
-      <div class="rrss-circle">
-        <img
-          src="/static/logos/amex.svg"
-          alt="American Express"
-          width="32"
-          height="32"
-        />
-      </div>
-      <div class="rrss-circle">
-        <img
-          src="/static/logos/paypal.svg"
-          alt="PayPal"
-          width="32"
-          height="32"
-        />
+
+      <!-- Mètodes de Pagament -->
+      <div class="order-2 lg:order-3 flex gap-4 lg:flex-1 lg:justify-end">
+        <div class="rrss-circle">
+          <img src="/static/logos/visa.svg" alt="Visa" width="32" height="32" />
+        </div>
+        <div class="rrss-circle">
+          <img src="/static/logos/amex.svg" alt="American Express" width="32" height="32" />
+        </div>
+        <div class="rrss-circle">
+          <img src="/static/logos/paypal.svg" alt="PayPal" width="32" height="32" />
+        </div>
       </div>
     </div>
   </div>

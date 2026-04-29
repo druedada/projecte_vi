@@ -1,0 +1,160 @@
+<!-- Modals de Polítiques Legals -->
+
+<!-- Política de Cookies -->
+<div id="cookieModal"
+    class="hidden fixed inset-0 z-[100] flex items-center justify-center transition-opacity duration-300 opacity-0 font-sans">
+    <div class="absolute inset-0 bg-slate-900/40 backdrop-blur-sm" onclick="closeCookieBanner()"></div>
+    <div id="cookieContent"
+        class="relative bg-white w-full max-w-2xl max-h-[80vh] overflow-y-auto m-4 rounded-2xl shadow-2xl p-6 sm:p-8 transform scale-95 transition-transform duration-300">
+        <div class="flex justify-between items-start mb-6">
+            <h2 class="text-2xl font-serif font-bold text-text">Política de Cookies</h2>
+            <button onclick="closeCookieBanner()"
+                class="text-text-muted hover:text-text transition-colors cursor-pointer p-1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+
+        <div class="text-text-muted space-y-4">
+            <p class="text-base">Utilitzem cookies per millorar la teva experiència al nostre lloc web. En continuar
+                navegant, acceptes l'ús de les següents cookies:</p>
+
+            <h3 class="text-lg font-bold text-text pt-2">1. Què són les cookies?</h3>
+            <p class="text-sm md:text-base leading-relaxed">Les cookies són petits fitxers de text que s'emmagatzemen al
+                teu navegador quan visites quasi qualsevol pàgina web. La seva utilitat és que la web sigui capaç de
+                recordar la teva visita quan tornis a navegar per aquesta pàgina.</p>
+
+            <h3 class="text-lg font-bold text-text pt-2">2. Tipus de cookies que utilitzem</h3>
+            <ul class="list-disc pl-5 space-y-2 text-sm md:text-base">
+                <li><strong class="text-text">Cookies Tècniques:</strong> Són necessàries per al funcionament bàsic de
+                    la web, com mantenir la teva sessió o gestionar el carret de la compra.</li>
+                <li><strong class="text-text">Cookies de Personalització:</strong> Permeten recordar les teves
+                    preferències, com l'idioma.</li>
+                <li><strong class="text-text">Cookies d'Anàlisi:</strong> Ens ajuden a entendre com interactues amb la
+                    web per millorar els nostres serveis.</li>
+            </ul>
+
+            <h3 class="text-lg font-bold text-text pt-2">3. Com gestionar les cookies?</h3>
+            <p class="text-sm md:text-base leading-relaxed">Pots restringir, bloquejar o esborrar les cookies de
+                qualezvol lloc web mitjançant el teu navegador. A la funció d'"Ajuda" de cada navegador es detalla com
+                fer-ho.</p>
+        </div>
+
+        <div class="mt-8 flex justify-end">
+            <button onclick="closeCookieBanner()"
+                class="px-6 py-2 bg-primary text-white rounded-lg font-medium hover:bg-primary-dark transition-colors cursor-pointer shadow-lg shadow-primary/20">Acceptar</button>
+        </div>
+    </div>
+</div>
+
+<!-- Política de Privacitat -->
+<div id="privacyModal"
+    class="hidden fixed inset-0 z-[100] flex items-center justify-center transition-opacity duration-300 opacity-0 font-sans">
+    <div class="absolute inset-0 bg-slate-900/40 backdrop-blur-sm" onclick="closePrivacyBanner()"></div>
+    <div id="privacyContent"
+        class="relative bg-white w-full max-w-2xl max-h-[80vh] overflow-y-auto m-4 rounded-2xl shadow-2xl p-6 sm:p-8 transform scale-95 transition-transform duration-300">
+        <div class="flex justify-between items-start mb-6">
+            <h2 class="text-2xl font-serif font-bold text-text">Política de Privacitat</h2>
+            <button onclick="closePrivacyBanner()"
+                class="text-text-muted hover:text-text transition-colors cursor-pointer p-1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+
+        <div class="text-text-muted space-y-4">
+            <p class="text-base">A Projecte VI ens prenem molt seriosament la teva privacitat. Aquesta política detalla
+                com recollim i tractem les teves dades personals.</p>
+
+            <h3 class="text-lg font-bold text-text pt-2">1. Responsable del Tractament</h3>
+            <p class="text-sm md:text-base leading-relaxed">Projecte VI, amb domicili a Barcelona, és el responsable del
+                tractament de les dades recollides en aquest lloc web.</p>
+
+            <h3 class="text-lg font-bold text-text pt-2">2. Dades que recollim</h3>
+            <p class="text-sm md:text-base leading-relaxed">Recollim dades quan et registres, fas una comanda o
+                contactes amb nosaltres:</p>
+            <ul class="list-disc pl-5 space-y-2 text-sm md:text-base">
+                <li><strong class="text-text">Nom i cognoms.</strong></li>
+                <li><strong class="text-text">Adreça electrònica.</strong></li>
+                <li><strong class="text-text">Adreça de lliurament i facturació.</strong></li>
+                <li><strong class="text-text">Telèfon de contacte.</strong></li>
+            </ul>
+
+            <h3 class="text-lg font-bold text-text pt-2">3. Finalitat del tractament</h3>
+            <p class="text-sm md:text-base leading-relaxed">Utilitzem les dades per gestionar les teves comandes,
+                enviar-te actualitzacions sobre el teu enviament i, si ho has acceptat, informació comercial sobre els
+                nostres vins.</p>
+
+            <h3 class="text-lg font-bold text-text pt-2">4. Els teus drets</h3>
+            <p class="text-sm md:text-base leading-relaxed">Tens dret a accedir, rectificar, cancel·lar i oposar-te al
+                tractament de les teves dades en qualsevol moment enviant un correu a hola@projectevi.cat.</p>
+        </div>
+
+        <div class="mt-8 flex justify-end">
+            <button onclick="closePrivacyBanner()"
+                class="px-6 py-2 bg-primary text-white rounded-lg font-medium hover:bg-primary-dark transition-colors cursor-pointer shadow-lg shadow-primary/20">Acceptar</button>
+        </div>
+    </div>
+</div>
+
+<!-- Scripts per gestionar els Modals -->
+<script>
+    function openCookieBanner() {
+        const modal = document.getElementById('cookieModal');
+        const content = document.getElementById('cookieContent');
+        modal.classList.remove('hidden');
+        void modal.offsetWidth;
+        modal.classList.add('opacity-100');
+        content.classList.remove('scale-95');
+        content.classList.add('scale-100');
+        document.body.classList.add('overflow-hidden');
+    }
+
+    function closeCookieBanner() {
+        const modal = document.getElementById('cookieModal');
+        const content = document.getElementById('cookieContent');
+        modal.classList.remove('opacity-100');
+        content.classList.add('scale-95');
+        content.classList.remove('scale-100');
+        setTimeout(() => { modal.classList.add('hidden'); }, 300);
+        document.body.classList.remove('overflow-hidden');
+    }
+
+    function openPrivacyBanner() {
+        const modal = document.getElementById('privacyModal');
+        const content = document.getElementById('privacyContent');
+        modal.classList.remove('hidden');
+        void modal.offsetWidth;
+        modal.classList.add('opacity-100');
+        content.classList.remove('scale-95');
+        content.classList.add('scale-100');
+        document.body.classList.add('overflow-hidden');
+    }
+
+    function closePrivacyBanner() {
+        const modal = document.getElementById('privacyModal');
+        const content = document.getElementById('privacyContent');
+        modal.classList.remove('opacity-100');
+        content.classList.add('scale-95');
+        content.classList.remove('scale-100');
+        setTimeout(() => { modal.classList.add('hidden'); }, 300);
+        document.body.classList.remove('overflow-hidden');
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            closeCookieBanner();
+            closePrivacyBanner();
+        }
+    });
+</script>
+rivacyBanner();
+}
+});
+</script>
