@@ -19,14 +19,14 @@ def registre(request):
         form = UserRegisterForm(request.POST)
         if form.is_valid():
             user = form.save()
-            # Autenticación e inicio de sesión automático
+            # Autenticació i inici de sessió automàtic
             from django.contrib.auth import authenticate, login
             correu = form.cleaned_data['correu'].strip().lower()
             contrasenya = form.cleaned_data['contrasenya1']
             user = authenticate(request, username=correu, password=contrasenya)
             if user is not None:
                 login(request, user)
-            return redirect('core:home')  # Redirige tras registro correcto
+            return redirect('home')  # Redirigeix després del registre correcte
     else:
         form = UserRegisterForm()
     return render(request, 'usuaris/registre.html', {'form': form})
@@ -38,15 +38,15 @@ def login_view(request):
         if form.is_valid():
             correu = form.cleaned_data['correu'].strip().lower()
             contrasenya = form.cleaned_data['contrasenya']
-            # Comprobar si el usuario está bloqueado por Axes
+            # Comprovar si l'usuari està bloquejat per Axes
             if AxesProxyHandler.is_locked(request, credentials={'username': correu}):
                 error = get_lockout_message()
             else:
                 try:
-                    user_obj = User.objects.get(email=correu)
+                    user_obj = User.objects.get(email=correu)   
                     username = user_obj.username
                 except User.DoesNotExist:
-                    username = correu  # fallback por si username==email
+                    username = correu  # fallback per si username==email
                 user = authenticate(request, username=username, password=contrasenya)
                 if user is not None:
                     login(request, user)
