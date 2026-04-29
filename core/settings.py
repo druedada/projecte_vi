@@ -35,8 +35,8 @@ LANGUAGE_CODE = 'es'
 AXES_FAILURE_LIMIT = 3  # Número de intentos fallidos permitidos
 AXES_COOLOFF_TIME = 1  # Tiempo de bloqueo en horas 
 AXES_RESET_ON_SUCCESS = True  # Reinicia el contador tras login correcto
-AXES_USERNAME_FORM_FIELD = 'correu'  # El formulario de login usa 'correu' en vez de 'username'
-AXES_LOCKOUT_PARAMETERS = ['username', 'ip_address']  # Bloquea por usuario e IP con el campo correcto
+AXES_USERNAME_FORM_FIELD = 'username'  # Usar 'username' para coincidir con authenticate() y checks
+AXES_LOCKOUT_PARAMETERS = ['username']  # Bloquea solo por nombre de usuario (evita bloquear toda una IP)
 # Configuración de backends de autenticación para django-axes
 AUTHENTICATION_BACKENDS = [
     'axes.backends.AxesStandaloneBackend',

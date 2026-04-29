@@ -32,22 +32,23 @@ def registre(request):
     return render(request, 'usuaris/registre.html', {'form': form})
 
 def login_view(request):
-    error = None # Missatge externs al formulari (Axes)
+    error = None # Missatges externs al formulari (Axes)
     form = UserLoginForm()
     if request.method == 'POST':
         form = UserLoginForm(request.POST)
         if form.is_valid():
             correu = form.cleaned_data['correu'].strip().lower()
             contrasenya = form.cleaned_data['contrasenya']
-            # Comprovar si l'usuari està bloquejat per Axes
-            if AxesProxyHandler.is_locked(request, credentials={'username': correu}):
+            # Determinar username real per a django-axes (buscar per email)
+            try:
+                user_obj = User.objects.get(email=correu) 
+                username = user_obj.username # Utilitzar el username real per coincidir amb authenticate() i checks de Axes
+            except User.DoesNotExist:
+                username = correu  # fallback per si username==email 
+            # Comprobar si l'usuari està bloquejat per Axes (utilitzar username real)
+            if AxesProxyHandler.is_locked(request, credentials={'username': username}):
                 error = get_lockout_message()
             else:
-                try:
-                    user_obj = User.objects.get(email=correu)   
-                    username = user_obj.username
-                except User.DoesNotExist:
-                    username = correu  # fallback per si username==email
                 user = authenticate(request, username=username, password=contrasenya)
                 if user is not None:
                     login(request, user)
