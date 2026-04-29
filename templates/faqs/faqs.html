@@ -18,10 +18,13 @@ VI{% endblock %} {% block content %}
 
   <div class="border-t border-gray-100">
     {% for faq in faqs %}
-    <div class="faq-item border-b border-gray-100">
+    {% with forloop.counter as idx %}
+    <div class="faq-item border-b border-gray-100" id="faq-item-{{ idx }}">
       <button
-        class="faq-toggle w-full flex justify-between items-center py-6 text-left focus:outline-none group"
+        class="faq-toggle w-full flex justify-between items-center py-6 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-primary group"
         aria-expanded="false"
+        aria-controls="faq-content-{{ idx }}"
+        id="faq-button-{{ idx }}"
       >
         <span
           class="text-xl md:text-2xl font-light text-[#231815] group-hover:text-primary transition-colors duration-300"
@@ -42,6 +45,8 @@ VI{% endblock %} {% block content %}
 
       <div
         class="faq-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out"
+        id="faq-content-{{ idx }}"
+        aria-labelledby="faq-button-{{ idx }}"
       >
         <div class="pb-8">
           <p class="text-lg text-gray-600 font-light leading-relaxed">
@@ -50,6 +55,7 @@ VI{% endblock %} {% block content %}
         </div>
       </div>
     </div>
+    {% endwith %}
     {% endfor %}
   </div>
 </div>
