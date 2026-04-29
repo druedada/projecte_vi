@@ -86,6 +86,8 @@ class UserRegisterForm(forms.ModelForm):
 
         if commit:
             user.save()
+            clients_group, _ = Group.objects.get_or_create(name="Clients")
+            user.groups.add(clients_group)
 
         return user
 
