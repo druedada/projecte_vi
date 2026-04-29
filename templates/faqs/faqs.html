@@ -54,12 +54,6 @@ VI{% endblock %} {% block content %}
   </div>
 </div>
 
-<style>
-  .faq-item.active .faq-icon-v {
-    transform: rotate(90deg);
-    opacity: 0;
-  }
-</style>
 
 <script>
   document.querySelectorAll(".faq-toggle").forEach((button) => {
@@ -73,13 +67,16 @@ VI{% endblock %} {% block content %}
         if (item !== faqItem) {
           item.classList.remove("active");
           item.querySelector(".faq-content").style.maxHeight = null;
-          item
-            .querySelector(".faq-toggle")
-            .setAttribute("aria-expanded", "false");
+          item.querySelector(".faq-toggle").setAttribute("aria-expanded", "false");
+          const iconV = item.querySelector(".faq-icon-v");
+          iconV.classList.remove("rotate-90", "opacity-0");
         }
       });
 
       faqItem.classList.toggle("active");
+      const iconV = faqItem.querySelector(".faq-icon-v");
+      iconV.classList.toggle("rotate-90");
+      iconV.classList.toggle("opacity-0");
 
       if (!isOpen) {
         content.style.maxHeight = content.scrollHeight + "px";

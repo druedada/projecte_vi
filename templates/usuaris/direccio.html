@@ -15,19 +15,7 @@
     
   </form>
 </div>
-<style>
-  .field-error {
-    color: #b02a37;
-    font-size: 0.875rem;
-    margin-top: 0.25rem;
-  }
 
-  .field-invalid {
-    border-color: #b02a37;
-    outline: none;
-    box-shadow: 0 0 0 0.15rem rgba(176, 42, 55, 0.15);
-  }
-</style>
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("registre-form");
@@ -68,10 +56,10 @@
 
     function getErrorNode(input) {
       const parent = input.closest("p") || input.parentElement;
-      let node = parent.querySelector(".field-error.js-error");
+      let node = parent.querySelector(".js-error");
       if (!node) {
         node = document.createElement("div");
-        node.className = "field-error js-error";
+        node.className = "text-red-700 text-sm mt-1 js-error";
         parent.appendChild(node);
       }
       return node;
@@ -80,13 +68,13 @@
     function setError(input, message) {
       const node = getErrorNode(input);
       node.textContent = message;
-      input.classList.add("field-invalid");
+      input.classList.add("border-red-700", "focus:ring-red-700/20", "focus:border-red-700");
     }
 
     function clearError(input) {
       const node = getErrorNode(input);
       node.textContent = "";
-      input.classList.remove("field-invalid");
+      input.classList.remove("border-red-700", "focus:ring-red-700/20", "focus:border-red-700");
     }
 
     function validateField(name) {
