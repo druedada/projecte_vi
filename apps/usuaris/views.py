@@ -15,24 +15,25 @@ def index(request):
 
 
 def registre(request):
-    if request.method == 'POST':
-        form = UserRegisterForm(request.POST)
-        if form.is_valid():
-            user = form.save()
+    form = UserRegisterForm() # Instància el formulari buit per defecte
+    if request.method == 'POST': # Si s'ha enviat el formulari
+        form = UserRegisterForm(request.POST) # Crea el formulari amb les dades rebudes
+        if form.is_valid(): # Si el formulari és vàlid
+            user = form.save() # Guarda el usuari
             # Autenticació i inici de sessió automàtic
             from django.contrib.auth import authenticate, login
             correu = form.cleaned_data['correu'].strip().lower()
             contrasenya = form.cleaned_data['contrasenya1']
-            user = authenticate(request, username=correu, password=contrasenya)
+            user = authenticate(request, username=correu, password=contrasenya) # Autentica l'usuari
             if user is not None:
                 login(request, user)
             return redirect('home')  # Redirigeix després del registre correcte
-    else:
-        form = UserRegisterForm()
+
     return render(request, 'usuaris/registre.html', {'form': form})
 
 def login_view(request):
-    error = None
+    error = None # Missatge externs al formulari (Axes)
+    form = UserLoginForm()
     if request.method == 'POST':
         form = UserLoginForm(request.POST)
         if form.is_valid():
@@ -55,8 +56,7 @@ def login_view(request):
                     return redirect('home')
                 else:
                     error = 'Correu o contrasenya incorrectes.'
-    else:
-        form = UserLoginForm()
+
     return render(request, 'usuaris/login.html', {'form': form, 'error': error})
 
 def logout_view(request):
@@ -65,11 +65,16 @@ def logout_view(request):
 
 @login_required
 def direccio(request):
+    form = AdressForm()
     if request.method == 'POST':
         form = AdressForm(request.POST)
         if form.is_valid():
             form.save(user=request.user)
             return redirect('usuaris:index')
-    else:
-        form = AdressForm()
+            
     return render(request, 'usuaris/direccio.html', {'form': form})
+
+def custom_lockout_view(request, credentials=None):
+    form = UserLoginForm()
+    error = get_lockout_message()
+    return render(request, 'usuaris/login.html', {'form': form, 'error': error})
