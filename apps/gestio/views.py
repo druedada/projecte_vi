@@ -2,6 +2,9 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect, render
 from django.db.models import Count, Sum, Avg, Min, Max, Q
+from urllib.parse import urlencode
+from django.urls import reverse
+from axes.handlers.proxy import AxesProxyHandler
 from apps.vins.models import Vi
 from django.contrib.auth.models import User
 from apps.comandes.models import Carret, Comanda, LineaComanda
@@ -151,6 +154,36 @@ def _estadistiques(request, section):
 		or request.user.groups.filter(name='Gestor').exists()
 		or request.user.has_perm('comandes.change_comanda')
 	)
+	can_manage_users = (
+		request.user.is_staff
+		or request.user.is_superuser
+		or request.user.groups.filter(name='Gestor').exists()
+		or request.user.has_perm('auth.change_user')
+	)
+	users_q = request.POST.get('q', request.GET.get('q', '')).strip()
+
+	if section == 'usuaris' and request.method == 'POST':
+		if not can_manage_users:
+			messages.error(request, 'No tens permisos per gestionar comptes d\'usuari.')
+			return redirect(f'gestio:estadistiques_{section}')
+
+		user_id = request.POST.get('user_id')
+		action = request.POST.get('user_action')
+		user_obj = get_object_or_404(User, pk=user_id)
+
+		if action == 'toggle_active':
+			user_obj.is_active = not user_obj.is_active
+			user_obj.save(update_fields=['is_active'])
+			message = 'Compte activat.' if user_obj.is_active else 'Compte bloquejat.'
+			messages.success(request, f'Usuari {user_obj.username}: {message}')
+		elif action == 'reset_axes':
+			reset_count = AxesProxyHandler.reset_attempts(username=user_obj.username)
+			messages.success(request, f'S\'han reiniciat {reset_count} intents d\'Axes per a {user_obj.username}.')
+		else:
+			messages.error(request, 'Acció d\'usuari no vàlida.')
+
+		query_string = f'?{urlencode({"q": users_q})}' if users_q else ''
+		return redirect(f'{reverse(f"gestio:estadistiques_{section}")}{query_string}')
 
 	if request.method == 'POST':
 		if not can_manage_orders:
@@ -263,7 +296,21 @@ def _estadistiques(request, section):
 	carret_by_user = list(carret_by_user.values())
 
 	# Usuaris: comptatge de comandes
-	users_qs = User.objects.all().annotate(num_comandes=Count('comandes'))
+	users_qs = User.objects.all().annotate(num_comandes=Count('comandes', distinct=True))
+	if users_q:
+		users_qs = users_qs.filter(
+			Q(username__icontains=users_q)
+			| Q(email__icontains=users_q)
+			| Q(first_name__icontains=users_q)
+			| Q(last_name__icontains=users_q)
+		)
+	users_qs = users_qs.order_by('username')
+	users_list = []
+	for user_obj in users_qs:
+		users_list.append({
+			'user': user_obj,
+			'axes_locked': AxesProxyHandler.is_locked(request, credentials={'username': user_obj.username}),
+		})
 
 	# Afegim al context
 	context.update({
@@ -274,7 +321,8 @@ def _estadistiques(request, section):
 		'total_revenue': total_revenue,
 		'top_sold': {'labels': [i['vi__nom'] for i in top_sold_qs], 'values': [i['units_sold'] for i in top_sold_qs]},
 		'carret_by_user': carret_by_user,
-		'users_list': users_qs,
+		'users_list': users_list,
+		'users_q': users_q,
 	})
 
 	return render(request, 'gestio/estadistiques/estadistiques.html', context)
