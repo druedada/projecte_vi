@@ -1,858 +1,58 @@
 [
 {
-  "model": "admin.logentry",
-  "pk": 1,
-  "fields": {
-    "action_time": "2026-04-14T09:50:44.728Z",
-    "user": 1,
-    "content_type": 2,
-    "object_id": "2",
-    "object_repr": "Gestor",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
+  "model": "auth.user",
   "pk": 2,
   "fields": {
-    "action_time": "2026-04-14T09:52:13.389Z",
-    "user": 1,
-    "content_type": 4,
-    "object_id": "2",
-    "object_repr": "jordi@trupiessu.cat",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"fields\": [\"Groups\"]}}]"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 1,
-  "fields": {
-    "name": "Can add log entry",
-    "content_type": 1,
-    "codename": "add_logentry"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 2,
-  "fields": {
-    "name": "Can change log entry",
-    "content_type": 1,
-    "codename": "change_logentry"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 3,
-  "fields": {
-    "name": "Can delete log entry",
-    "content_type": 1,
-    "codename": "delete_logentry"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 4,
-  "fields": {
-    "name": "Can view log entry",
-    "content_type": 1,
-    "codename": "view_logentry"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 5,
-  "fields": {
-    "name": "Can add permission",
-    "content_type": 3,
-    "codename": "add_permission"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 6,
-  "fields": {
-    "name": "Can change permission",
-    "content_type": 3,
-    "codename": "change_permission"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 7,
-  "fields": {
-    "name": "Can delete permission",
-    "content_type": 3,
-    "codename": "delete_permission"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 8,
-  "fields": {
-    "name": "Can view permission",
-    "content_type": 3,
-    "codename": "view_permission"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 9,
-  "fields": {
-    "name": "Can add group",
-    "content_type": 2,
-    "codename": "add_group"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 10,
-  "fields": {
-    "name": "Can change group",
-    "content_type": 2,
-    "codename": "change_group"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 11,
-  "fields": {
-    "name": "Can delete group",
-    "content_type": 2,
-    "codename": "delete_group"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 12,
-  "fields": {
-    "name": "Can view group",
-    "content_type": 2,
-    "codename": "view_group"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 13,
-  "fields": {
-    "name": "Can add user",
-    "content_type": 4,
-    "codename": "add_user"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 14,
-  "fields": {
-    "name": "Can change user",
-    "content_type": 4,
-    "codename": "change_user"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 15,
-  "fields": {
-    "name": "Can delete user",
-    "content_type": 4,
-    "codename": "delete_user"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 16,
-  "fields": {
-    "name": "Can view user",
-    "content_type": 4,
-    "codename": "view_user"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 17,
-  "fields": {
-    "name": "Can add content type",
-    "content_type": 5,
-    "codename": "add_contenttype"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 18,
-  "fields": {
-    "name": "Can change content type",
-    "content_type": 5,
-    "codename": "change_contenttype"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 19,
-  "fields": {
-    "name": "Can delete content type",
-    "content_type": 5,
-    "codename": "delete_contenttype"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 20,
-  "fields": {
-    "name": "Can view content type",
-    "content_type": 5,
-    "codename": "view_contenttype"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 21,
-  "fields": {
-    "name": "Can add session",
-    "content_type": 6,
-    "codename": "add_session"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 22,
-  "fields": {
-    "name": "Can change session",
-    "content_type": 6,
-    "codename": "change_session"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 23,
-  "fields": {
-    "name": "Can delete session",
-    "content_type": 6,
-    "codename": "delete_session"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 24,
-  "fields": {
-    "name": "Can view session",
-    "content_type": 6,
-    "codename": "view_session"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 25,
-  "fields": {
-    "name": "Can add Vi",
-    "content_type": 7,
-    "codename": "add_vi"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 26,
-  "fields": {
-    "name": "Can change Vi",
-    "content_type": 7,
-    "codename": "change_vi"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 27,
-  "fields": {
-    "name": "Can delete Vi",
-    "content_type": 7,
-    "codename": "delete_vi"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 28,
-  "fields": {
-    "name": "Can view Vi",
-    "content_type": 7,
-    "codename": "view_vi"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 29,
-  "fields": {
-    "name": "Can add adreces",
-    "content_type": 8,
-    "codename": "add_adreces"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 30,
-  "fields": {
-    "name": "Can change adreces",
-    "content_type": 8,
-    "codename": "change_adreces"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 31,
-  "fields": {
-    "name": "Can delete adreces",
-    "content_type": 8,
-    "codename": "delete_adreces"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 32,
-  "fields": {
-    "name": "Can view adreces",
-    "content_type": 8,
-    "codename": "view_adreces"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 33,
-  "fields": {
-    "name": "Can add access attempt",
-    "content_type": 9,
-    "codename": "add_accessattempt"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 34,
-  "fields": {
-    "name": "Can change access attempt",
-    "content_type": 9,
-    "codename": "change_accessattempt"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 35,
-  "fields": {
-    "name": "Can delete access attempt",
-    "content_type": 9,
-    "codename": "delete_accessattempt"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 36,
-  "fields": {
-    "name": "Can view access attempt",
-    "content_type": 9,
-    "codename": "view_accessattempt"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 37,
-  "fields": {
-    "name": "Can add access log",
-    "content_type": 12,
-    "codename": "add_accesslog"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 38,
-  "fields": {
-    "name": "Can change access log",
-    "content_type": 12,
-    "codename": "change_accesslog"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 39,
-  "fields": {
-    "name": "Can delete access log",
-    "content_type": 12,
-    "codename": "delete_accesslog"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 40,
-  "fields": {
-    "name": "Can view access log",
-    "content_type": 12,
-    "codename": "view_accesslog"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 41,
-  "fields": {
-    "name": "Can add access failure",
-    "content_type": 11,
-    "codename": "add_accessfailurelog"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 42,
-  "fields": {
-    "name": "Can change access failure",
-    "content_type": 11,
-    "codename": "change_accessfailurelog"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 43,
-  "fields": {
-    "name": "Can delete access failure",
-    "content_type": 11,
-    "codename": "delete_accessfailurelog"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 44,
-  "fields": {
-    "name": "Can view access failure",
-    "content_type": 11,
-    "codename": "view_accessfailurelog"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 45,
-  "fields": {
-    "name": "Can add access attempt expiration",
-    "content_type": 10,
-    "codename": "add_accessattemptexpiration"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 46,
-  "fields": {
-    "name": "Can change access attempt expiration",
-    "content_type": 10,
-    "codename": "change_accessattemptexpiration"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 47,
-  "fields": {
-    "name": "Can delete access attempt expiration",
-    "content_type": 10,
-    "codename": "delete_accessattemptexpiration"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 48,
-  "fields": {
-    "name": "Can view access attempt expiration",
-    "content_type": 10,
-    "codename": "view_accessattemptexpiration"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 49,
-  "fields": {
-    "name": "Can add Item del carret",
-    "content_type": 13,
-    "codename": "add_carret"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 50,
-  "fields": {
-    "name": "Can change Item del carret",
-    "content_type": 13,
-    "codename": "change_carret"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 51,
-  "fields": {
-    "name": "Can delete Item del carret",
-    "content_type": 13,
-    "codename": "delete_carret"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 52,
-  "fields": {
-    "name": "Can view Item del carret",
-    "content_type": 13,
-    "codename": "view_carret"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 53,
-  "fields": {
-    "name": "Can add usuari direccio",
-    "content_type": 14,
-    "codename": "add_usuaridireccio"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 54,
-  "fields": {
-    "name": "Can change usuari direccio",
-    "content_type": 14,
-    "codename": "change_usuaridireccio"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 55,
-  "fields": {
-    "name": "Can delete usuari direccio",
-    "content_type": 14,
-    "codename": "delete_usuaridireccio"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 56,
-  "fields": {
-    "name": "Can view usuari direccio",
-    "content_type": 14,
-    "codename": "view_usuaridireccio"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 57,
-  "fields": {
-    "name": "Can add Comanda",
-    "content_type": 15,
-    "codename": "add_comanda"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 58,
-  "fields": {
-    "name": "Can change Comanda",
-    "content_type": 15,
-    "codename": "change_comanda"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 59,
-  "fields": {
-    "name": "Can delete Comanda",
-    "content_type": 15,
-    "codename": "delete_comanda"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 60,
-  "fields": {
-    "name": "Can view Comanda",
-    "content_type": 15,
-    "codename": "view_comanda"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 61,
-  "fields": {
-    "name": "Can add Línia de comanda",
-    "content_type": 16,
-    "codename": "add_lineacomanda"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 62,
-  "fields": {
-    "name": "Can change Línia de comanda",
-    "content_type": 16,
-    "codename": "change_lineacomanda"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 63,
-  "fields": {
-    "name": "Can delete Línia de comanda",
-    "content_type": 16,
-    "codename": "delete_lineacomanda"
-  }
-},
-{
-  "model": "auth.permission",
-  "pk": 64,
-  "fields": {
-    "name": "Can view Línia de comanda",
-    "content_type": 16,
-    "codename": "view_lineacomanda"
-  }
-},
-{
-  "model": "auth.group",
-  "pk": 1,
-  "fields": {
-    "name": "Clients",
-    "permissions": []
-  }
-},
-{
-  "model": "auth.group",
-  "pk": 2,
-  "fields": {
-    "name": "Gestor",
-    "permissions": [
-      25,
-      26,
-      27,
-      28
-    ]
+    "password": "!",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "jordi@trupiessu.cat",
+    "first_name": "Jordi",
+    "last_name": "",
+    "email": "jordi@trupiessu.cat",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-04-14T09:50:44Z",
+    "groups": [],
+    "user_permissions": []
   }
 },
 {
   "model": "auth.user",
-  "pk": 1,
+  "pk": 3,
   "fields": {
-    "password": "pbkdf2_sha256$1200000$W4sifMOXEExx2s2168wq9W$uQchCyjfP5NXvpnhTuVlyis06DWeSwjMyh0Sfhs7VEQ=",
-    "last_login": "2026-04-21T15:24:22.809Z",
+    "password": "!",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "usuari3",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-04-14T09:50:44Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 4,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$fLcRyZiQrL2yUQyqzV0rgz$tpZs0E406TpP+AVZ81P+YbJ3kSXkfRxIsqYr4BXv8mA=",
+    "last_login": "2026-05-11T01:05:36.240Z",
     "is_superuser": true,
     "username": "admin",
     "first_name": "",
     "last_name": "",
-    "email": "admin@trupiessu.cat",
+    "email": "admin@admin.com",
     "is_staff": true,
     "is_active": true,
-    "date_joined": "2026-04-14T09:36:19.022Z",
-    "groups": [],
-    "user_permissions": []
-  }
-},
-{
-  "model": "auth.user",
-  "pk": 2,
-  "fields": {
-    "password": "pbkdf2_sha256$1200000$2olBGyqKR0ecOGXXihp5FK$YLKsjht6g0uAcDlewBrRqcnrMU9Jd10GAkRXkk88fo8=",
-    "last_login": "2026-04-27T18:14:37.647Z",
-    "is_superuser": false,
-    "username": "jordi@trupiessu.cat",
-    "first_name": "jordi",
-    "last_name": "gorka",
-    "email": "jordi@trupiessu.cat",
-    "is_staff": false,
-    "is_active": true,
-    "date_joined": "2026-04-14T09:49:31Z",
+    "date_joined": "2026-05-11T01:05:17.878Z",
     "groups": [
-      1,
-      2
+      3
     ],
     "user_permissions": []
-  }
-},
-{
-  "model": "auth.user",
-  "pk": 3,
-  "fields": {
-    "password": "pbkdf2_sha256$1200000$t5VTHFDB8SCWgYlF0dKkoI$aNvw6KHfHrCCnDeS7moVsXLCSv0260thzdLwUeFG80I=",
-    "last_login": "2026-04-22T10:11:32.259Z",
-    "is_superuser": false,
-    "username": "daruedada@gmail.com",
-    "first_name": "dani",
-    "last_name": "rueda",
-    "email": "daruedada@gmail.com",
-    "is_staff": false,
-    "is_active": true,
-    "date_joined": "2026-04-22T10:07:39.824Z",
-    "groups": [],
-    "user_permissions": []
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 1,
-  "fields": {
-    "app_label": "admin",
-    "model": "logentry"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 2,
-  "fields": {
-    "app_label": "auth",
-    "model": "group"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 3,
-  "fields": {
-    "app_label": "auth",
-    "model": "permission"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 4,
-  "fields": {
-    "app_label": "auth",
-    "model": "user"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 5,
-  "fields": {
-    "app_label": "contenttypes",
-    "model": "contenttype"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 6,
-  "fields": {
-    "app_label": "sessions",
-    "model": "session"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 7,
-  "fields": {
-    "app_label": "vins",
-    "model": "vi"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 8,
-  "fields": {
-    "app_label": "usuaris",
-    "model": "adreces"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 9,
-  "fields": {
-    "app_label": "axes",
-    "model": "accessattempt"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 10,
-  "fields": {
-    "app_label": "axes",
-    "model": "accessattemptexpiration"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 11,
-  "fields": {
-    "app_label": "axes",
-    "model": "accessfailurelog"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 12,
-  "fields": {
-    "app_label": "axes",
-    "model": "accesslog"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 13,
-  "fields": {
-    "app_label": "comandes",
-    "model": "carret"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 14,
-  "fields": {
-    "app_label": "usuaris",
-    "model": "usuaridireccio"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 15,
-  "fields": {
-    "app_label": "comandes",
-    "model": "comanda"
-  }
-},
-{
-  "model": "contenttypes.contenttype",
-  "pk": 16,
-  "fields": {
-    "app_label": "comandes",
-    "model": "lineacomanda"
-  }
-},
-{
-  "model": "sessions.session",
-  "pk": "0x9dm7tqff5fh7xgpt1908u4e94za5k7",
-  "fields": {
-    "session_data": "e30:1wCaMn:UtF3rPpsp-25YRNizzziDIO17FyxKftTTg_dP-ZQpk8",
-    "expire_date": "2026-04-28T09:47:33.420Z"
-  }
-},
-{
-  "model": "sessions.session",
-  "pk": "9g01l4i1f23jpdt03fnl6y9tx0ld0d5a",
-  "fields": {
-    "session_data": ".eJxVjDsOwjAQBe_iGlnOxp-Ekj5nsHbtNQ4gW4qTCnF3EikFtG9m3lt43Nbst8aLn6O4ChCX340wPLkcID6w3KsMtazLTPJQ5EmbnGrk1-10_w4ytrzXzhgOqdfUIcBge61MVBg1BMKE5MCORjl2SbF1DP2YqAMbcHcHMKTF5wvfLjeZ:1wFZr9:ugptraDD4VeJ59EMHmzJ1Y5LVmfJQ3ARq6ttCq5UJNA",
-    "expire_date": "2026-05-06T15:51:15.938Z"
-  }
-},
-{
-  "model": "sessions.session",
-  "pk": "b3yb2rdq14rljwvhvq97spwuidq7jd8f",
-  "fields": {
-    "session_data": ".eJxVjEEOwiAQRe_C2hBKgWlduvcMzQwzSNVAUtqV8e7apAvd_vfef6kJtzVPW5NlmlmdVadOvxthfEjZAd-x3KqOtazLTHpX9EGbvlaW5-Vw_w4ytvytMfpAQujYO-OtFQ9AYpzDHozFYYiJTAwjGAFMHQREGVPi1IMD61m9P_MjOGA:1wCbEB:7weMMm8CpoWO8DkNlA7I73MEtRtYvrlF67Y_cCuuhgk",
-    "expire_date": "2026-04-28T10:42:43.465Z"
-  }
-},
-{
-  "model": "sessions.session",
-  "pk": "kzonojol8m84t8mtgty6nossy80k34pj",
-  "fields": {
-    "session_data": ".eJxVjDsOwjAQBe_iGlnOxp-Ekj5nsHbtNQ4gW4qTCnF3EikFtG9m3lt43Nbst8aLn6O4ChCX340wPLkcID6w3KsMtazLTPJQ5EmbnGrk1-10_w4ytrzXzhgOqdfUIcBge61MVBg1BMKE5MCORjl2SbF1DP2YqAMbcHcHMKTF5wvfLjeZ:1wHQTd:pOH6o8Upavm0RmYvoq5mtSWmBifCYjCKzKxzWH6Hz3c",
-    "expire_date": "2026-05-11T18:14:37.661Z"
-  }
-},
-{
-  "model": "sessions.session",
-  "pk": "rhqlsxih2ludv1jctin8uk35r8ukacmj",
-  "fields": {
-    "session_data": "e30:1wCam4:dAc2T0Ea5_eo6ei07NK4pPnP1gg5XJfbLM6jhDtAQuI",
-    "expire_date": "2026-04-28T10:13:40.508Z"
-  }
-},
-{
-  "model": "sessions.session",
-  "pk": "tf3kv6r95ynveumde352xu0abi8kmdto",
-  "fields": {
-    "session_data": "e30:1wCamH:VczfeG2BXEsdfCDiMYacWGbmQv18uukq9P0q3PEQZb0",
-    "expire_date": "2026-04-28T10:13:53.305Z"
   }
 },
 {
@@ -863,7 +63,7 @@
     "origen": "Bierzo",
     "tipus": "NEGRE",
     "preu": "11.65",
-    "stock": 48,
+    "stock": 46,
     "any_collita": 2019,
     "imatge": "vins/pittacum_mencia_75WgYJM.jpg",
     "descripcio": "Perfil fresc i elegant, amb notes de fruita vermella, tocs florals i un final suau i equilibrat. És un vi amb caràcter atlàntic, ideal per a carns, guisats i formatges curats.",
@@ -1040,7 +240,7 @@
   "pk": 13,
   "fields": {
     "nom": "Ca N'Estruc Rosat",
-    "origen": "Ctalunya",
+    "origen": "Catalunya",
     "tipus": "ROSAT",
     "preu": "8.70",
     "stock": 48,
@@ -1076,7 +276,7 @@
     "stock": 48,
     "any_collita": 2024,
     "imatge": "vins/llopart_carmi.jpg",
-    "descripcio": "La cava Llopart está ubicada en la Heredad \"Can Llopart de Subirats\", en el municipio de Subirats, entre el Ordal y el macizo del Garraf, a cuatro kilómetros de Sant Sadurní d'Anoia. La bodega de elaboración y crianza está rodeada de viñedos de la propiedad y coexiste con una masía típica catalana del siglo XIV, de las más antiguas del Penedès, con valiosos elementos arquitectónicos.",
+    "descripcio": "El celler Llopart està situat a l’Heretat “Can Llopart de Subirats”, al municipi de Subirats, entre l’Ordal i el massís del Garraf, a quatre quilòmetres de Sant Sadurní d’Anoia. El celler d’elaboració i criança està envoltat de vinyes de la propietat i conviu amb una masia típica catalana del segle XIV, una de les més antigues del Penedès, amb valuosos elements arquitectònics.",
     "es_actiu": true
   }
 },
@@ -1091,7 +291,7 @@
     "stock": 48,
     "any_collita": 2025,
     "imatge": "vins/llopat_vitis.jpg",
-    "descripcio": "La cava Llopart está ubicada en la Heredad \"Can Llopart de Subirats\", en el municipio de Subirats, entre el Ordal y el macizo del Garraf, a cuatro kilómetros de Sant Sadurní d'Anoia. La bodega de elaboración y crianza está rodeada de viñedos de la propiedad y coexiste con una masía típica catalana del siglo XIV, de las más antiguas del Penedès, con valiosos elementos arquitectónicos.",
+    "descripcio": "El celler Llopart està situat a l’Heretat “Can Llopart de Subirats”, al municipi de Subirats, entre l’Ordal i el massís del Garraf, a quatre quilòmetres de Sant Sadurní d’Anoia. El celler d’elaboració i criança està envoltat de vinyes de la propietat i conviu amb una masia típica catalana del segle XIV, una de les més antigues del Penedès, amb valuosos elements arquitectònics.",
     "es_actiu": true
   }
 },
@@ -1106,7 +306,7 @@
     "stock": 48,
     "any_collita": 2024,
     "imatge": "vins/llopart_vi_brant.jpg",
-    "descripcio": "La cava Llopart está ubicada en la Heredad \"Can Llopart de Subirats\", en el municipio de Subirats, entre el Ordal y el macizo del Garraf, a cuatro kilómetros de Sant Sadurní d'Anoia. La bodega de elaboración y crianza está rodeada de viñedos de la propiedad y coexiste con una masía típica catalana del siglo XIV, de las más antiguas del Penedès, con valiosos elementos arquitectónicos.",
+    "descripcio": "El celler Llopart està situat a l’Heretat “Can Llopart de Subirats”, al municipi de Subirats, entre l’Ordal i el massís del Garraf, a quatre quilòmetres de Sant Sadurní d’Anoia. El celler d’elaboració i criança està envoltat de vinyes de la propietat i conviu amb una masia típica catalana del segle XIV, una de les més antigues del Penedès, amb valuosos elements arquitectònics.",
     "es_actiu": true
   }
 },
@@ -1196,6 +396,16 @@
   }
 },
 {
+  "model": "usuaris.adreces",
+  "pk": 5,
+  "fields": {
+    "cp": "08292",
+    "poblacio": "esparreguera",
+    "carrer": "arbres",
+    "numero": "22"
+  }
+},
+{
   "model": "usuaris.usuaridireccio",
   "pk": 1,
   "fields": {
@@ -1209,6 +419,14 @@
   "fields": {
     "user": 2,
     "direccio": 4
+  }
+},
+{
+  "model": "usuaris.usuaridireccio",
+  "pk": 3,
+  "fields": {
+    "user": 4,
+    "direccio": 5
   }
 },
 {
@@ -1305,6 +523,18 @@
   }
 },
 {
+  "model": "comandes.comanda",
+  "pk": 5,
+  "fields": {
+    "user": 4,
+    "direccio": 5,
+    "estat": "ENTREGADA",
+    "data_creacio": "2026-05-11T01:08:01.589Z",
+    "data_actualitzacio": "2026-05-11T01:08:26.527Z",
+    "total": "23.30"
+  }
+},
+{
   "model": "comandes.lineacomanda",
   "pk": 1,
   "fields": {
@@ -1375,367 +605,13 @@
   }
 },
 {
-  "model": "axes.accesslog",
-  "pk": 1,
-  "fields": {
-    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36",
-    "ip_address": "127.0.0.1",
-    "username": "admin",
-    "http_accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
-    "path_info": "/admin/login/",
-    "attempt_time": "2026-04-14T09:47:04.762Z",
-    "logout_time": "2026-04-14T09:47:18.092Z",
-    "session_hash": "71a26d9f9e3b9c35636bf9d040256f84bce250a4190831eeb4d1fe61841520b1"
-  }
-},
-{
-  "model": "axes.accesslog",
-  "pk": 2,
-  "fields": {
-    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36",
-    "ip_address": "127.0.0.1",
-    "username": "admin",
-    "http_accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
-    "path_info": "/usuaris/login/",
-    "attempt_time": "2026-04-14T09:47:33.743Z",
-    "logout_time": null,
-    "session_hash": "e5af63895888a7d4ebc7a47108a001e0a0dd9c31fda81b9b0d6879047450b2ed"
-  }
-},
-{
-  "model": "axes.accesslog",
-  "pk": 3,
-  "fields": {
-    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36",
-    "ip_address": "127.0.0.1",
-    "username": "jordi@trupiessu.cat",
-    "http_accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
-    "path_info": "/usuaris/registre/",
-    "attempt_time": "2026-04-14T09:49:33.642Z",
-    "logout_time": null,
-    "session_hash": "a8c6e5120085e34153c5fe2fca758c3d6c2622dfc66102f77927e1e4cdd45e73"
-  }
-},
-{
-  "model": "axes.accesslog",
-  "pk": 4,
-  "fields": {
-    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36",
-    "ip_address": "127.0.0.1",
-    "username": "admin",
-    "http_accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
-    "path_info": "/admin/login/",
-    "attempt_time": "2026-04-14T09:49:58.635Z",
-    "logout_time": "2026-04-14T09:51:04.751Z",
-    "session_hash": "dccdde28131ffc878b71c74ea908b42b26aa92e62c733658bccb9102b3328543"
-  }
-},
-{
-  "model": "axes.accesslog",
-  "pk": 5,
-  "fields": {
-    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36",
-    "ip_address": "127.0.0.1",
-    "username": "jordi@trupiessu.cat",
-    "http_accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
-    "path_info": "/usuaris/login/",
-    "attempt_time": "2026-04-14T09:51:14.811Z",
-    "logout_time": null,
-    "session_hash": "15bb2da709b1affea6e3c5662260dd1715e8d054b76b91c452f855a9e7d93078"
-  }
-},
-{
-  "model": "axes.accesslog",
-  "pk": 6,
-  "fields": {
-    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36",
-    "ip_address": "127.0.0.1",
-    "username": "admin",
-    "http_accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
-    "path_info": "/admin/login/",
-    "attempt_time": "2026-04-14T09:51:41.930Z",
-    "logout_time": "2026-04-14T10:13:28.888Z",
-    "session_hash": "338aea762024a8a67bc6b04e2d15955ee862610f5e4b40805a0c19017b68bcd6"
-  }
-},
-{
-  "model": "axes.accesslog",
-  "pk": 7,
-  "fields": {
-    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36",
-    "ip_address": "127.0.0.1",
-    "username": "jordi@trupiessu.cat",
-    "http_accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
-    "path_info": "/usuaris/login/",
-    "attempt_time": "2026-04-14T10:13:40.680Z",
-    "logout_time": null,
-    "session_hash": "03ae0acaddfa9c1a00cf5888c50fae9fbf8d83512e0b710a7bb886db98621a38"
-  }
-},
-{
-  "model": "axes.accesslog",
+  "model": "comandes.lineacomanda",
   "pk": 8,
   "fields": {
-    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36",
-    "ip_address": "127.0.0.1",
-    "username": "jordi@trupiessu.cat",
-    "http_accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
-    "path_info": "/usuaris/login/",
-    "attempt_time": "2026-04-14T10:13:53.640Z",
-    "logout_time": null,
-    "session_hash": "2fb409ffd096e26b1fb17f70f20cc35d66f328e7c417a9f309cd7748531a1948"
-  }
-},
-{
-  "model": "axes.accesslog",
-  "pk": 9,
-  "fields": {
-    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36",
-    "ip_address": "127.0.0.1",
-    "username": "jordi@trupiessu.cat",
-    "http_accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
-    "path_info": "/usuaris/login/",
-    "attempt_time": "2026-04-14T10:21:34.766Z",
-    "logout_time": null,
-    "session_hash": "62b2c4afdcfa4d6fa33714dd2749071020325cb98ad96961d2d67f05f3b72849"
-  }
-},
-{
-  "model": "axes.accesslog",
-  "pk": 10,
-  "fields": {
-    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36",
-    "ip_address": "127.0.0.1",
-    "username": "admin",
-    "http_accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
-    "path_info": "/admin/login/",
-    "attempt_time": "2026-04-14T10:41:37.169Z",
-    "logout_time": "2026-04-14T10:41:44.703Z",
-    "session_hash": "51af027539144cf597394f3662d6b333a26ec7cfe2532e690e0d3d16a811f899"
-  }
-},
-{
-  "model": "axes.accesslog",
-  "pk": 11,
-  "fields": {
-    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36",
-    "ip_address": "127.0.0.1",
-    "username": "admin",
-    "http_accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
-    "path_info": "/admin/login/",
-    "attempt_time": "2026-04-14T10:42:42.668Z",
-    "logout_time": null,
-    "session_hash": "03ff280b85bac3c863e2e686e4af3fc6f4c9456f959e8d6c9bfe0489a71ed4ea"
-  }
-},
-{
-  "model": "axes.accesslog",
-  "pk": 12,
-  "fields": {
-    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36",
-    "ip_address": "127.0.0.1",
-    "username": "jordi@trupiessu.cat",
-    "http_accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
-    "path_info": "/usuaris/login/",
-    "attempt_time": "2026-04-17T14:38:54.458Z",
-    "logout_time": "2026-04-19T21:49:11.937Z",
-    "session_hash": "d1cf4563b6efc68fba929f451b4180ec95c04b5633a97fa9200115e62c1f9439"
-  }
-},
-{
-  "model": "axes.accesslog",
-  "pk": 13,
-  "fields": {
-    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36",
-    "ip_address": "127.0.0.1",
-    "username": "jordi@trupiessu.cat",
-    "http_accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
-    "path_info": "/usuaris/login/",
-    "attempt_time": "2026-04-19T10:14:55.437Z",
-    "logout_time": "2026-04-19T10:15:15.608Z",
-    "session_hash": "f0d721055f47ea7ea80b0f9e486f0c5bb8ef09976d01a2f6c60bf8606673de21"
-  }
-},
-{
-  "model": "axes.accesslog",
-  "pk": 14,
-  "fields": {
-    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36",
-    "ip_address": "127.0.0.1",
-    "username": "jordi@trupiessu.cat",
-    "http_accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
-    "path_info": "/usuaris/login/",
-    "attempt_time": "2026-04-19T10:15:39.647Z",
-    "logout_time": "2026-04-21T11:42:45.819Z",
-    "session_hash": "4b6285800ff6267c37fda16db2f28ce4f6311502456484ab60a69db9c495d0de"
-  }
-},
-{
-  "model": "axes.accesslog",
-  "pk": 15,
-  "fields": {
-    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36",
-    "ip_address": "127.0.0.1",
-    "username": "jordi@trupiessu.cat",
-    "http_accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
-    "path_info": "/usuaris/login/",
-    "attempt_time": "2026-04-19T21:49:29.983Z",
-    "logout_time": null,
-    "session_hash": "f3373a28efd214b64bc2acbf33f7b0d9d7fa6fb7ca4405e615c448ca1ac8ae47"
-  }
-},
-{
-  "model": "axes.accesslog",
-  "pk": 16,
-  "fields": {
-    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36",
-    "ip_address": "127.0.0.1",
-    "username": "admin",
-    "http_accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
-    "path_info": "/admin/login/",
-    "attempt_time": "2026-04-19T22:09:18.779Z",
-    "logout_time": "2026-04-21T11:49:41.403Z",
-    "session_hash": "5da791a8cdc14029b2f36d6e77376df4723896113ba9d9a870f26e98257d63e5"
-  }
-},
-{
-  "model": "axes.accesslog",
-  "pk": 17,
-  "fields": {
-    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36",
-    "ip_address": "127.0.0.1",
-    "username": "jordi@trupiessu.cat",
-    "http_accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
-    "path_info": "/usuaris/login/",
-    "attempt_time": "2026-04-21T14:18:56.542Z",
-    "logout_time": null,
-    "session_hash": "050620c119d237f0457eda88ef22b5fafb2570db6d346d3feb8b558c7158ce08"
-  }
-},
-{
-  "model": "axes.accesslog",
-  "pk": 18,
-  "fields": {
-    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36",
-    "ip_address": "127.0.0.1",
-    "username": "admin",
-    "http_accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
-    "path_info": "/admin/login/",
-    "attempt_time": "2026-04-21T15:24:22.515Z",
-    "logout_time": "2026-04-21T15:32:45.991Z",
-    "session_hash": "d2fdb862b697d52432cdbec3ad2f74d80dc4a0fafd646e9f391a633c4163c8f9"
-  }
-},
-{
-  "model": "axes.accesslog",
-  "pk": 19,
-  "fields": {
-    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36",
-    "ip_address": "127.0.0.1",
-    "username": "jordi@trupiessu.cat",
-    "http_accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
-    "path_info": "/usuaris/login/",
-    "attempt_time": "2026-04-21T15:33:20.568Z",
-    "logout_time": "2026-04-22T10:07:11.426Z",
-    "session_hash": "478711d8aed36a7c5451f7c74c492488eb29c209f5f6ced2db36996dd0dd9c74"
-  }
-},
-{
-  "model": "axes.accesslog",
-  "pk": 20,
-  "fields": {
-    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36",
-    "ip_address": "127.0.0.1",
-    "username": "daruedada@gmail.com",
-    "http_accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
-    "path_info": "/usuaris/registre/",
-    "attempt_time": "2026-04-22T10:07:40.975Z",
-    "logout_time": "2026-04-22T10:11:20.924Z",
-    "session_hash": "d55fb28616907dd2bc82e576e381911e286327f435a20ea2bb8dd7f77eab8aa3"
-  }
-},
-{
-  "model": "axes.accesslog",
-  "pk": 21,
-  "fields": {
-    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36",
-    "ip_address": "127.0.0.1",
-    "username": "daruedada@gmail.com",
-    "http_accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
-    "path_info": "/usuaris/login/",
-    "attempt_time": "2026-04-22T10:11:32.084Z",
-    "logout_time": "2026-04-22T12:00:27.027Z",
-    "session_hash": "60c2bc99ebbeb49475d3e248b4c58231337b9c8c343feedf0d6f47de51104e26"
-  }
-},
-{
-  "model": "axes.accesslog",
-  "pk": 22,
-  "fields": {
-    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36",
-    "ip_address": "127.0.0.1",
-    "username": "jordi@trupiessu.cat",
-    "http_accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
-    "path_info": "/usuaris/login/",
-    "attempt_time": "2026-04-22T13:49:08.469Z",
-    "logout_time": "2026-04-22T15:51:04.076Z",
-    "session_hash": "f7c47f80486f67476dd4455f20a2e757eb6f26c7681c9e8e429f470b6e5d1f0d"
-  }
-},
-{
-  "model": "axes.accesslog",
-  "pk": 23,
-  "fields": {
-    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36",
-    "ip_address": "127.0.0.1",
-    "username": "jordi@trupiessu.cat",
-    "http_accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
-    "path_info": "/usuaris/login/",
-    "attempt_time": "2026-04-22T15:51:15.902Z",
-    "logout_time": null,
-    "session_hash": "4acc2da95b549eecf9fcee1cd6b09312159f11ca82cc9a6fd5d15234fa1b119e"
-  }
-},
-{
-  "model": "axes.accesslog",
-  "pk": 24,
-  "fields": {
-    "user_agent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Mobile Safari/537.36",
-    "ip_address": "127.0.0.1",
-    "username": "jordi@trupiessu.cat",
-    "http_accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
-    "path_info": "/usuaris/login/",
-    "attempt_time": "2026-04-27T11:38:12.193Z",
-    "logout_time": "2026-04-27T11:39:55.309Z",
-    "session_hash": "4108287d6143a5b43e5421f762a92167fa505054a03f70d4b24b3f439db53893"
-  }
-},
-{
-  "model": "axes.accesslog",
-  "pk": 25,
-  "fields": {
-    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36",
-    "ip_address": "127.0.0.1",
-    "username": "jordi@trupiessu.cat",
-    "http_accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
-    "path_info": "/usuaris/login/",
-    "attempt_time": "2026-04-27T11:45:29.890Z",
-    "logout_time": "2026-04-27T17:58:01.243Z",
-    "session_hash": "cb9b00d7defff2a199a470c927c8627785fe7a1163f28ff38029544cf158bcea"
-  }
-},
-{
-  "model": "axes.accesslog",
-  "pk": 26,
-  "fields": {
-    "user_agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36",
-    "ip_address": "127.0.0.1",
-    "username": "jordi@trupiessu.cat",
-    "http_accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
-    "path_info": "/usuaris/login/",
-    "attempt_time": "2026-04-27T18:14:37.624Z",
-    "logout_time": null,
-    "session_hash": "4853f42639a028d8609bce7c3825a0cefa27120f317e463353d98d98a1d5d490"
+    "comanda": 5,
+    "vi": 1,
+    "unitats": 2,
+    "preu_unitari": "11.65"
   }
 }
 ]
