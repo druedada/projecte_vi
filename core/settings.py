@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -99,11 +100,11 @@ WSGI_APPLICATION = 'core.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'projecte_vi', # Nom de la BBDD
-        'USER': 'root',
-        'PASSWORD': 'EwnizEv5',  # De secure_installation
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
+        'NAME': config('DB_NAME', default='projecte_vi'),
+        'USER': config('DB_USER', default='projecte_user'),
+        'PASSWORD': config('DB_PASSWORD', default=''),
+        'HOST': config('DB_HOST', default='127.0.0.1'),
+        'PORT': config('DB_PORT', default='3306'),
     }
 }
 
