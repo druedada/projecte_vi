@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     'apps.comandes',
     'apps.gestio',
     'axes',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [

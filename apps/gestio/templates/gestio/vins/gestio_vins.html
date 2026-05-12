@@ -6,7 +6,7 @@
 <section class="max-w-6xl mx-auto px-6 py-10">
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
         <div>
-            <h2 class="text-2xl font-bold text-gray-900">Gestió de vins</h2>
+            <h1 class="text-2xl font-bold text-gray-900">Gestió de vins</h1>
             <p class="text-sm text-gray-500">Administra els vins del cataleg.</p>
         </div>
         {% if perms.vins.add_vi %}
@@ -19,8 +19,11 @@
     <!-- Filtres i orden per a llistat de gestió -->
     <form method="get" class="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div class="flex items-center gap-2">
-            <input type="search" name="q" placeholder="Cerca per nom" value="{{ q|default:'' }}" class="border rounded px-3 py-2" />
-            <select name="tipus" class="border rounded px-3 py-2">
+            <label for="search-nom" class="sr-only">Cerca per nom</label>
+            <input type="search" id="search-nom" name="q" placeholder="Cerca per nom" value="{{ q|default:'' }}" class="border rounded px-3 py-2" />
+            
+            <label for="filter-tipus" class="sr-only">Tipus de vi</label>
+            <select id="filter-tipus" name="tipus" class="border rounded px-3 py-2">
                 <option value="">Tots els tipus</option>
                 {% for t in tipus_choices %}
                 <option value="{{ t }}" {% if t == tipus_selected %}selected{% endif %}>{{ t }}</option>
@@ -28,7 +31,8 @@
             </select>
         </div>
         <div class="flex items-center gap-2">
-            <select name="order" class="border rounded px-3 py-2">
+            <label for="filter-order" class="sr-only">Ordenar per</label>
+            <select id="filter-order" name="order" class="border rounded px-3 py-2">
                 <option value="nom_asc" {% if order == 'nom_asc' %}selected{% endif %}>Nom (A→Z)</option>
                 <option value="preu_asc" {% if order == 'preu_asc' %}selected{% endif %}>Preu (baix→alt)</option>
                 <option value="preu_desc" {% if order == 'preu_desc' %}selected{% endif %}>Preu (alt→baix)</option>
@@ -40,8 +44,8 @@
         </div>
     </form>
 
-    <div class="bg-white border border-gray-100 rounded-xl shadow-sm overflow-hidden">
-        <table class="w-full text-left text-sm">
+    <div class="bg-white border border-gray-100 rounded-xl shadow-sm overflow-x-auto">
+        <table class="w-full min-w-[920px] text-left text-sm">
             <thead class="bg-gray-50 text-gray-600">
                 <tr>
                     <th class="px-4 py-3">Nom</th>
@@ -104,7 +108,7 @@
                 </tr>
                 {% empty %}
                 <tr>
-                    <td colspan="5" class="px-4 py-8 text-center text-gray-500">No hi ha vins registrats.</td>
+                    <td colspan="7" class="px-4 py-8 text-center text-gray-500">No hi ha vins registrats.</td>
                 </tr>
                 {% endfor %}
             </tbody>

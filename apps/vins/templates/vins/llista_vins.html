@@ -8,21 +8,26 @@
 
     <!-- Capçalera de la secció -->
     <div class="mb-10">
-        <h2 class="text-3xl font-bold text-gray-900">Vins disponibles</h2>
+        <h1 class="text-3xl font-bold text-gray-900">Vins disponibles</h1>
         <p class="mt-1 text-sm text-gray-500">{{ vins|length }} vins al catàleg</p>
     </div>
 
     <!-- Filtres i ordre -->
     <form method="get" class="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div class="flex items-center gap-2">
-            <input type="search" name="q" placeholder="Cerca per nom o descripció" value="{{ q|default:'' }}" class="border rounded px-3 py-2 w-64" />
-            <select name="tipus" class="border rounded px-3 py-2">
+            <label for="search-q" class="sr-only">Cerca per nom o descripció</label>
+            <input type="search" id="search-q" name="q" placeholder="Cerca per nom o descripció" value="{{ q|default:'' }}" class="border rounded px-3 py-2 w-64" />
+            
+            <label for="filter-tipus" class="sr-only">Tipus de vi</label>
+            <select id="filter-tipus" name="tipus" class="border rounded px-3 py-2">
                 <option value="">Tots els tipus</option>
                 {% for t in tipus_choices %}
                 <option value="{{ t }}" {% if t == tipus_selected %}selected{% endif %}>{{ t }}</option>
                 {% endfor %}
             </select>
-            <select name="origen" class="border rounded px-3 py-2">
+            
+            <label for="filter-origen" class="sr-only">Origen del vi</label>
+            <select id="filter-origen" name="origen" class="border rounded px-3 py-2">
                 <option value="">Tots els orígens</option>
                 {% for o in origens %}
                 <option value="{{ o }}" {% if o == origen_selected %}selected{% endif %}>{{ o }}</option>
@@ -30,15 +35,14 @@
             </select>
         </div>
         <div class="flex items-center gap-2">
-            <select name="order" class="border rounded px-3 py-2">
+            <label for="filter-order" class="sr-only">Ordenar per</label>
+            <select id="filter-order" name="order" class="border rounded px-3 py-2">
                 <option value="nom_asc" {% if order == 'nom_asc' %}selected{% endif %}>Ordenar: Nom (A→Z)</option>
                 <option value="preu_asc" {% if order == 'preu_asc' %}selected{% endif %}>Preu (baix→alt)</option>
                 <option value="preu_desc" {% if order == 'preu_desc' %}selected{% endif %}>Preu (alt→baix)</option>
                 <option value="any_desc" {% if order == 'any_desc' %}selected{% endif %}>Any (més nou)</option>
                 <option value="any_asc" {% if order == 'any_asc' %}selected{% endif %}>Any (més antic)</option>
             </select>
-            <label class="flex items-center gap-2 text-sm">
-            </label>
             <button type="submit" class="px-3 py-2 rounded bg-violet-700 text-white">Filtrar</button>
             <a href="?" class="px-3 py-2 rounded border">Netejar</a>
         </div>
@@ -68,7 +72,7 @@
 
                 <!-- Nom + badge tipus -->
                 <div class="flex items-start justify-between gap-2">
-                    <h3 class="text-base font-semibold text-gray-900 leading-snug">{{ vi.nom }}</h3>
+                    <h2 class="text-base font-semibold text-gray-900 leading-snug">{{ vi.nom }}</h2>
                     <span class="shrink-0 px-2 py-0.5 rounded-full text-xs font-medium
                         {% if vi.tipus == 'NEGRE' %}bg-red-100 text-red-700
                         {% elif vi.tipus == 'BLANC' %}bg-yellow-50 text-yellow-700
@@ -109,9 +113,10 @@
                     <form method="post" action="{% url 'comandes:afegir_al_carret' vi.id %}" class="flex items-center gap-2">
                         {% csrf_token %}
                         <input type="hidden" name="next" value="{{ request.get_full_path }}">
-                        <button type="button" class="px-2 py-1 rounded bg-gray-200 hover:bg-gray-300 text-gray-700" onclick="var qty=this.parentNode.querySelector('[name=quantitat]');qty.value=Math.max(1,parseInt(qty.value||'1')-1)">-</button>
-                        <input type="number" name="quantitat" value="1" min="1" max="{{ vi.stock }}" class="comptador w-12 text-center border rounded" />
-                        <button type="button" class="px-2 py-1 rounded bg-gray-200 hover:bg-gray-300 text-gray-700" onclick="var qty=this.parentNode.querySelector('[name=quantitat]');qty.value=Math.min({{ vi.stock }},parseInt(qty.value||'1')+1)">+</button>
+                        <label for="qty-{{ vi.id }}" class="sr-only">Quantitat de {{ vi.nom }}</label>
+                        <button type="button" class="px-2 py-1 rounded bg-gray-200 hover:bg-gray-300 text-gray-700" aria-label="Disminuir quantitat" onclick="var qty=this.parentNode.querySelector('[name=quantitat]');qty.value=Math.max(1,parseInt(qty.value||'1')-1)">-</button>
+                        <input type="number" id="qty-{{ vi.id }}" name="quantitat" value="1" min="1" max="{{ vi.stock }}" class="comptador w-12 text-center border rounded" />
+                        <button type="button" class="px-2 py-1 rounded bg-gray-200 hover:bg-gray-300 text-gray-700" aria-label="Augmentar quantitat" onclick="var qty=this.parentNode.querySelector('[name=quantitat]');qty.value=Math.min({{ vi.stock }},parseInt(qty.value||'1')+1)">+</button>
                         <button type="submit" class="ml-2 inline-flex items-center gap-2 px-3 py-1 rounded bg-violet-700 text-white hover:bg-violet-800 transition-colors">
                             <svg
                                 width="24"
@@ -120,6 +125,7 @@
                                 fill="none"
                                 xmlns="http://www.w3.org/2000/svg"
                                 class="shrink-0"
+                                aria-hidden="true"
                             >
                                 <path
                                 d="M21 5L19 12H7.37671M20 16H8L6 3H3M11.5 7L13.5 9M13.5 9L15.5 7M13.5 9V3M9 20C9 20.5523 8.55228 21 8 21C7.44772 21 7 20.5523 7 20C7 19.4477 7.44772 19 8 19C8.55228 19 9 19.4477 9 20ZM20 20C20 20.5523 19.5523 21 19 21C18.4477 21 18 20.5523 18 20C18 19.4477 18.4477 19 19 19C19.5523 19 20 19.4477 20 20Z"

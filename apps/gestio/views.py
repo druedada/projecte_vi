@@ -171,7 +171,7 @@ def _estadistiques(request, section):
 		action = request.POST.get('user_action')
 		user_obj = get_object_or_404(User, pk=user_id)
 
-		if action == 'toggle_active':
+		if action == 'toggle_active': # Bloqueja o desbloqueja l'usuari al model User 
 			user_obj.is_active = not user_obj.is_active
 			user_obj.save(update_fields=['is_active'])
 			message = 'Compte activat.' if user_obj.is_active else 'Compte bloquejat.'

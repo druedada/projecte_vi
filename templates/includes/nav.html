@@ -58,8 +58,10 @@
         </svg>
       </button>
 
+      <div id="site-menu-backdrop" class="hidden absolute inset-0 bg-black/40 z-40 lg:hidden"></div>
+
       <div id="site-menu"
-        class="hidden absolute left-0 right-0 top-16 px-6 pb-4 pt-2 {% if request.resolver_match.url_name == 'home' %}bg-black/70 backdrop-blur-md lg:bg-transparent lg:backdrop-blur-none{% else %}bg-white border-t border-gray-100{% endif %} lg:static lg:flex lg:flex-1 lg:items-center lg:gap-6 lg:border-0 lg:p-0">
+        class="hidden absolute left-0 right-0 top-16 px-6 pb-4 pt-2 {% if request.resolver_match.url_name == 'home' %}bg-black/70 backdrop-blur-md lg:bg-transparent lg:backdrop-blur-none{% else %}bg-white border-t border-gray-100{% endif %} z-50 lg:static lg:flex lg:flex-1 lg:items-center lg:gap-6 lg:border-0 lg:p-0">
         <!-- Nav links -->
         <ul
           class="flex flex-col gap-3 lg:flex-1 lg:flex-row lg:items-center lg:justify-center lg:gap-8 text-sm font-medium {% if request.resolver_match.url_name == 'home' %}text-white/90{% else %}text-gray-600{% endif %}">
@@ -129,7 +131,8 @@
         </span>
 
         <a href="/usuaris/logout/"
-          class="inline-flex w-fit items-center justify-center px-4 py-1.5 rounded-full border {% if request.resolver_match.url_name == 'home' %}border-white/30 text-white hover:border-violet-600 hover:text-violet-700{% else %}border-gray-300 text-gray-600 hover:border-violet-600 hover:text-violet-700{% endif %} transition-colors">
+          class="inline-flex w-fit items-center justify-center px-4 py-1.5 rounded-full border {% if request.resolver_match.url_name == 'home' %}border-white/30 text-white hover:border-violet-600 hover:text-violet-700{% else %}border-gray-300 text-gray-600 hover:border-violet-600 hover:text-violet-700{% endif %} transition-colors"
+          aria-label="Tancar sessió (menú desktop)">
           Tancar sessió
         </a>
         {% else %}
@@ -162,7 +165,8 @@
         <p class="text-sm text-gray-500">Hola,</p>
         <p class="mb-3 text-base font-semibold text-gray-900">{{ user.first_name|default:user.username | capfirst }}</p>
         <a href="/usuaris/logout/"
-          class="inline-flex w-full items-center justify-center rounded-full border border-gray-300 px-4 py-2 text-sm text-gray-700 hover:border-violet-600 hover:text-violet-700 transition-colors">Tancar sessió</a>
+          class="inline-flex w-full items-center justify-center rounded-full border border-gray-300 px-4 py-2 text-sm text-gray-700 hover:border-violet-600 hover:text-violet-700 transition-colors"
+          aria-label="Tancar sessió (menú mòbil)">Tancar sessió</a>
         {% if perms.vins.view_vi %}
         <a href="/gestio/"
           class="mt-2 inline-flex w-full items-center justify-center rounded-full bg-violet-700 px-4 py-2 text-sm text-white hover:bg-violet-800 transition-colors">Gestió</a>
@@ -207,6 +211,7 @@
     const userMenu = document.getElementById('mobile-user-menu');
     const openIcon = menuToggleBtn?.querySelector('[data-menu-open-icon]');
     const closeIcon = menuToggleBtn?.querySelector('[data-menu-close-icon]');
+    const backdrop = document.getElementById('site-menu-backdrop');
 
     const setMenuOpenState = (isOpen) => {
       if (!menuToggleBtn || !siteMenu) return;
@@ -215,6 +220,10 @@
       siteMenu.classList.toggle('block', isOpen);
       openIcon?.classList.toggle('hidden', isOpen);
       closeIcon?.classList.toggle('hidden', !isOpen);
+      if (backdrop) {
+        backdrop.classList.toggle('hidden', !isOpen);
+        backdrop.classList.toggle('block', isOpen);
+      }
     };
 
     const setUserMenuOpenState = (isOpen) => {
@@ -239,7 +248,7 @@
         });
       });
 
-      document.addEventListener('click', (event) => {
+        document.addEventListener('click', (event) => {
         const target = event.target;
         const clickedMenuButton = menuToggleBtn.contains(target);
         const clickedUserButton = userMenuToggleBtn?.contains(target);
@@ -254,6 +263,10 @@
           setUserMenuOpenState(false);
         }
       });
+
+      if (backdrop) {
+        backdrop.addEventListener('click', () => setMenuOpenState(false));
+      }
 
       window.addEventListener('resize', () => {
         if (window.innerWidth >= mobileBreakpoint) {

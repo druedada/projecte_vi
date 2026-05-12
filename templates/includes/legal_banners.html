@@ -3,15 +3,18 @@
 <!-- Política de Cookies -->
 <div id="cookieModal"
     class="hidden fixed inset-0 z-[100] flex items-center justify-center transition-opacity duration-300 opacity-0 font-sans">
-    <div class="absolute inset-0 bg-slate-900/40 backdrop-blur-sm" onclick="closeCookieBanner()"></div>
+    <button class="absolute inset-0 bg-slate-900/40 backdrop-blur-sm" onclick="closeCookieBanner()"
+        aria-label="Cerrar"
+        onkeydown="if(event.key==='Enter' || event.key===' ') closeCookieBanner()"></button>
     <div id="cookieContent"
         class="relative bg-white w-full max-w-2xl max-h-[80vh] overflow-y-auto m-4 rounded-2xl shadow-2xl p-6 sm:p-8 transform scale-95 transition-transform duration-300">
         <div class="flex justify-between items-start mb-6">
             <h2 class="text-2xl font-serif font-bold text-text">Política de Cookies</h2>
             <button onclick="closeCookieBanner()"
-                class="text-text-muted hover:text-text transition-colors cursor-pointer p-1">
+                class="text-text-muted hover:text-text transition-colors cursor-pointer p-1"
+                aria-label="Cerrar política de cookies">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                     <line x1="18" y1="6" x2="6" y2="18"></line>
                     <line x1="6" y1="6" x2="18" y2="18"></line>
                 </svg>
@@ -53,15 +56,18 @@
 <!-- Política de Privacitat -->
 <div id="privacyModal"
     class="hidden fixed inset-0 z-[100] flex items-center justify-center transition-opacity duration-300 opacity-0 font-sans">
-    <div class="absolute inset-0 bg-slate-900/40 backdrop-blur-sm" onclick="closePrivacyBanner()"></div>
+    <button class="absolute inset-0 bg-slate-900/40 backdrop-blur-sm" onclick="closePrivacyBanner()"
+        aria-label="Cerrar"
+        onkeydown="if(event.key==='Enter' || event.key===' ') closePrivacyBanner()"></button>
     <div id="privacyContent"
         class="relative bg-white w-full max-w-2xl max-h-[80vh] overflow-y-auto m-4 rounded-2xl shadow-2xl p-6 sm:p-8 transform scale-95 transition-transform duration-300">
         <div class="flex justify-between items-start mb-6">
             <h2 class="text-2xl font-serif font-bold text-text">Política de Privacitat</h2>
             <button onclick="closePrivacyBanner()"
-                class="text-text-muted hover:text-text transition-colors cursor-pointer p-1">
+                class="text-text-muted hover:text-text transition-colors cursor-pointer p-1"
+                aria-label="Cerrar política de privacitat">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                     <line x1="18" y1="6" x2="6" y2="18"></line>
                     <line x1="6" y1="6" x2="18" y2="18"></line>
                 </svg>
