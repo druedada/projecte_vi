@@ -6,6 +6,14 @@ Aplicació web desenvolupada amb **Django 5.1** per gestionar i vendre vins en l
 
 ## Tecnologies
 
+[![Python 3.x](https://img.shields.io/badge/Python-3.x-3776ab?logo=python&logoColor=white)](https://www.python.org/)
+[![Django 5.1](https://img.shields.io/badge/Django-5.1-092E20?logo=django&logoColor=white)](https://www.djangoproject.com/)
+[![MySQL 8](https://img.shields.io/badge/MySQL-8-4479A1?logo=mysql&logoColor=white)](https://www.mysql.com/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-CSS-38B2AC?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+[![Chart.js](https://img.shields.io/badge/Chart.js-Visualizations-FF6384?logo=chartdotjs&logoColor=white)](https://www.chartjs.org/)
+[![Node.js](https://img.shields.io/badge/Node.js-ES6+-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
+[![npm](https://img.shields.io/badge/npm-Package%20Manager-CB3837?logo=npm&logoColor=white)](https://www.npmjs.com/)
+
 | Tecnologia | Versió / Detalls |
 |---|---|
 | Python | 3.x |
@@ -95,47 +103,130 @@ El flux és seguit des de l'app relacionada directament a la gestió pròpia.
 
 ## Com executar el projecte
 
-### Prerequisits
-- Python 3.x
-- MySQL 8 en funcionament amb la base de dades `projecte_vi` creada i l'usuari configurat.
+### Configuració rápida (recomanat) ⚡
 
-### Configuració
+La manera més ràpida és usar l'script d'instal·lació automàtica:
 
-1. **Crea i activa l'entorn virtual**:
-   ```bash
-   python3 -m venv venv
-   source venv/bin/activate
-   ```
+```bash
+cd ./projecte_vi
+chmod +x setup.sh
+./setup.sh
+```
 
-2. **Instal·la les dependències**:
-   ```bash
-   pip install -r requirements.txt
-   ```
+L'script farà automàticament:
+- Comprovació de dependències del sistema
+- Configuració interactiva del `.env`
+- Creació de la base de dades MySQL i usuari
+- Càrrega de zones horàries MySQL
+- Creació de l'entorn virtual Python
+- Instal·lació de dependències Python
+- Aplicació de migracions
+- Càrrega de dades inicials (`bbdd.json`)
+- Opció d'crear superusuari
+- Compilació de Tailwind CSS
 
-3. **Aplica migracions**:
-   ```bash
-   python manage.py makemigrations
-   python manage.py migrate
-   ```
+Una vegada completat:
+```bash
+source venv/bin/activate
+python manage.py runserver
+```
 
-4. **Crea un superusuari** (opcional, per accedir a `/admin`):
-   ```bash
-   python manage.py createsuperuser
-   ```
+---
 
-5. **Compila Tailwind CSS** (en una terminal separada):
-   ```bash
-   # Compilació única
-   venv/bin/tailwindcss -i static/css/input.css -o static/css/output.css
+### Configuració manual
 
-   # Mode watch (recompila automàticament en cada canvi)
-   venv/bin/tailwindcss -i static/css/input.css -o static/css/output.css --watch
-   ```
+Si prefereixes fer-ho pas a pas, segueix aquests passos:
 
-6. **Executa el servidor**:
-   ```bash
-   python manage.py runserver
-   ```
+#### 1. **Instal·la les dependències del sistema**
+```bash
+sudo apt update
+sudo apt install -y python3 python3-venv nodejs npm mysql-server
+```
+
+#### 2. **Configura MySQL i crea la base de dades**
+```bash
+# Accedeix a MySQL com a root
+sudo mysql -u root
+
+# Dins de MySQL, executa (substitueix contrasenya_a_escollir per una contrasenya forta):
+```sql
+CREATE DATABASE projecte_vi CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE USER 'projecte_user'@'localhost' IDENTIFIED BY 'contrasenya_a_escollir';
+GRANT ALL PRIVILEGES ON projecte_vi.* TO 'projecte_user'@'localhost';
+FLUSH PRIVILEGES;
+EXIT;
+```
+```
+
+#### 3. **Carrega les zones horàries a MySQL**
+```bash
+# Com a root, carrega les zones horàries del sistema en la BD mysql
+sudo mysql_tzinfo_to_sql /usr/share/zoneinfo | sudo mysql -u root mysql
+
+# Otorga permisos de lectura a l'usuari de la BD
+sudo mysql -u root -e "GRANT SELECT ON mysql.time_zone TO 'projecte_user'@'localhost'; \
+  GRANT SELECT ON mysql.time_zone_name TO 'projecte_user'@'localhost'; \
+  GRANT SELECT ON mysql.time_zone_transition TO 'projecte_user'@'localhost'; \
+  GRANT SELECT ON mysql.time_zone_transition_type TO 'projecte_user'@'localhost';"
+```
+
+#### 4. **Crea i activa l'entorn virtual**
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+#### 5. **Crea el fitxer `.env`**
+A l'arrel del projecte, crea un fitxer `.env` amb aquest contingut (adaptant la contrasenya):
+```
+DB_NAME=projecte_vi
+DB_USER=projecte_user
+DB_PASSWORD=contrasenya_a_escollir
+DB_HOST=127.0.0.1
+DB_PORT=3306
+```
+
+#### 6. **Instal·la les dependències del sistema per mysqlclient**
+```bash
+sudo apt update
+sudo apt install -y python3-dev default-libmysqlclient-dev build-essential pkg-config
+```
+
+#### 7. **Instal·la les dependències de Python**
+```bash
+pip install -r requirements.txt
+```
+
+#### 8. **Aplica les migracions**
+```bash
+python manage.py migrate
+```
+
+#### 9. **Carrega les dades inicials**
+```bash
+python manage.py loaddata bbdd.json
+```
+
+#### 10. **Crea un superusuari** (opcional, per accedir a `/admin`)
+```bash
+python manage.py createsuperuser
+```
+
+#### 11. **Compila Tailwind CSS** (en una terminal separada)
+```bash
+npm install
+
+# Compilació única
+npm run build:css
+
+# O mode watch (recompila automàticament en cada canvi)
+npm run watch:css
+```
+
+#### 12. **Executa el servidor**
+```bash
+python manage.py runserver
+```
 
 ### URLs principals
 
