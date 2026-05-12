@@ -1,11 +1,5 @@
 # Projecte Vi 🍷
 
-## Descripció
-
-Aplicació web desenvolupada amb **Django 5.1** per gestionar i vendre vins en línia. El projecte segueix una arquitectura de 3 capes (Model–Vista–Plantilla) i s'organitza en múltiples apps Django per separar responsabilitats.
-
-## Tecnologies
-
 [![Python 3.x](https://img.shields.io/badge/Python-3.x-3776ab?logo=python&logoColor=white)](https://www.python.org/)
 [![Django 5.1](https://img.shields.io/badge/Django-5.1-092E20?logo=django&logoColor=white)](https://www.djangoproject.com/)
 [![MySQL 8](https://img.shields.io/badge/MySQL-8-4479A1?logo=mysql&logoColor=white)](https://www.mysql.com/)
@@ -14,15 +8,11 @@ Aplicació web desenvolupada amb **Django 5.1** per gestionar i vendre vins en l
 [![Node.js](https://img.shields.io/badge/Node.js-ES6+-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
 [![npm](https://img.shields.io/badge/npm-Package%20Manager-CB3837?logo=npm&logoColor=white)](https://www.npmjs.com/)
 
-| Tecnologia | Versió / Detalls |
-|---|---|
-| Python | 3.x |
-| Django | 5.1 |
-| Base de dades | MySQL 8 (via `django.db.backends.mysql`) |
-| Autenticació | Django Auth + `django-axes` (protecció brute-force) |
-| CSS | Tailwind CSS (compilat via `input.css`) |
-| Hosting estàtics | Django `STATICFILES_DIRS` |
-| Idioma / Zona horaria | Català (`ca`) / `Europe/Madrid` |
+## Descripció
+
+Aplicació web desenvolupada amb **Django 5.1** per gestionar i vendre vins en línia. El projecte segueix una arquitectura de 3 capes (Model–Vista–Plantilla) i s'organitza en múltiples apps Django per separar responsabilitats.
+
+
 
 ## Estructura del projecte
 
