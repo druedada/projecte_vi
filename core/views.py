@@ -38,7 +38,7 @@ def faqs(request):
 		},
 		{
 			'pregunta': "Quins tipus de vins oferiu?",
-			'resposta': "Oferim una àmplia selecció de vins, incloent vins negres, blancs, rosats i escumosos de diverses regions vinícoles."
+			'resposta': "Oferim una àmplia selecció de vins, incloent-hi vins negres, blancs, rosats i escumosos de diverses regions vinícoles."
 		},
 		{
 			'pregunta': "Com puc fer una comanda?",
@@ -46,7 +46,7 @@ def faqs(request):
 		},
 		{
 			'pregunta': "Quins mètodes de pagament accepteu?",
-			'resposta': "Acceptem diversos mètodes de pagament, incloent targetes de crèdit, PayPal i transferències bancàries. Pots triar el mètode que millor s’adapti a les teves necessitats durant el procés de compra."
+			'resposta': "Acceptem diversos mètodes de pagament, incloent-hi targetes de crèdit, PayPal i transferències bancàries. Pots triar el mètode que millor s’adapti a les teves necessitats durant el procés de compra."
 		},
 		{
 			'pregunta': "Quins són els terminis de lliurament?",
@@ -62,7 +62,7 @@ def faqs(request):
 		},
 		{
 			'pregunta': "Com puc contactar amb el servei d’atenció al client?",
-			'resposta': "Pots contactar amb el nostre servei d’atenció al client a través del formulari de contacte disponible al final de la pàgina o enviando un correu electrònic a client@trupiessu.com."
+			'resposta': "Pots contactar amb el nostre servei d’atenció al client a través del formulari de contacte disponible al final de la pàgina o enviant un correu electrònic a client@trupiessu.com."
 		}
 	]
 	context = {
