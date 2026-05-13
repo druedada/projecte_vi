@@ -171,6 +171,11 @@ def _estadistiques(request, section):
 		action = request.POST.get('user_action')
 		user_obj = get_object_or_404(User, pk=user_id)
 
+		if user_obj.is_superuser and action in {'toggle_active', 'reset_axes'}:
+			messages.error(request, 'No es pot modificar un compte superusuari.')
+			query_string = f'?{urlencode({"q": users_q})}' if users_q else ''
+			return redirect(f'{reverse(f"gestio:estadistiques_{section}")}{query_string}')
+
 		if action == 'toggle_active': # Bloqueja o desbloqueja l'usuari al model User 
 			user_obj.is_active = not user_obj.is_active
 			user_obj.save(update_fields=['is_active'])
@@ -309,6 +314,7 @@ def _estadistiques(request, section):
 	for user_obj in users_qs:
 		users_list.append({
 			'user': user_obj,
+			'protected_account': user_obj.is_superuser,
 			'axes_locked': AxesProxyHandler.is_locked(request, credentials={'username': user_obj.username}),
 		})
 
