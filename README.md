@@ -9,12 +9,15 @@
 [![Node.js](https://img.shields.io/badge/Node.js-ES6+-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
 [![npm](https://img.shields.io/badge/npm-Package%20Manager-CB3837?logo=npm&logoColor=white)](https://www.npmjs.com/)
 
-## Descripció
-
-Aplicació web desenvolupada amb **Django 5.1** per gestionar i vendre vins en línia. El projecte segueix una arquitectura de 3 capes (Model–Vista–Plantilla) i s'organitza en múltiples apps Django per separar responsabilitats.
-
-
-
+## Web desenvolupada amb **Django 5.1** per gestionar i vendre vins en línia
+### Home
+![Home](./media/mockups/home.png)
+### Catàleg de vins
+![Catàleg vins](./media/mockups/cataleg.png)
+### Gestor de vins
+![Gestor de vins](./media/mockups/gestor_vins.png)
+### Estadistiques
+![Estadístiques](./media/mockups/estadistiques.png)
 ## Estructura del projecte
 
 ```
@@ -81,10 +84,6 @@ El flux és seguit des de l'app relacionada directament a la gestió pròpia.
   - **Plantilla**: Això es tradueix a poder renderitzar al complet el formulari de modificació d'aquesta vista instanciada: el pinta pre-omplert (amb la instància llançada des de la vista com a variables del context des del *backend*), i a més s'hi adjunta la referència desitjada o l'arxiu d'imatge anterior adjunt en previsualització.
   - **Actualització**: El Gestor envia finalitzades totes les modificacions oportunes alterades pel POST; la **Vista** torna a recollir aquells canvis processats per assignar-los sobre el **Model** obtingut inicialment de la base de dates validant novament per acabar amb l'arxiu `save()` utilitzant així instàncies com instruccions utilitàries del model equivalent cap a `UPDATE`.
 
-- **Borrar un vi**:
-  - **Plantilla**: Fent click a qualsevol funció principal destructiva pel producte, freqüentment en lloc de realitzar la esborrada o invocar peticions sense mides oportunes es requerirà redirigir a un modal i o a un element o un apartat extra per realitzar confirmació final executant o bé un `POST`.
-  - **Vista**: Rep aquesta nova sol·licitud destructiva total amb consentiment llançant l'ordre sobre que el component pertanyent en actiu executi la cerca cap la unitat en gestió particular. 
-  - **Model**: Actua per part de la lògica enviada sol·licitant esborrament cridant en aquest model identificador l'assignació procedent com a eina predeterminada d'en Django l'opció funcional tal que `delete()` permetent eliminar sota una `DELETE` base total aquest model en la taula que es trobé en la base de dades esborrar per exemple fitxers inamobibles prèviament creat i el propi element instanciat.
 
 ## Seguretat
 
@@ -189,21 +188,3 @@ chmod +x setup.sh
     ```bash
     python manage.py runserver
     ```
-
-### URLs principals
-
-| URL | Descripció |
-|---|---|
-| `/` | Pàgina principal |
-| `/vins/` | Llistat de vins |
-| `/usuaris/registre/` | Registre d'usuari |
-| `/usuaris/login/` | Inici de sessió |
-| `/usuaris/logout/` | Tancar sessió |
-| `/admin/` | Panell d'administració de Django |
-
-## Notes addicionals
-
-- Les imatges dels vins es guarden a `media/vins/` i es serveixen via `MEDIA_URL` en mode `DEBUG`.
-- Els fitxers estàtics (CSS Tailwind, JS) es troben a `static/` i estan configurats amb `STATICFILES_DIRS`.
-- El correu electrònic s'utilitza com a `username` de Django internament.
-- La configuració de `django-axes` utilitza múltiples paràmetres de bloqueig per màxima seguretat.
