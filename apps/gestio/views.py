@@ -107,15 +107,6 @@ def editar_vi(request, vi_id):
 
 
 @login_required
-@permission_required('vins.delete_vi')
-def eliminar_vi(request, vi_id):
-	vi = get_object_or_404(Vi, pk=vi_id)
-	if request.method == 'POST':
-		vi.delete() # Elimina el vi de la base de dades
-		return redirect('gestio:vins')
-	return redirect('gestio:vins')
-
-@login_required
 @permission_required('vins.change_vi')
 def activar_desactivar_vi(request, vi_id):
 	vi = get_object_or_404(Vi, pk=vi_id)

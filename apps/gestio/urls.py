@@ -8,7 +8,6 @@ urlpatterns = [
     path('', views.vins, name='vins'),
     path('crear/', views.crear_vi, name='crear_vi'),
     path('<int:vi_id>/editar/', views.editar_vi, name='editar_vi'),
-    path('<int:vi_id>/eliminar/', views.eliminar_vi, name='eliminar_vi'),
     path('<int:vi_id>/activar-desactivar/', views.activar_desactivar_vi, name='activar_desactivar_vi'),
     path('estadistiques/', views.estadistiques_redirect, name='estadistiques'),
     path('estadistiques/vins/', views.estadistiques_vins, name='estadistiques_vins'),
