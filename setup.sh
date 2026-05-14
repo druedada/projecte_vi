@@ -203,11 +203,36 @@ ok "Migracions completades."
 # ─────────────────────────────────────────────
 step "Carregant dades inicials des de bbdd.json..."
 
-if [ -f "bbdd.json" ]; then
-    python manage.py loaddata bbdd.json
-    ok "Dades carregades correctament."
+FIXTURE_FILE="${FIXTURE_FILE:-bbdd.json}"
+
+if [ -f "${FIXTURE_FILE}" ]; then
+    HAS_DATA=$(python manage.py shell -c "from django.contrib.auth import get_user_model; print('yes' if get_user_model().objects.exists() else 'no')" 2>/dev/null || echo "unknown")
+
+    if [ "${HAS_DATA}" = "yes" ]; then
+        warn "S'han detectat dades existents a la base de dades."
+        read -rp "  Vols buidar la BD (flush) i carregar '${FIXTURE_FILE}'? [s/N]: " RESET_AND_LOAD
+        if [[ "${RESET_AND_LOAD}" =~ ^([sS]|[sS][iI]|[yY][eE][sS]|[yY])$ ]]; then
+            python manage.py flush --noinput
+            python manage.py loaddata "${FIXTURE_FILE}"
+            ok "BD reiniciada i dades carregades correctament."
+        else
+            warn "S'omet la càrrega del fixture per evitar errors de duplicats."
+        fi
+    elif [ "${HAS_DATA}" = "no" ]; then
+        python manage.py loaddata "${FIXTURE_FILE}"
+        ok "Dades carregades correctament."
+    else
+        warn "No s'ha pogut determinar si la BD té dades."
+        read -rp "  Vols intentar carregar '${FIXTURE_FILE}' igualment? [s/N]: " LOAD_ANYWAY
+        if [[ "${LOAD_ANYWAY}" =~ ^([sS]|[sS][iI]|[yY][eE][sS]|[yY])$ ]]; then
+            python manage.py loaddata "${FIXTURE_FILE}"
+            ok "Dades carregades correctament."
+        else
+            warn "S'omet la càrrega del fixture."
+        fi
+    fi
 else
-    warn "No s'ha trobat el fitxer bbdd.json. Les dades inicials no s'han carregat."
+    warn "No s'ha trobat el fitxer '${FIXTURE_FILE}'. Les dades inicials no s'han carregat."
 fi
 
 # ─────────────────────────────────────────────
@@ -256,8 +281,8 @@ echo -e "  ${BOLD}Per iniciar el servidor de desenvolupament:${NC}"
 echo -e "  ${CYAN}source venv/bin/activate${NC}"
 echo -e "  ${CYAN}python manage.py runserver${NC}"
 echo ""
-echo -e "  ${BOLD}Usuari admin per defecte (carregat des de bbdd.json):${NC}"
-echo -e "  ${YELLOW}Usuari:     admin${NC}"
-echo -e "  ${YELLOW}Contrasenya: (la del fitxer bbdd.json — hash pbkdf2)${NC}"
-echo -e "  ${YELLOW}→ Si has omès el pas de superusuari: python manage.py createsuperuser${NC}"
+echo -e "  ${BOLD}Notes d'accés:${NC}"
+echo -e "  ${YELLOW}Si has carregat un fixture amb usuaris, pots necessitar canviar-ne la contrasenya.${NC}"
+echo -e "  ${YELLOW}Exemple: python manage.py changepassword admin${NC}"
+echo -e "  ${YELLOW}Si no tens admin, crea'l amb: python manage.py createsuperuser${NC}"
 echo ""

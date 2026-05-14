@@ -94,130 +94,101 @@ El flux és seguit des de l'app relacionada directament a la gestió pròpia.
 
 ## Com executar el projecte
 
-### Configuració rápida (recomanat) ⚡
-
-La manera més ràpida és usar l'script d'instal·lació automàtica:
-
+### Configuració ràpida (recomanat)
 ```bash
 cd ./projecte_vi
 chmod +x setup.sh
 ./setup.sh
 ```
 
-L'script farà automàticament:
-- Comprovació de dependències del sistema
-- Configuració interactiva del `.env`
-- Creació de la base de dades MySQL i usuari
-- Càrrega de zones horàries MySQL
-- Creació de l'entorn virtual Python
-- Instal·lació de dependències Python
-- Aplicació de migracions
-- Càrrega de dades inicials (`bbdd.json`)
-- Opció d'crear superusuari
-- Compilació de Tailwind CSS
-
-Una vegada completat:
-```bash
-source venv/bin/activate
-python manage.py runserver
-```
-
----
 
 ### Configuració manual
+1. **Instal·la Python, venv, nodejs, npm i MySQL**:
+   ```bash
+   sudo apt update
+   sudo apt install -y python3 python3-venv python3-pip nodejs npm mysql-server
+   ```
 
-Si prefereixes fer-ho pas a pas, segueix aquests passos:
+2. **Configura MySQL** (substitueix `contrasenya_a_escollir` per una contrasenya forta):
+   ```bash
+   sudo mysql -u root
+   ```
+   ```sql
+   CREATE DATABASE projecte_vi CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+   CREATE USER 'projecte_user'@'127.0.0.1' IDENTIFIED BY 'contrasenya_a_escollir';
+   GRANT ALL PRIVILEGES ON projecte_vi.* TO 'projecte_user'@'127.0.0.1';
+   FLUSH PRIVILEGES;
+   EXIT;
+   ```
 
-#### 1. **Instal·la les dependències del sistema**
-```bash
-sudo apt update
-sudo apt install -y python3 python3-venv nodejs npm mysql-server
-```
+3. **Carrega zones horàries a MySQL** (recomanat):
+   ```bash
+   sudo mysql_tzinfo_to_sql /usr/share/zoneinfo | sudo mysql -u root mysql
+   sudo mysql -u root -e "GRANT SELECT ON mysql.time_zone TO 'projecte_user'@'127.0.0.1'; \
+     GRANT SELECT ON mysql.time_zone_name TO 'projecte_user'@'127.0.0.1'; \
+     GRANT SELECT ON mysql.time_zone_transition TO 'projecte_user'@'127.0.0.1'; \
+     GRANT SELECT ON mysql.time_zone_transition_type TO 'projecte_user'@'127.0.0.1'; \
+     FLUSH PRIVILEGES;"
+   ```
 
-#### 2. **Configura MySQL i crea la base de dades**
-```bash
-# Accedeix a MySQL com a root
-sudo mysql -u root
+4. **Crea i activa l'entorn virtual**:
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate
+   ```
 
-# Dins de MySQL, executa (substitueix contrasenya_a_escollir per una contrasenya forta):
-```sql
-CREATE DATABASE projecte_vi CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-CREATE USER 'projecte_user'@'localhost' IDENTIFIED BY 'contrasenya_a_escollir';
-GRANT ALL PRIVILEGES ON projecte_vi.* TO 'projecte_user'@'localhost';
-FLUSH PRIVILEGES;
-EXIT;
-```
-```
+5. **Crea el fitxer `.env` a l'arrel del projecte**:
+   ```env
+   DB_NAME=projecte_vi
+   DB_USER=projecte_user
+   DB_PASSWORD=contrasenya_a_escollir
+   DB_HOST=127.0.0.1
+   DB_PORT=3306
+   ```
 
-#### 3. **Carrega les zones horàries a MySQL**
-```bash
-# Com a root, carrega les zones horàries del sistema en la BD mysql
-sudo mysql_tzinfo_to_sql /usr/share/zoneinfo | sudo mysql -u root mysql
+6. **Instal·la dependències de sistema** (necessari per `mysqlclient` a Ubuntu/Debian):
+   ```bash
+   sudo apt update
+   sudo apt install -y python3-dev default-libmysqlclient-dev build-essential pkg-config
+   ```
 
-# Otorga permisos de lectura a l'usuari de la BD
-sudo mysql -u root -e "GRANT SELECT ON mysql.time_zone TO 'projecte_user'@'localhost'; \
-  GRANT SELECT ON mysql.time_zone_name TO 'projecte_user'@'localhost'; \
-  GRANT SELECT ON mysql.time_zone_transition TO 'projecte_user'@'localhost'; \
-  GRANT SELECT ON mysql.time_zone_transition_type TO 'projecte_user'@'localhost';"
-```
+7. **Instal·la dependències de Python**:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-#### 4. **Crea i activa l'entorn virtual**
-```bash
-python3 -m venv venv
-source venv/bin/activate
-```
+8. **Aplica migracions**:
+   ```bash
+   python manage.py migrate
+   ```
 
-#### 5. **Crea el fitxer `.env`**
-A l'arrel del projecte, crea un fitxer `.env` amb aquest contingut (adaptant la contrasenya):
-```
-DB_NAME=projecte_vi
-DB_USER=projecte_user
-DB_PASSWORD=contrasenya_a_escollir
-DB_HOST=127.0.0.1
-DB_PORT=3306
-```
+9. **Carrega les dades inicials** (fixture amb vins, usuaris, comandes, etc.):
+   ```bash
+   python manage.py loaddata bbdd.json
+   ```
+   Si la BD ja té dades i vols recarregar el fixture netament:
+   ```bash
+   python manage.py flush --noinput
+   python manage.py loaddata bbdd.json
+   ```
 
-#### 6. **Instal·la les dependències del sistema per mysqlclient**
-```bash
-sudo apt update
-sudo apt install -y python3-dev default-libmysqlclient-dev build-essential pkg-config
-```
+10. **Crea un superusuari** (opcional, per accedir a `/admin`):
+    ```bash
+    python manage.py createsuperuser
+    ```
 
-#### 7. **Instal·la les dependències de Python**
-```bash
-pip install -r requirements.txt
-```
+11. **Instal·la dependències de Node.js i compila Tailwind CSS** (en una terminal separada):
+    ```bash
+    npm install
+    npm run build:css
+    # Mode watch
+    npm run watch:css
+    ```
 
-#### 8. **Aplica les migracions**
-```bash
-python manage.py migrate
-```
-
-#### 9. **Carrega les dades inicials**
-```bash
-python manage.py loaddata bbdd.json
-```
-
-#### 10. **Crea un superusuari** (opcional, per accedir a `/admin`)
-```bash
-python manage.py createsuperuser
-```
-
-#### 11. **Compila Tailwind CSS** (en una terminal separada)
-```bash
-npm install
-
-# Compilació única
-npm run build:css
-
-# O mode watch (recompila automàticament en cada canvi)
-npm run watch:css
-```
-
-#### 12. **Executa el servidor**
-```bash
-python manage.py runserver
-```
+12. **Executa el servidor**:
+    ```bash
+    python manage.py runserver
+    ```
 
 ### URLs principals
 
