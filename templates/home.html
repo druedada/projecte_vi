@@ -9,8 +9,6 @@ VI{% endblock %} {% block extra_head %}
   <!-- Video -->
   <video id="hero-video" class="absolute top-0 left-0 w-full h-full object-cover" muted playsinline preload="auto"
     poster="{% static 'img/hero.webp' %}">
-    <source src="https://qlospituzlkeupygtwff.supabase.co/storage/v1/object/public/hero/hero-scrub.mp4"
-      type="video/mp4" />
   </video>
 
   <!-- Overlay Oscuro Suave -->
@@ -244,7 +242,7 @@ VI{% endblock %} {% block extra_head %}
           start: "top top",
           end: "+=250%", // Controla la "duración" del scroll. Aumentar para un scrub más lento
           pin: true, // Fija la sección hero en pantalla
-          scrub: 1, // Scrub suave
+          scrub: 0.5, // Reducido de 1 a 0.5 para mayor respuesta y menos sensación de lag
         },
       });
 
@@ -258,12 +256,25 @@ VI{% endblock %} {% block extra_head %}
       scrollToAnchor();
     };
 
-    // Asegurarnos de que tenemos los metadatos y la duración del video disponibles
-    if (video.readyState >= 1) {
-      initVideoScrub();
-    } else {
-      video.addEventListener("loadedmetadata", initVideoScrub);
-    }
+    // Para evitar tirones por carga de red (Range Requests), intentamos precargar el video como Blob en memoria
+    const videoUrl = "https://qlospituzlkeupygtwff.supabase.co/storage/v1/object/public/hero/hero-scrub.mp4";
+    
+    fetch(videoUrl)
+      .then(response => response.blob())
+      .then(blob => {
+        const blobUrl = URL.createObjectURL(blob);
+        video.src = blobUrl;
+        video.addEventListener("loadedmetadata", initVideoScrub);
+      })
+      .catch(err => {
+        console.warn("No se pudo cargar el video como blob (¿CORS?), usando src directo.", err);
+        video.src = videoUrl;
+        if (video.readyState >= 1) {
+          initVideoScrub();
+        } else {
+          video.addEventListener("loadedmetadata", initVideoScrub);
+        }
+      });
 
     const showMoreButtons = document.querySelectorAll(".show-more-btn");
     showMoreButtons.forEach((button) => {
